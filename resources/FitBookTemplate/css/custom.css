@@ -1590,6 +1590,23 @@ a.user-profile {
   border-radius: 50%;
   margin-right: 10px;
 }
+.user-profile-pic{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.user-profile-menu{
+  vertical-align: middle;
+  text-align: center;
+}
+.user-profile-desc{
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.user-profile-name{
+  font-weight: bold;
+}
 ul.top_profiles {
   height: 330px;
   width: 100%;

@@ -389,3 +389,10 @@ Thanks :)*/
     border: 1px solid #6EA6E0;
 	box-shadow: 0px 0px 3px #77B1E2;
 }
+.block-img{
+	border-radius: 50%;
+}
+.block-table{
+	width: 11.5%;
+	margin: 0.5%;
+}
