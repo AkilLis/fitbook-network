@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+
 Route::get('auth/login', 'Front@login');
 Route::post('auth/login', 'Front@authenticate');
 Route::get('auth/logout', 'Front@logout');
