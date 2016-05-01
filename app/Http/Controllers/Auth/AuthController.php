@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Request;
 
 class AuthController extends Controller
 {
@@ -39,6 +41,15 @@ class AuthController extends Controller
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
+
+    public function authenticate() 
+    {
+        if (Auth::attempt(['email' => Request::get('email'), 'password' => Request::get('password')])) {
+            return redirect()->intended('dashboard');
+        } else {
+            return view('auth.login', array('title' => 'Нэвтрэх хуудас', 'description' => '', 'page' => 'Нүүр хуудас'));
+    }
+}
 
     /**
      * Get a validator for an incoming registration request.

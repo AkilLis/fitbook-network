@@ -10,19 +10,34 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//Нэвтрэх хэсэгтэй холбоотой 
 
 Route::get('/', function () {
-    return view('login');
+
+	if(Auth::check())
+	{
+   		return View::make('dashboard');
+	}
+    
+    return view('auth.login',[]);
 });
 
-Route::get('auth/login', 'Front@login');
-Route::post('auth/login', 'Front@authenticate');
-Route::get('auth/logout', 'Front@logout');
+Route::group(['prefix' => 'api'], function()
+{
+	Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+	Route::post('authenticate', 'AuthenticateController@authenticate');
+});
+
+Route::post('auth/login', 'AuthController@login');
+Route::get('auth/logout', 'AuthController@logout');
 
 // Registration routes...
-Route::post('/register', 'Front@register');
+Route::post('/register', 'Auth\AuthController@register');
 
-Route::get('/checkout', [
-    'middleware' => 'auth',
-    'uses' => 'Front@checkout'
-]);
+
+//Хэрэглэгчийн хэсэгтэй холбоотой
+Route::get('dashboard', function() {
+	return View::make('dashboard');
+});
+
+

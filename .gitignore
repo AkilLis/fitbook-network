@@ -20,4 +20,5 @@ storage/
 .env.php
 .env
 .env.example
+/bower_components
 >>>>>>> origin/master
