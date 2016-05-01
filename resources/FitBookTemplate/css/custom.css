@@ -1516,7 +1516,7 @@ span.right {
 
 /** top tiles  */
 .tile_count {
-  margin-top: 80px;
+  margin-top: 60px;
 }
 .tile_count .tile_stats_count {
   border-bottom: 1px solid #D9DEE4;
