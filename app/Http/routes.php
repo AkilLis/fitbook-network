@@ -1,5 +1,7 @@
 <?php
-
+use App\Role;
+use App\Permission;
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -36,8 +38,58 @@ Route::post('/register', 'Auth\AuthController@register');
 
 
 //Хэрэглэгчийн хэсэгтэй холбоотой
+
+Route::get('/start', function()
+{
+    $subscriber = new Role();
+    $subscriber->name = 'Subscriber';
+    $subscriber->save();
+
+    $author = new Role();
+    $author->name = 'Author';
+    $author->save();
+
+    $read = new Permission();
+    $read->name = 'can_read';
+    $read->display_name = 'Can Read Posts';
+    $read->save();
+
+    $edit = new Permission();
+    $edit->name = 'can_edit';
+    $edit->display_name = 'Can Edit Posts';
+    $edit->save();
+
+    $subscriber->attachPermission($read);
+    $author->attachPermission($read);
+    $author->attachPermission($edit);
+
+    $user1 = User::find(1);
+    $user2 = User::find(2);
+
+    $user1->attachRole($subscriber);
+    $user2->attachRole($author);
+
+    return 'Woohoo!';
+});
+
 Route::get('dashboard', function() {
 	return View::make('dashboard');
 });
+
+Route::get('admin/users', 'AdminController@allUsers');
+
+Route::post('admin/users', function(Request $request){
+	$task = User::create($request->all());
+    return Response::json($task);
+});
+
+Route::get('admin/users/{user_id?}',function($user_id){
+    $user = User::find($user_id);
+
+    return Response::json($task);
+});
+
+
+
 
 

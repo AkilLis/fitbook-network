@@ -148,6 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -204,7 +205,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth'   => Tymon\JWTAuthFacades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
-
+        'Entrust'    => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

@@ -20,7 +20,7 @@
           </svg>
             <p>Name : <input type="text" placeholder="Enter name here"></p>
             <h1>Hello</h1>
-            <input type="text" name="email" class="login__input name" placeholder="Нэвтрэх нэр"/>
+            <input type="text" name="email" class="login__input name" placeholder="Нэвтрэх нэр" required="" />
         </div>
         <div class="login__row">
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">

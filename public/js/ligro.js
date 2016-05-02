@@ -68,6 +68,8 @@
       }, submitPhase2);
     }, submitPhase1);
   });
-  
+$('.reqChange').click(function(){
+    $('.imgCheck').attr('src', 'images/close.png');
+    });
 });
 

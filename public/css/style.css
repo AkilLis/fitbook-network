@@ -1,7 +1,7 @@
 body{
 	background-color: #eee !important;
-	font-size: 12px;
 	height:100%;
+	font-size: 13px;
 }
 .logo{
 	height:60px;
@@ -14,10 +14,6 @@ header{
 	padding:0px 10px;
 	box-shadow:2px 2px 10px #666;
 	
-}
-footer{
-	height:20px;
-	background:#000;	
 }
 .custom-drop{
 	float:right;
@@ -302,6 +298,9 @@ right connector from last child*/
 .tree li a:hover+ul ul::before{
 	border-color:  #94a0b4;
 }
+
+/*Thats all. I hope you enjoyed it.
+Thanks :)*/
 .content-container{
 	padding: 10px 15px;
 	width:100%;
@@ -322,4 +321,71 @@ right connector from last child*/
 	float:left;
 	padding:10px;
 	margin-left:2%;
+}
+.centered table tr td{
+	text-align: center;
+}
+.centered table thead th {
+	text-align:center;
+}
+.btn-green:active,.btn-green:focus,
+.btn-green{
+	color: #fff;
+    background-color: #1ABB9C;
+	border: 1px solid #1ABB9C;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	float: right;
+	width: 100px;
+}
+.btn-green:hover{
+	color: #1ABB9C;
+    background-color: #fff;
+	border: 1px solid #1ABB9C;
+}
+.reg-modal label, input{
+	margin-top: 10px;
+}
+.input-default{
+	height: 26px;
+    border: 1px solid #CEC7C7;
+    border-radius: 3px;
+	padding: 0px 10px;
+}
+.input-default:focus{
+    border: 1px solid #6EA6E0;
+	box-shadow: 0px 0px 3px #77B1E2;
+}
+.vertical-centered-label label{
+	vertical-align:middle;
+	margin-top:13px;
+}
+.input-search{
+	margin-left:5px;
+	margin-bottom:5px;
+	height: 26px;
+    border: 1px solid #CEC7C7;
+    border-radius: 3px;
+	padding: 0px 10px;
+	width:500px;
+}
+.input-search:focus{
+    border: 1px solid #6EA6E0;
+	box-shadow: 0px 0px 3px #77B1E2;
+}
+.filter-combo{
+	margin-left:5px;
+	margin-bottom:5px;
+	height: 26px;
+    border: 1px solid #CEC7C7;
+    border-radius: 3px;
+	padding: 0px 10px;
+	width:200px;
+	margin-top: 10px;
+    margin-right: 5px;
+    float: right;
+}
+.filter-combo:focus{
+    border: 1px solid #6EA6E0;
+	box-shadow: 0px 0px 3px #77B1E2;
 }
