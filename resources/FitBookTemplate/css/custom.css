@@ -1598,8 +1598,8 @@ a.user-profile {
 }
 .user-profile-menu{
   vertical-align: middle;
-  text-align: center;
-}
+  text-align: center
+;}
 .user-profile-desc{
   margin-top: 5px;
   margin-bottom: 0px;

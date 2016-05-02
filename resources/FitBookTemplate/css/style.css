@@ -336,7 +336,7 @@ Thanks :)*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: right;
-	width: 100px;
+	width: 150px;
 }
 .btn-green:hover{
 	color: #1ABB9C;
@@ -347,7 +347,7 @@ Thanks :)*/
 	margin-top: 10px;
 }
 .input-default{
-	height: 26px;
+	height: 34px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
 	padding: 0px 10px;
@@ -358,7 +358,7 @@ Thanks :)*/
 }
 .vertical-centered-label label{
 	vertical-align:middle;
-	margin-top:13px;
+	margin-top:16px;
 }
 .input-search{
 	margin-left:5px;
@@ -395,4 +395,38 @@ Thanks :)*/
 .block-table{
 	width: 11.5%;
 	margin: 0.5%;
+}
+.btn-label{
+	border: 0px;
+}
+
+/*LABEL нэр солих */
+#toggle {
+  position:absolute;
+  appearance:none;
+  cursor:pointer;
+  left:-100%;
+  top:-100%;
+}
+
+#toggle + label {
+  cursor:pointer;
+  padding:10px;
+padding: 8px 10px;
+color: #73879C;
+line-height:0px;
+  transition:all 500ms ease;
+}
+#toggle + label:after {
+  content:"Бэлэн мөнгө нэмэх" 
+}
+
+#toggle:checked + label:after {
+  content:"Бэлэн мөнгө хасах"
+}
+
+.table-admin{
+	margin: 10px;
+	position: relative;
+	width: 96%;
 }
