@@ -430,3 +430,19 @@ line-height:0px;
 	position: relative;
 	width: 96%;
 }
+.table-admin th{
+	vertical-align: middle;
+	text-align: center;
+}
+.ChooseCombo{
+	margin-left: 5px;
+    margin-bottom: 5px;
+    height: 26px;
+    border: 1px solid #CEC7C7;
+    border-radius: 3px;
+    padding: 0px 10px;
+    width: 200px;
+    margin-top: 10px;
+    margin-right: 14px;
+    float: right;
+}
