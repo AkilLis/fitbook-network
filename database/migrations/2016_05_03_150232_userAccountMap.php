@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserNetworkTable extends Migration
+class UserAccountMap extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateUserNetworkTable extends Migration
     public function up()
     {
         //
-        Schema::table('UserNetwork', function (Blueprint $table) {
+        Schema::create('UserAccountMap', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('userId');
-            $table->bigInteger('parentId');
-            $table->bigInteger('blockId',20);
-            $table->int('fCount',75);
-            $table->int('mCount',75);
-            $table->int('rankId',75);
+            $table->integer('type');
+            $table->bigInteger('accountId');
+            $table->bigInteger('groupId');
             $table->timestamps();        
             });
     }
@@ -32,6 +31,6 @@ class CreateUserNetworkTable extends Migration
     public function down()
     {
         //
-        Schema::drop('UserNetwork');
+        Schema::drop('UserAccountMap');
     }
 }

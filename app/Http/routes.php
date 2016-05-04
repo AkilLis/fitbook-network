@@ -41,33 +41,15 @@ Route::post('/register', 'Auth\AuthController@register');
 
 Route::get('/start', function()
 {
-    $subscriber = new Role();
-    $subscriber->name = 'Subscriber';
-    $subscriber->save();
-
-    $author = new Role();
-    $author->name = 'Author';
-    $author->save();
-
-    $read = new Permission();
-    $read->name = 'can_read';
-    $read->display_name = 'Can Read Posts';
-    $read->save();
-
-    $edit = new Permission();
-    $edit->name = 'can_edit';
-    $edit->display_name = 'Can Edit Posts';
-    $edit->save();
-
-    $subscriber->attachPermission($read);
-    $author->attachPermission($read);
-    $author->attachPermission($edit);
-
-    $user1 = User::find(1);
-    $user2 = User::find(2);
-
-    $user1->attachRole($subscriber);
-    $user2->attachRole($author);
+    $users = array(
+                ['name' => 'Түвшинбат', 'email' => 'g.tuvshinbat@yahoo.com', 'password' => Hash::make('123')]
+        );
+            
+        // Loop through each user above and create the record for them in the database
+        foreach ($users as $user)
+        {
+            User::create($user);
+        }
 
     return 'Woohoo!';
 });

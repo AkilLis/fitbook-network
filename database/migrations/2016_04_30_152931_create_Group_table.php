@@ -13,7 +13,7 @@ class CreateGroupTable extends Migration
     public function up()
     {
         //
-        Schema::create('Group', function (Blueprint $table) {
+        Schema::create('Groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('rankId');
             $table->string('nameL',100);
@@ -30,6 +30,6 @@ class CreateGroupTable extends Migration
     public function down()
     {
         //
-        Schema::drop('Group');
+        Schema::drop('Groups');
     }
 }
