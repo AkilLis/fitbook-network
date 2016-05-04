@@ -12,7 +12,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('userId');
             $table->string('fName');
@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('accountId');
             $table->char('isNetwork', 1);
             $table->char('isManager', 1);
-            $table->int('starCount');
+            $table->integer('starCount');
             $table->rememberToken();
             $table->timestamps();
         });

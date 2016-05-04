@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $users = array(
-                ['fName' => 'Түвшинбат', 'lName' => 'Гансүх', 'userId' => 'АА00001', 'email' => 'g.tuvshinbat@yahoo.com', 'password' => Hash::make('123')]
+                ['fName' => 'Хулангоо', 'lName' => 'Амарсанаа', 'userId' => 'АА00001', 'email' => 'suulniiooh@yahoo.com', 'password' => Hash::make('123')]
         );
             
         // Loop through each user above and create the record for them in the database
