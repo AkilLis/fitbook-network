@@ -42,7 +42,7 @@
                     <li>
                       <a href="javascript:;">Help</a>
                     </li>
-                    <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </li>
                   </ul>
                 </li>

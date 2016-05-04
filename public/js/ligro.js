@@ -73,17 +73,3 @@ $('.reqChange').click(function(){
     });
 });
 
-// ЗАСАХ дээр дарахд LABEL-уудыг засах горим руу оруулах
-/*$('#information-edit').click(function() {
- var text = $('.text-info').text();
- var input = $('<input id="attribute" type="text" class="input-default" value="' + text + '" />')
- $('.text-info').text('').append(input);
- input.select();
-
- input.blur(function() {
-   var text = $('#attribute').val();
-   $('#attribute').parent().text(text);
-   $('#attribute').remove();
- });
-});
-*/
