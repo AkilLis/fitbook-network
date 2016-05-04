@@ -706,7 +706,7 @@
                                 <form class="reg-modal form-group" >
                                   <div class="row">
                                     <div  class="col-md-7">
-                                      <input type="text" class="input-default">
+                                      <input type="text" class="input-default AccountDetails">
                                     </div>
                                     <div  class="col-md-5">
                                     <form>

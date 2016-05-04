@@ -362,7 +362,6 @@ Thanks :)*/
 }
 .input-search{
 	margin-left:5px;
-	margin-bottom:5px;
 	height: 26px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
@@ -372,6 +371,9 @@ Thanks :)*/
 .input-search:focus{
     border: 1px solid #6EA6E0;
 	box-shadow: 0px 0px 3px #77B1E2;
+}
+.AccountDetails{
+  margin-top: 10px;
 }
 .filter-combo{
 	margin-left:5px;
