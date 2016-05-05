@@ -1361,7 +1361,7 @@ ul.msg_list li a .message {
   -webkit-box-shadow: none;
   right: 0;
   left: auto;
-  width: 250px;
+  width: 220px;
 }
 .navbar-nav .open .dropdown-menu.msg_list {
   width: 300px;
@@ -1516,7 +1516,7 @@ span.right {
 
 /** top tiles  */
 .tile_count {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 .tile_count .tile_stats_count {
   border-bottom: 1px solid #D9DEE4;
@@ -1589,23 +1589,6 @@ a.user-profile {
   height: 29px;
   border-radius: 50%;
   margin-right: 10px;
-}
-.user-profile-pic{
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-.user-profile-menu{
-  vertical-align: middle;
-  text-align: center
-;}
-.user-profile-desc{
-  margin-top: 5px;
-  margin-bottom: 0px;
-}
-.user-profile-name{
-  font-weight: bold;
 }
 ul.top_profiles {
   height: 330px;

@@ -336,7 +336,7 @@ Thanks :)*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: right;
-	width: 150px;
+	width: 100px;
 }
 .btn-green:hover{
 	color: #1ABB9C;
@@ -347,7 +347,7 @@ Thanks :)*/
 	margin-top: 10px;
 }
 .input-default{
-	height: 34px;
+	height: 26px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
 	padding: 0px 10px;
@@ -358,7 +358,7 @@ Thanks :)*/
 }
 .vertical-centered-label label{
 	vertical-align:middle;
-	margin-top:16px;
+	margin-top:13px;
 }
 .input-search{
 	margin-left:5px;
@@ -390,6 +390,7 @@ Thanks :)*/
 .filter-combo:focus{
     border: 1px solid #6EA6E0;
 	box-shadow: 0px 0px 3px #77B1E2;
+<<<<<<< HEAD
 }
 .block-img{
 	border-radius: 50%;
@@ -515,4 +516,6 @@ line-height:0px;
   height: 173.2051px;
   z-index: 2;
   background: inherit;
+=======
+>>>>>>> origin/master
 }
