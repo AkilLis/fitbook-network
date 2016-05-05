@@ -7,7 +7,7 @@
                     <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right" role="menu">
+                  <ul class="dropdown-menu dropdown-usermenu pull-right" style="width: 250px" role="menu">
                     <li><a data-toggle="modal" href="#userDetailInformation">
                       <div class="user-profile-menu">
                         <img src="{{asset('images/user.png')}}" class="user-profile-pic">

@@ -73,3 +73,22 @@ $('.reqChange').click(function(){
     });
 });
 
+//EDITABLE дээр class өөрчилдөг JS
+$(".editable").bind("keydown", function(event) {
+    var target = $(event.target);
+    c = event.keyCode;
+    
+    if(c === 13 || c === 27) {
+        $(".editable").blur();
+        // Workaround for webkit's bug
+        window.getSelection().removeAllRanges();
+    }
+});
+
+$("[contenteditable='true']").on("focus", function() {
+    $(".editable").toggleClass("focus");
+});
+
+$("[contenteditable='true']").on("blur", function() {
+    $(".editable").toggleClass("focus");
+});

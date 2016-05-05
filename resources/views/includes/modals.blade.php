@@ -166,7 +166,7 @@
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" class="input-default" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                       </div>
                                       <div class="col-md-4 vertical-centered-label">
                                         <button type="button" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
@@ -346,26 +346,26 @@
                                           <tbody>
                                             <tr>
                                               <td>Ахлагчийн урамшуулал</td>
-                                              <td contenteditable="true">144000₮</td>
+                                              <td contenteditable="true" class="editable">144000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Дэвших урамшуулал</td>
-                                              <td contenteditable="true">276000₮</td>
+                                              <td contenteditable="true" class="editable">276000₮</td>
                                             </tr>
                                             <tr>
                                               <td colspan="2">Блокын урамшуулал</td>
                                             </tr>
                                             <tr>
                                               <td>1 хүн</td>
-                                              <td contenteditable="true">5000₮</td>
+                                              <td contenteditable="true" class="editable">5000₮</td>
                                             </tr>
                                             <tr>
                                               <td>2 хүн</td>
-                                              <td contenteditable="true">7000₮</td>
+                                              <td contenteditable="true" class="editable">7000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Ахлах</td>
-                                              <td contenteditable="true">24000₮</td>
+                                              <td contenteditable="true" class="editable">24000₮</td>
                                             </tr>
                                           </tbody>
                                         </table>
@@ -381,30 +381,30 @@
                                           <tbody>
                                             <tr>
                                               <td>Ахлагчийн урамшуулал</td>
-                                              <td contenteditable="true">144000₮</td>
+                                              <td contenteditable="true" class="editable">144000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Дэвших урамшуулал</td>
-                                              <td contenteditable="true">276000₮</td>
+                                              <td contenteditable="true" class="editable">276000₮</td>
                                             </tr>
                                             <tr>
                                               <td colspan="2">Блокын урамшуулал</td>
                                             </tr>
                                             <tr>
                                               <td>0 хүн</td>
-                                              <td contenteditable="true">5000₮</td>
+                                              <td contenteditable="true" class="editable">5000₮</td>
                                             </tr>
                                             <tr>
                                               <td>1 хүн</td>
-                                              <td contenteditable="true">5000₮</td>
+                                              <td contenteditable="true" class="editable">5000₮</td>
                                             </tr>
                                             <tr>
                                               <td>2 хүн</td>
-                                              <td contenteditable="true">7000₮</td>
+                                              <td contenteditable="true" class="editable">7000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Ахлах</td>
-                                              <td contenteditable="true">24000₮</td>
+                                              <td contenteditable="true" class="editable">24000₮</td>
                                             </tr>
                                           </tbody>
                                         </table>
@@ -420,30 +420,30 @@
                                           <tbody>
                                             <tr>
                                               <td>Ахлагчийн урамшуулал</td>
-                                              <td contenteditable="true">144000₮</td>
+                                              <td contenteditable="true" class="editable">144000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Дэвших урамшуулал</td>
-                                              <td contenteditable="true">276000₮</td>
+                                              <td contenteditable="true" class="editable">276000₮</td>
                                             </tr>
                                             <tr>
                                               <td colspan="2">Блокын урамшуулал</td>
                                             </tr>
                                             <tr>
                                               <td>0 хүн</td>
-                                              <td contenteditable="true">5000₮</td>
+                                              <td contenteditable="true" class="editable">5000₮</td>
                                             </tr>
                                             <tr>
                                               <td>1 хүн</td>
-                                              <td contenteditable="true">5000₮</td>
+                                              <td contenteditable="true" class="editable">5000₮</td>
                                             </tr>
                                             <tr>
                                               <td>2 хүн</td>
-                                              <td contenteditable="true">7000₮</td>
+                                              <td contenteditable="true" class="editable">7000₮</td>
                                             </tr>
                                             <tr>
                                               <td>Ахлах</td>
-                                              <td contenteditable="true">24000₮</td>
+                                              <td contenteditable="true" class="editable">24000₮</td>
                                             </tr>
                                           </tbody>
                                         </table>

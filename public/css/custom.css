@@ -1348,7 +1348,6 @@ ul.msg_list li a .message {
   border: 1px solid #D9DEE4;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  
 }
 .dropdown-menu>li>a {
   color: #5A738E;
@@ -1589,6 +1588,18 @@ a.user-profile {
   height: 29px;
   border-radius: 50%;
   margin-right: 10px;
+}
+.user-profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user-profile-menu {
+    text-align: center;
+}
+.user-profile-desc {
+    margin-top: 5px;
 }
 ul.top_profiles {
   height: 330px;

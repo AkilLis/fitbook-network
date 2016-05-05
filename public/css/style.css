@@ -336,7 +336,7 @@ Thanks :)*/
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: right;
-	width: 100px;
+	width: 150px;
 }
 .btn-green:hover{
 	color: #1ABB9C;
@@ -347,7 +347,7 @@ Thanks :)*/
 	margin-top: 10px;
 }
 .input-default{
-	height: 26px;
+	height: 34px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
 	padding: 0px 10px;
@@ -358,7 +358,7 @@ Thanks :)*/
 }
 .vertical-centered-label label{
 	vertical-align:middle;
-	margin-top:13px;
+	margin-top:15px;
 }
 .input-search{
 	margin-left:5px;
@@ -378,7 +378,7 @@ Thanks :)*/
 .filter-combo{
 	margin-left:5px;
 	margin-bottom:5px;
-	height: 26px;
+	height: 34px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
 	padding: 0px 10px;
@@ -516,6 +516,24 @@ line-height:0px;
   height: 173.2051px;
   z-index: 2;
   background: inherit;
+}
+
+table.editable {
+    background: #eee;
+    opacity: .55;
+    transition: all .5s ease;
+}
+
+.editable:hover {
+    background-color: #ddd;
+    opacity: 1;
+}
+
+.editable.focus {
+    box-shadow: 0 0 10px rgba(26, 154, 245, .5);
+    background-color: #1a9af5;  
+    outline: 0px solid transparent;
+}
+
 =======
 >>>>>>> origin/master
-}
