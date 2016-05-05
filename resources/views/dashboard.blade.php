@@ -9,13 +9,11 @@
     <title>FitBook | </title>
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-     <link href="{{asset('css/style.css')}}" rel="stylesheet">
-     <link href="{{asset('css/dataTables.bootstrap.css')}}" rel="stylesheet">
-     <link href="{{asset('css/responsive.bootstrap.css')}}" rel="stylesheet">
-     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js" type="text/javascript"></script>
-    <script src="http://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js" type="text/javascript"></script>
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('css/responsive.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" />
   </head>
   <body class="nav-md">
     <div class="container body">
@@ -415,22 +413,26 @@
                                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-admin" cellspacing="0" width="100%">
                                       <thead>
                                         <tr>
-                                          <th width="50%">Хэрэглэгчийн код</th>
-                                          <th width="50%">Овог, нэр</th>
+                                          <th width="40%">Хэрэглэгчийн код</th>
+                                          <th width="40%">Овог, нэр</th>
+                                          <th width="5%"> </th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                         <tr>
                                           <td>Tiger</td>
                                           <td>Nixon</td>
+                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
                                         </tr>
                                         <tr>
                                           <td>Garrett</td>
                                           <td>Winters</td>
+                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
                                         </tr>
                                         <tr>
                                           <td>Ashton</td>
                                           <td>Cox</td>
+                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -705,10 +707,24 @@
                               <div class="modal-body">
                                 <form class="reg-modal form-group" >
                                   <div class="row">
-                                    <div  class="col-md-7">
-                                      <input type="text" class="input-default AccountDetails">
+                                    <div  class="col-md-4">
+                                      <div class="container">
+                                        <div class="row">
+                                            <div class='col-sm-6'>
+                                                <input type='text' class="form-control" id='datetimepicker4' />
+                                            </div>
+                                            <script type="text/javascript">
+                                                $(function () {
+                                                    $('#datetimepicker4').datetimepicker();
+                                                });
+                                            </script>
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div  class="col-md-5">
+                                    <div  class="col-md-4">
+                                      <input type="text" class="input-search AccountDetails" placeholder="Дансны нэр, Гүйлгээний утга, Харьцсан дансны нэр">
+                                    </div>
+                                    <div  class="col-md-4">
                                     <form>
                                       <select class="ChooseCombo">
                                         <option>Бүх данс</option>
@@ -751,6 +767,13 @@
                             </div>
                           </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js" type="text/javascript"></script>
+    <script src="http://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="{{asset('/bower_components/moment/min/moment.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
+    
     <!--MODAL ENDS HERE-->
   </body>
 </html>

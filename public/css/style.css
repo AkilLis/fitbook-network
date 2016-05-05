@@ -362,18 +362,18 @@ Thanks :)*/
 }
 .input-search{
 	margin-left:5px;
-	height: 26px;
+	height: 34px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
 	padding: 0px 10px;
-	width:500px;
+	width: 100%;
 }
 .input-search:focus{
     border: 1px solid #6EA6E0;
 	box-shadow: 0px 0px 3px #77B1E2;
 }
 .AccountDetails{
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .filter-combo{
 	margin-left:5px;
@@ -439,12 +439,11 @@ line-height:0px;
 .ChooseCombo{
 	margin-left: 5px;
     margin-bottom: 5px;
-    height: 26px;
+    height: 34px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
     padding: 0px 10px;
     width: 200px;
-    margin-top: 10px;
     margin-right: 14px;
     float: right;
 }
