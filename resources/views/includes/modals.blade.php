@@ -470,25 +470,21 @@
                               <div class="modal-body">
                                 <form class="reg-modal form-group" >
                                   <div class="row">
-                                    <div  class="col-md-4">
+                                    <div  class="col-md-6">
                                       <div class="container">
                                         <div class="row">
-                                            <div class='col-md-3'>
+                                            <div class='col-md-6'>
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker6'>
-                                                        <input type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        <input type='text' class="form-control input-default" />
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class='col-md-3'>
+                                            <div class='col-md-6'>
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker7'>
-                                                        <input type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        <input type='text' class="form-control input-default" />
                                                         </span>
                                                     </div>
                                                 </div>
@@ -514,10 +510,10 @@
                                       </script>
                                       </div>
                                     </div>
-                                    <div  class="col-md-4">
+                                    <div  class="col-md-3">
                                       <input type="text" class="input-search AccountDetails" placeholder="Дансны нэр, Гүйлгээний утга, Харьцсан дансны нэр">
                                     </div>
-                                    <div  class="col-md-4">
+                                    <div  class="col-md-3">
                                     <form>
                                       <select class="ChooseCombo">
                                         <option>Бүх данс</option>
