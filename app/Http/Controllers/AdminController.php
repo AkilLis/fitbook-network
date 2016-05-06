@@ -4,23 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests;
 use App\User;
 use View;
 use Response;
 use Session;
+use Mail;
 
 class AdminController extends Controller
 {
 	public function create(Request $request)
 	{
 		//СҮҮЛД ДУГААРЫГ НЬ НЭМЖ ХАРУУЛЖ МАГАДГҮЙ
+		if($request->get('userId'))
+		{
+			$userId = $request->get('userId');  
+			try
+			{
+				$currentUser = User::where('userId', '=', $userId)
+					->orWhere('fName', '=', $userId)->firstOrFail();
+			}
+			catch(ModelNotFoundException $ex)
+			{
+				return Response::json([
+        			'gotinfo' => 'failed',
+    			]);	
+			}
+
+   			return Response::json([
+   	    		'gotinfo' => 'success',
+    		]);
+		}
+
+		return Response::json([
+        		'gotinfo' => 'failed',
+    	]);
 	}
 
     public function index(Request $request)
     {
     	$input = $request->all();
-        $users = User::all();
+       // $users = User::all();
         
         $search = "";
 
@@ -65,21 +90,25 @@ class AdminController extends Controller
         	if ($validator->fails()) 
         	{
         		return Response::json(array('errors' => $validator->errors()->toArray()));
-        		return Response::json($response);
         	}
 
         	$planPassword = rand(1000,9999);
+        	$tranToken = rand(1000, 9999);
 			$password = \Hash::make($planPassword);
 
         	$newUser = array(
                 ['userId' => $request->userId,'fName' => $request->fName, 'lName' => $request->lName, 'email' => $request->email, 'address' => $request->address
-                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'Y']
+                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'Y', 'tranToken', $tranToken]
         	);
 
             foreach ($newUser as $user)
 	        {
 	            User::create($user);
 	        }
+
+	       /* Mail::send('emails.test', ['name' => 'Tuvshinbat'], function($message) {
+			    $message->to('g.tuvshinbat@yahoo.com', 'Fitbook Team')->from('fitbooknetwork@gmail.com')->subject('Email Testing from Fitbook Team');
+			});*/
 
             // redirect
            // Session::flash('message', 'Амжилттай бүртгэлээ!');

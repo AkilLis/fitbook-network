@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Model;
+use App\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,15 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::find('38');
+        $admin = Role::find('1');
+        $user->attachRole($admin);
         // $this->call(UsersTableSeeder::class);
-        $users = array(
-                ['fName' => 'Хулангоо', 'lName' => 'Амарсанаа', 'userId' => 'АА00001', 'email' => 'suulniiooh@yahoo.com', 'password' => Hash::make('123')]
-        );
+       /* $roles = array(
+                ['name' => 'Admin', 'display_name' => 'Админ', 'description' => 'Системийн админ'],
+                ['name' => 'Ceo', 'display_name' => 'Захирал', 'description' => 'Системийн захирал'],
+                ['name' => 'Registration', 'display_name' => 'Шивэгч', 'description' => 'Системийн шивэгч']
+        );*/
             
-        // Loop through each user above and create the record for them in the database
-        foreach ($users as $user)
+        /*foreach ($roles as $role)
         {
-            User::create($user);
-        }
+            Role::create($role);
+        }*/
+
     }
 }

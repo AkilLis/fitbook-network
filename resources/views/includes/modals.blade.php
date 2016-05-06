@@ -4,6 +4,7 @@
 <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
 
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
@@ -151,22 +152,23 @@
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD ADMIN FROM CEO DIALOG-->
-    <div class="modal fade" id="AddAdmin" tabindex="-1" role="dialog" aria-labelledby="AddAdmin" aria-hidden="true" data-target="AddAdmin">
-                          <div class="modal-dialog">
+    <div class="modal fade" id="AddAdmin" tabindex="-1"  role="dialog" aria-labelledby="AddAdmin" aria-hidden="true" data-target="AddAdmin">
+              <div class="modal-dialog"> 
                             <div class="modal-content">
                               <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <button type="button" id="btn-add" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel">Админ нэмэх</h4>
                               </div>
                               <div class="modal-body">
-                                <form class="reg-modal form-group" >
+                                <form class="reg-modal form-group">
                                   <div class="row">
                                     <div>
                                       <div class="col-md-3 vertical-centered-label">
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="userId" name="userId" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
+                                        <img id="gotUser" src="{{asset('images/check.png')}}" style="height:16px; display:none;" >
                                       </div>
                                       <div class="col-md-4 vertical-centered-label">
                                         <button type="button" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
@@ -203,7 +205,63 @@
                                 </form>
                               </div>
                             </div>
-                          </div>
+              </div>  
+        <meta name="_token" content="{!! csrf_token() !!}" />
+        <script>
+          $(document).ready(function() 
+          {
+            var url = "/fitbook/public/admin/users";
+
+            $( "#userId" ).keydown(function( event ) {
+              if ( event.which == 13 ) {
+                $('#userId').focusout();
+              }
+            });
+
+            $( "#userId" ).focusout(function(e) 
+            {
+              var searchId = $('#userId').val();
+
+              var formData = {
+                 userId: searchId,
+              }
+
+              $.ajaxSetup({
+                 headers: 
+                 {
+                   'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                 }
+              })
+
+              e.preventDefault(); 
+
+              var my_url = url + "/create";
+                  
+              $.ajax({
+                type: "GET",
+                url: my_url,
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    if(data.gotinfo == "success")
+                    {
+                      $(' #btn-add ').prop('disabled', false);
+                      $( "#gotUser" ).show(200);
+                    }
+                    else
+                    {
+                      $( "#gotUser" ).hide(200);
+                      $(' #btn-add ').prop('disabled', true);
+                    }
+                    console.log(data);
+                },
+                error: function (data) {
+                           
+                }
+              })
+            });
+          });
+        </script>           
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // MAKE ACTIVATION FROM ALL USERS DIALOG-->

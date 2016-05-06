@@ -4,7 +4,7 @@
     @include('includes.head')
     @include('includes.modals')
 </head>
-<body class="nav-md">
+<body class="nav-md" ng-app="">
 <div class="container body">
 
 	@include('includes.flash')

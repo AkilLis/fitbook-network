@@ -31,42 +31,44 @@
                                         </ul>
                                     </div>
                                 @endif
-                <form class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
+                <form name="myForm" class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
 
                  <div class="row">
                   <div class="col-md-4 vertical-centered-label">
                     <label>Хэрэглэгчийн код</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="userId" readonly class="input-default" type="text" style="width:100%"/>
+                    <input name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
+                    <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
                   </div>
                   <div class="clearfix"></div>    
                   <div class="col-md-4 vertical-centered-label">
                     <label>Овог</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="nameL" class="input-default" type="text" style="width:100%"/>
+                    <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
+                    <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Нэр</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="nameF" class="input-default" type="text" style="width:100%"/>
+                    <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Регистрийн №</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="registryNo" class="input-default" type="text" style="width:100%"/>
+                    <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Дансны дугаар</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="accountId" class="input-default" type="text" style="width:100%"/>
+                    <input name="accountId" required ng-model="accountId" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -80,7 +82,7 @@
                     <label>Цахим шуудан</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="email" class="input-default" type="email" style="width:100%"/>
+                    <input name="email" ng-model="email" class="input-default" type="email" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -93,7 +95,7 @@
                  </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" id="btn-save" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
+                <button type="button" ng-disabled="myForm.$invalid" id="btn-save" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
                 </div>
                 </form>
               </div>
