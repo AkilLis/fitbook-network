@@ -42,9 +42,10 @@ Route::post('/register', 'Auth\AuthController@register');
 Route::get('/start', function()
 {
     $users = array(
-                ['name' => 'Түвшинбат', 'email' => 'g.tuvshinbat@yahoo.com', 'password' => Hash::make('123')]
+                ['userId' => 'AA00002','fName' => 'Хулангоо', 'lName' => 'Амарсанаа', 'email' => 'hulan@yahoo.com', 'address' => 'asdasd'
+                , 'password' => Hash::make('123'), 'phone' => '992032','registryNo' => 'ASD123123', 'accountId' => 'test', 'isNetwork' => 'Y']
         );
-            
+
         // Loop through each user above and create the record for them in the database
         foreach ($users as $user)
         {
@@ -58,19 +59,7 @@ Route::get('dashboard', function() {
 	return View::make('dashboard');
 });
 
-Route::get('admin/users', 'AdminController@allUsers');
-
-Route::post('admin/users', function(Request $request){
-	$task = User::create($request->all());
-    return Response::json($task);
-});
-
-Route::get('admin/users/{user_id?}',function($user_id){
-    $user = User::find($user_id);
-
-    return Response::json($task);
-});
-
+Route::resource('admin/users', 'AdminController');
 
 
 

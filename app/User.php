@@ -13,7 +13,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 {
     use EntrustUserTrait;
     use Authenticatable, CanResetPassword;
-
+    
     /**
      * The database table used by the model.
      *
@@ -26,7 +26,7 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      *
      * @var array
      */
-    protected $fillable = ['userId','fName','lName','email', 'password'];
+    protected $fillable = ['userId','fName','lName','email','address','phone','registryNo','accountId', 'password','isNetwork'];
 
     /**
      * The attributes excluded from the model's JSON form.
