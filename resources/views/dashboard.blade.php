@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <!-- page content -->
-        <div class="right_col" role="main">
+      <div class="right_col" role="main">
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-12 col-xs-12 col-sm-12">
@@ -160,42 +160,95 @@
              </div>
           </div>
           <div class="col-md-4 col-sm-12 col-xs-12">
-              <div class="x_panel tile fixed_height_450">
+            <div class="x_panel tile fixed_height_450">
               <div class="row x_title">
                 <div class="col-md-12">
                 <h3>Манай баг</h3>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 col-centered">
-                  <div class="tree">
-                    <ul>
-                    <li>
-                      <a href="#">Parent</a>
-                      <ul>
-                      <li>
-                        <a href="#">Child</a>
-                        <ul>
-                        <li><a href="#">Grand Child</a></li>
-                        <li>
-                          <a href="#">Grand Child</a>
-                        </li>
-                        <li><a href="#">Grand Child</a></li>
-                        <li><a href="#">Grand Child</a></li> 
+                <div class="col-md-12 col-sm-12">
+                  <div class="responsive-content">
+                    <figure class="org-chart cf">
+                      <div class="board ">
+                        <ul class="columnOne ">
+                          <li>
+                            <span class="lvl-b user-profile">
+                              <div class="row">
+                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                              </div>
+                            </span>
+                          </li>
                         </ul>
-                      </li>
+                      </div>
+                      <ul class="departments ">
+                        <li class="department ">
+                          <span class="lvl-b user-profile">
+                            <div class="row">
+                              <div class="col-md-1"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                              <div class="col-md-11" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                            </div>
+                          </span>
+                          <ul class="sections">
+                            <li class="section" style="border-top:1px solid #5A738E;">
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                            <li class="section"> 
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                            <li class="section"> 
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                            <li class="section"> 
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                            <li class="section"> 
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                            <li class="section"> 
+                              <span class="user-profile">
+                                <div class="row">
+                                  <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                  <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                </div>
+                              </span>
+                            </li>
+                          </ul>
+                        </li>
                       </ul>
-                    </li>
-                    </ul>
+                    </figure>
                   </div>
-                </div>
-              </div>
-              </div>
-          </div>
-        </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
         <!-- /page content -->   
 @stop

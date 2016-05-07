@@ -2,7 +2,7 @@
 <meta name="description" content="Финтессийн сүлжээ систем">
 <meta name="author" content="Түвшинбат">
 
-<title>Финтессийн сүлжээ систем</title>
+<title>Фитнессийн сүлжээний систем</title>
 
 <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('css/responsive.bootstrap.css')}}" rel="stylesheet">
