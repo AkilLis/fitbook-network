@@ -434,6 +434,8 @@ a:hover, a:focus {
 }
 .navbar-header {
   background: #34495E;
+  position: fixed;
+  top: 0;
 }
 .navbar-right {
   margin-right: 0;
@@ -670,6 +672,9 @@ footer {
   padding: 15px 20px;
   display: block;
   border-top: 1px solid #ccc;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
 }
 .nav-sm footer {
   margin-left: 70px ;  

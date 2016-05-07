@@ -473,11 +473,9 @@ table.editable {
 
 .hex {
     position: relative;
-    border-radius: 10px;
     list-style-type: none;
     float: left;
     overflow: hidden;
-    visibility: hidden;
     -webkit-transform: rotate(-60deg) skewY(30deg);
         -ms-transform: rotate(-60deg) skewY(30deg);
             transform: rotate(-60deg) skewY(30deg);
@@ -563,6 +561,7 @@ table.editable {
 
 /* SPACING AND SIZING */
 
+@media (min-width:600px) and (min-width:600px) {
     .hex {
         width: 11.375%; /* = (100-8) / 7 */
         padding-bottom: 13.56%; /* =  width / sin(60deg) */
@@ -595,12 +594,6 @@ table.editable {
   margin-left: -10.5%;
   margin-top: 1%;
 }
-
-.bg-hex-not{
-  background: #1ABB9C !important;
-  border: 1px solid #1ABB9C !important;
-  color: #fff;
 }
-
 =======
 >>>>>>> origin/master
