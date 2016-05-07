@@ -110,7 +110,7 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default search-input" style="width: 100%" id="search">
+                                        <input type="text" class="input-default search-input" style="width: 100%" id="search" autocomplete="off">
                                         <div class="content-list" id="list">
                                         <ul class="drop-list">
                                           <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
