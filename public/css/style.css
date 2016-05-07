@@ -595,5 +595,80 @@ table.editable {
   margin-top: 1%;
 }
 }
+
+/*SEARCH Content*/
+.content-list{
+  width: 93%;
+  background: #FFF;
+  float: left;
+  border: 1px solid #E1E1E1;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  -moz-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 8px;
+  display: none;
+  position: absolute;
+  z-index: 900;
+}
+
+.active {
+    display: block
+    }
+
+.drop-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.drop-list li {
+    border: none;
+    padding: 0;
+    color: white;
+}
+
+.drop-list li a {
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+.drop-list li a:hover {
+    background: #ECECEC;
+}
+
+.item {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 590px
+    }
+
+.icon {
+    float: left;
+    height: 38px;
+    margin: 4px 0 4px 0;
+    width: 48px;
+    text-align: center;
+    color: #FFF;
+    padding: 10px 0 0 0
+    }
+
+.icon span {
+    font-size: 25px
+    }
+
+.text {
+    margin: 16px 5px;
+    float: left;
+    color: #333
+    }
+
+
 =======
 >>>>>>> origin/master

@@ -110,7 +110,39 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default" style="width: 100%;">
+                                        <input type="text" class="input-default search-input" style="width: 100%" id="search">
+                                        <div class="content-list" id="list">
+                                        <ul class="drop-list">
+                                          <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                            Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                          </li>
+                                          <li>
+                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                            </a>
+                                          </li>
+                                        </ul>
+                                      </div>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>    
@@ -254,6 +286,18 @@
               })
             });*/
           });
+
+//Search dropdown
+$('#search').click( function(event)
+{
+  event.stopPropagation();
+  $("#list").fadeIn("fast");    
+});
+      
+$(document).click( function()
+{
+  $('#list').hide();
+});
         </script>           
     </div>
     <!--MODAL ENDS HERE-->

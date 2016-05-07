@@ -35,6 +35,6 @@ class UserController extends Controller
 
         \Log::info('Account Infos: ', $accountsEndAmount);
 
-        return \View::make('dashboard')->with('accounts', $accountsEndAmount[0]);
+        return \View::make('dashboard');
     }
 }
