@@ -14,19 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::find('9');
-        $admin = Role::find('2');
+        $user = User::find('3');
+        $admin = Role::find('1');
         $user->attachRole($admin);
+
         // $this->call(UsersTableSeeder::class);
-       /* $roles = array(
-                ['name' => 'Admin', 'display_name' => 'Админ', 'description' => 'Системийн админ'],
-                ['name' => 'Ceo', 'display_name' => 'Захирал', 'description' => 'Системийн захирал'],
-                ['name' => 'Registration', 'display_name' => 'Шивэгч', 'description' => 'Системийн шивэгч']
-        );*/
+       /*$users = array(
+                ['id' => 1, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 2, 'userId' => 'AA00002', 'fName' => 'Tuvshoo','lName' => 'Амарсанаа','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 3, 'userId' => 'AA00003', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+        );
             
-        /*foreach ($roles as $role)
+        foreach ($users as $user)
         {
-            Role::create($role);
+            User::create($user);
         }*/
 
     }

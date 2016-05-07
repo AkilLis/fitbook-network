@@ -45,20 +45,116 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <table class="block-table">
-                    <tr>
-                      <td><div class="hexagon">
-                        <div class="hexTop"></div>
-                        <div class="hexBottom"></div>
-                      </div></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                      <td><img src="images/img.jpg " class="block-img"></td>
-                    </tr>
-                  </table>
+                  <ul id="hexGrid">
+                    <div>
+                      <li class="hex">
+                        <a class="hexIn" href="#">
+                          <img src="{{asset('images/user.png')}}" alt="" />
+                          <h1>This is a title</h1>
+                          <p>Some sample text about the article this hexagon leads to</p>
+                        </a>
+                      </li>
+                      <div class="badge bg-hex-not hex-not">А</div>
+                    </div>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="{{asset('images/picture.jpg')}}" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                    <li class="hex">
+                      <a class="hexIn" href="#">
+                        <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <h1>This is a title</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
              </div>
