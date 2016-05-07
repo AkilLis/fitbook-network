@@ -5,7 +5,7 @@
 <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
-
+<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
@@ -161,17 +161,17 @@
                               </div>
                               <div class="modal-body">
                                 <form class="reg-modal form-group">
-                                  <div class="row">
+                                  <div class="row" ng-controller="adminCtrl">
                                     <div>
                                       <div class="col-md-3 vertical-centered-label">
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" id="userId" name="userId" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
+                                        <input type="text" id="userId" name="userId" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
                                         <img id="gotUser" src="{{asset('images/check.png')}}" style="height:16px; display:none;" >
                                       </div>
                                       <div class="col-md-4 vertical-centered-label">
-                                        <button type="button" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
+                                        <button type="button" ng-click="attachAdmin()" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -184,20 +184,12 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>Tiger</td>
-                                          <td>Nixon</td>
-                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>Garrett</td>
-                                          <td>Winters</td>
-                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
-                                        </tr>
-                                        <tr>
-                                          <td>Ashton</td>
-                                          <td>Cox</td>
-                                          <td style="text-align: center; vertical-align: middle; font-size: 15px"><a href="#" class="fa fa-trash"></a></td>
+                                        <tr ng-repeat="user in users">
+                                          <td>@{{user.userId}}</td>
+                                          <td>@{{user.fName + ' ' + user.lName}}</td>
+                                          <td style="cursor: pointer; text-align: center; vertical-align: middle; font-size: 15px">
+                                            <a ng-click="detachAdmin(user.id, $index)" class="fa fa-trash"></a>
+                                          </td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -208,11 +200,12 @@
               </div>  
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script>
+
           $(document).ready(function() 
           {
             var url = "/fitbook/public/admin/users";
 
-            $( "#userId" ).keydown(function( event ) {
+            /*$( "#userId" ).keydown(function( event ) {
               if ( event.which == 13 ) {
                 $('#userId').focusout();
               }
@@ -259,7 +252,7 @@
                            
                 }
               })
-            });
+            });*/
           });
         </script>           
     </div>

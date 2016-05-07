@@ -2,6 +2,8 @@
 use App\Role;
 use App\Permission;
 use App\User;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -41,11 +43,21 @@ Route::get('ceo/admins',function() {
     return Response::json($adminUsers);
 });
 
+Route::post('/ceo/admins',function(Request $request){
+    $user = User::find($request->id);
+    $adminRole = Role::find('1');
+    $user->attachRole($adminRole);
 
-Route::delete('ceo/admins{user_id?}',function($user_id){
-    $user = Task::find($user_id);
-    $user->roles()->detach();
-    return Response::json($user);
+    $resp = ['id' => $user->id, 'userId' => $user->userId, 'fName' => $user->fName, 'lName' => $user->lName];
+
+    return Response::json($resp);
+});
+
+Route::delete('ceo/admins/{id?}',function($id){
+    $user = User::find($id);
+    $adminRole = Role::find('1');
+    $user->detachRole($adminRole);
+    return Response::json(null);
 });
 
 

@@ -19,9 +19,7 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
-    	$userId = \Auth::user()->userId;
 		$id = \Auth::user()->id;
-		\Log::info('UserId =: '.$userId);
     	$accountsEndAmount = \DB::table('users')
             ->join('UserAccountMap', 'users.id', '=', 'UserAccountMap.userId')
             ->leftJoin('AwardAccount', 'UserAccountMap.accountId', '=', 'AwardAccount.id')
@@ -29,14 +27,14 @@ class UserController extends Controller
             ->leftJoin('CashAccount', 'UserAccountMap.accountId', '=', 'CashAccount.id')
             ->leftJoin('UsageAccount', 'UserAccountMap.accountId', '=', 'UsageAccount.id')
             ->leftJoin('SavingAccount', 'UserAccountMap.accountId', '=', 'SavingAccount.id')
-            ->select(\DB::raw('sum(AwardAccount.endAmount), sum(BonusAccount.endAmount), sum(CashAccount.endAmount), sum(UsageAccount.endAmount),
-            	sum(SavingAccount.endAmount)'))
+            ->select(\DB::raw('round(sum(AwardAccount.endAmount), 2) as awardEnd, round(sum(BonusAccount.endAmount), 2) as bonusEnd, round(sum(CashAccount.endAmount), 2) as cashEnd, round(sum(UsageAccount.endAmount), 2) as usageEnd,
+            	round(sum(SavingAccount.endAmount), 2) as savingEnd'))
             ->where('users.id', '=', $id)
             ->groupBy('users.id')
             ->get();
 
         \Log::info('Account Infos: ', $accountsEndAmount);
 
-        return \View::make('dashboard');
+        return \View::make('dashboard')->with('accounts', $accountsEndAmount[0]);
     }
 }

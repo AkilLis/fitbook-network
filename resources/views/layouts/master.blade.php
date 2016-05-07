@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html ng-app="fitwork">
 <head>
     @include('includes.head')
     @include('includes.modals')
 </head>
-<body class="nav-md" ng-app="">
+<body class="nav-md">
 <div class="container body">
 
 	@include('includes.flash')

@@ -13,23 +13,23 @@
                 </div>
                   <a class="col-md-2 col-md-offset-1 tile_stats_count" data-toggle="modal" href="#AccountDetail">
                     <span class="count_top"><i class="fa fa-money"></i> Бэлэн мөнгө</span>
-                    <div class="count">20,250,000 ₮</div>
+                    <div class="count">{{$accounts->cashEnd}} ₮</div>
                   </a>
                   <a class="col-md-2 tile_stats_count" data-toggle="modal" href="#AccountDetail">
                     <span class="count_top"><i class="fa fa-clock-o"></i> Урамшуулал</span>
-                    <div class="count">560,000 ₮</div>
+                    <div class="count">{{$accounts->bonusEnd}} ₮</div>
                   </a>
                   <a class="col-md-2 tile_stats_count" data-toggle="modal" href="#AccountDetail">
                     <span class="count_top"><i class="fa fa-trophy"></i> Шагнал</span>
-                    <div class="count">2,500₮</div>
+                    <div class="count">{{$accounts->awardEnd}} ₮</div>
                   </a>
                   <a class="col-md-2 tile_stats_count" data-toggle="modal" href="#AccountDetail">
                     <span class="count_top"><i class="fa fa-user"></i> Хэрэглээ</span>
-                    <div class="count">4,567₮</div>
+                    <div class="count">{{$accounts->usageEnd}} ₮</div>
                   </a>
                   <a class="col-md-2 tile_stats_count" data-toggle="modal" href="#AccountDetail">
                     <span class="count_top"><i class="fa fa-hourglass-half"></i> Хуримтлал</span>
-                    <div class="count">860,000 ₮</div>
+                    <div class="count">{{$accounts->savingEnd}} ₮</div>
                   </a>
                </div>
             </div>
