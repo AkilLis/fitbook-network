@@ -118,27 +118,42 @@
                                           </li>
                                           <li>
                                             <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                              <div class="row">
+                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                              </div>
                                             </a>
                                           </li>
                                           <li>
                                             <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                              <div class="row">
+                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                              </div>
                                             </a>
                                           </li>
                                           <li>
                                             <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                              <div class="row">
+                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                              </div>
                                             </a>
                                           </li>
                                           <li>
                                             <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                              <div class="row">
+                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                              </div>
                                             </a>
                                           </li>
                                           <li>
                                             <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                                              <div class="row">
+                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
+                                              </div>
                                             </a>
                                           </li>
                                         </ul>
