@@ -28,10 +28,7 @@ Route::post('auth/login', 'AuthController@login');
 Route::get('auth/logout', 'AuthController@logout');
 
 //Хэрэглэгчийн хэсэгтэй холбоотой
-Route::get('dashboard', function() {
-	return View::make('dashboard');
-});
-
+Route::get('dashboard', 'UserController@dashboard');
 Route::resource('admin/users', 'AdminController');
 
 //CEO хэсэг

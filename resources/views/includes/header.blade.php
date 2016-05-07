@@ -16,12 +16,24 @@
                         </p>
                       </div>
                     </a></li>   
-                    <li><a data-toggle="modal" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө оруулах/CEO/</span></a></li>
-                    <li><a data-toggle="modal" href="#AddAdmin">Админ тохируулах</a></li>
+
+                    @if ( Auth::user()->hasRole('Ceo') )
+                      <li><a data-toggle="modal" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө оруулах/CEO/</span></a></li>
+                    @endif
+                    
+                    @if ( Auth::user()->hasRole('Ceo') )
+                      <li><a data-toggle="modal" href="#AddAdmin">Админ тохируулах</a></li>
+                    @endif
+                    
                     <li><a data-toggle="modal" href="#MakeSponsor1">Спонсорлох</a></li>
+                    
                     <li><a data-toggle="modal" href="#UserTrans">Мөнгө шилжүүлэх</a></li>
-                    <li><a data-toggle="modal" href="#ChangeBonus">Урамшууллын мөнгөн дүн өөрчлөх</a></li>
-                    <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
+                    @if ( Auth::user()->hasRole('Ceo') )
+                      <li><a data-toggle="modal" href="#ChangeBonus">Урамшууллын мөнгөн дүн өөрчлөх</a></li>
+                    @endif
+                    @if ( Auth::user()->hasRole('Admin') )
+                      <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
+                    @endif
                     <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i>Гарах</a></li>
                   </ul>
                 </li>

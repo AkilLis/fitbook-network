@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::find('38');
-        $admin = Role::find('1');
+        $user = User::find('9');
+        $admin = Role::find('2');
         $user->attachRole($admin);
         // $this->call(UsersTableSeeder::class);
        /* $roles = array(
