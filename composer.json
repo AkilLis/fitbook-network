@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "tymon/jwt-auth": "0.5.*",
         "firebase/php-jwt": "^3.0",
-        "zizaco/entrust": "dev-master"
+        "zizaco/entrust": "dev-master",
+        "illuminate/html": "^5.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

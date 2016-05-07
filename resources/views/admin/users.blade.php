@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-4">
             <div class="row text-center">
-              <a href="#" class="btn btn-green" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"></i> Нэмэх</a>
+              <a href="" id="btn-add" class="btn btn-green" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"></i> Нэмэх</a>
             </div>
             <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
               <div class="modal-dialog">
@@ -21,41 +21,54 @@
                 <h4 class="modal-title" id="myModalLabel">Хэрэглэгчийн бүртгэл</h4>
                 </div>
                 <div class="modal-body">
-                <form class="reg-modal form-group" >
+                @if (count($errors) > 0)
+                                    <div class="alert alert-danger" style="margin-top: 0px;">
+                                        <strong>Ups!</strong> Existe algum problema com o formulário.<br><br>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                <form name="myForm" class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
+
                  <div class="row">
                   <div class="col-md-4 vertical-centered-label">
                     <label>Хэрэглэгчийн код</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="userId" class="input-default" type="text" style="width:100%"/>
+                    <input name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
+                    <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
                   </div>
                   <div class="clearfix"></div>    
                   <div class="col-md-4 vertical-centered-label">
                     <label>Овог</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="nameL" class="input-default" type="text" style="width:100%"/>
+                    <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
+                    <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Нэр</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="nameF" class="input-default" type="text" style="width:100%"/>
+                    <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Регистрийн №</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="registryNo" class="input-default" type="text" style="width:100%"/>
+                    <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
                     <label>Дансны дугаар</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="accountId" class="input-default" type="text" style="width:100%"/>
+                    <input name="accountId" required ng-model="accountId" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -69,7 +82,7 @@
                     <label>Цахим шуудан</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="email" class="input-default" type="email" style="width:100%"/>
+                    <input name="email" ng-model="email" class="input-default" type="email" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -80,19 +93,19 @@
                   </div>
                   <div class="clearfix"></div>
                  </div>
-                </form>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
+                <button type="button" ng-disabled="myForm.$invalid" id="btn-save" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
                 </div>
+                </form>
               </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-8">
-              <form action = "users/search">
-              <input type="search" class="input-search" placeholder="Хэрэглэгчийн код, Хэрэглэгчийн нэр ..."/>
+              <form method="GET" action = "{{url('admin/users')}}">
+                  <input type="search" name="search" value="{{ old('search') }}" class="input-search" placeholder="Хэрэглэгчийн код, Хэрэглэгчийн нэр ..."/>
               </form>
             </div>
             <div class="col-md-4">
@@ -124,8 +137,8 @@
                       <tbody id="tasks-list" name="tasks-list">
                         @foreach ($users as $user)
                           <tr id="user{{$user->id}}">
-                              <td>{{$user->id}}</td>
-                              <td>{{$user->email}} {{$user->lName}}</td>
+                              <td>{{$user->userId}}</td>
+                              <td>{{$user->fName}} {{$user->lName}}</td>
                               <td><a href="#">Дэлгэрэнгүй</a></td>
                               <td align="center"><img class="imgCheck" src="{{asset('images/check.png')}}" style="height:16px" ></td>
                               <td align="center"><img src="{{asset('images/check.png')}}" style="height:16px" ></td>
@@ -135,7 +148,7 @@
                         @endforeach
                       </tbody> 
                     </table>
-
+                    {{ $users->appends(Request::only('search'))->links() }}
                   </div>
                 </div>
               </div>
@@ -144,69 +157,89 @@
         </div>
       </div>
         <!-- /page content -->
-
+      <meta name="_token" content="{!! csrf_token() !!}" />
       <script>
-      $(document).ready(function() {
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
+      $(document).ready(function() 
+      {
+        var url = "/fitbook/public/admin/users";
 
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
+        $('#btn-add').click(function (e)
+        {
+            $('#btn-save').val("add");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            })
+
+            e.preventDefault(); 
+
+            var my_url = url + "/create";
+            
+            $.ajax({
+                  type: "GET",
+                  url: my_url,
+                  data: null,
+                  dataType: 'json',
+                  success: function (data) {
+                      
+                  },
+                  error: function (data) {
+                     
+                  }
+              });
+          });
+
+        //create new task / update existing task
+        $("#btn-save").click(function (e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            })
+
+            e.preventDefault(); 
+
+            var formData = {
+                  userId: $( "input[name*='userId']" ).val(),
+                  fName: $( "input[name*='nameF']" ).val(),
+                  lName: $( "input[name*='nameL']" ).val(),
+                  email: $( "input[name*='email']" ).val(),
+                  address: $( "input[name*='address']" ).val(),
+                  phone: $( "input[name*='phone']" ).val(),
+                  registryNo: $( "input[name*='registryNo']" ).val(),
+                  accountId: $( "input[name*='accountId']" ).val(),
             }
-          };
-        }();
 
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
+            //used to determine the http verb to use [add=POST], [update=PUT]
+            var state = $('#btn-save').val();
 
-        $('#datatable-responsive').DataTable();
+            var type = "POST"; //for creating new resource
+            console.log(formData);
+            console.log(my_url);
+            var my_url = url;
 
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
+            $.ajax({
 
-        var table = $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
-        });
+                type: type,
+                url: my_url,
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    debugger;
+                    if (data.errors != null) {
 
-        TableManageButtons.init();
+                    }
+                    else{
+                      location.reload();  
+                    }
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+          });
       });
     </script>
 @stop
