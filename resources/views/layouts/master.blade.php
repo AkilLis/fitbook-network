@@ -4,7 +4,7 @@
     @include('includes.head')
     @include('includes.modals')
 </head>
-<body class="nav-md">
+<body class="nav-md" id="style-3">
 <div class="container body">
 
 	@include('includes.flash')
@@ -14,7 +14,7 @@
         @include('includes.header')
         
         @yield('content')
-
+	</div>
         <footer class="row">
             @include('includes.footer')
         </footer>

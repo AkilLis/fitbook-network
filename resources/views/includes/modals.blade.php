@@ -6,6 +6,7 @@
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
@@ -582,24 +583,18 @@ $(document).click( function()
                                   <div class="row">
                                     <div  class="col-md-4">
                                       <div class="container">
-                                        <div class="row">
-                                            <div class='col-md-3'>
+                                        <div class="row" style="margin-top: -10px;">
+                                            <div class='col-md-6'>
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker6'>
-                                                        <input type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
+                                                        <input type='text' class="input-datepicker form-control input-group-addon" placeholder="Эхлэх огноо" />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class='col-md-3'>
+                                            <div class='col-md-6'>
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker7'>
-                                                        <input type='text' class="form-control" />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
+                                                        <input type='text' class="input-datepicker form-control input-group-addon" placeholder="Дуусах огноо"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -624,10 +619,10 @@ $(document).click( function()
                                       </script>
                                       </div>
                                     </div>
-                                    <div  class="col-md-4">
+                                    <div  class="col-md-5">
                                       <input type="text" class="input-search AccountDetails" placeholder="Дансны нэр, Гүйлгээний утга, Харьцсан дансны нэр">
                                     </div>
-                                    <div  class="col-md-4">
+                                    <div  class="col-md-3">
                                     <form>
                                       <select class="ChooseCombo">
                                         <option>Бүх данс</option>

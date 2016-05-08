@@ -92,3 +92,5 @@ $("[contenteditable='true']").on("focus", function() {
 $("[contenteditable='true']").on("blur", function() {
     $(".editable").toggleClass("focus");
 });
+
+//SCROLL бүдүүрдэг

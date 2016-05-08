@@ -34,6 +34,11 @@ header{
 html {
   -webkit-tap-highlight-color: transparent;
 }
+.main-page{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
 .c-dropdown {
   position: relative;
   display: inline-block;
@@ -269,7 +274,7 @@ content{
   content: "";
   display: block;
   position: absolute;
-  height: 600px;
+  height: 200px;
   width: 0px;
   border-left: 1px solid #5A738E;
   margin-left: 49%;
@@ -351,7 +356,7 @@ content{
   width: 95%;
   height: auto;
   vertical-align: middle;
-  right: -30%;
+  right: -20%;
   line-height: 14px;
   border-radius: 6px;
   border: 1px solid #5A738E;
@@ -362,6 +367,7 @@ content{
   background: #E6E9ED;
 }
 .org-chart .department .sections {
+  width: 200px;
   margin-top: -25px;
   margin-right: 40%;
 }
@@ -440,6 +446,9 @@ content{
 .responsive-content .org-chart .department:first-child:before {
   display: none;
 }
+.section:nth-child(1){
+  border-top:1px solid #5A738E;
+}
 
 /*Thats all. I hope you enjoyed it.
 Thanks :)*/
@@ -510,9 +519,28 @@ Thanks :)*/
 	padding: 0px 10px;
 	width: 100%;
 }
+.input-search:hover{
+    border: 1px solid #6EA6E0;
+  box-shadow: 0px 0px 3px #77B1E2;
+}
 .input-search:focus{
     border: 1px solid #6EA6E0;
 	box-shadow: 0px 0px 3px #77B1E2;
+}
+.input-datepicker{
+  background: transparent;
+  border: 1px solid #CEC7C7 !important;
+  border-radius: 3px !important;
+  cursor: text !important;
+  color: #73879C;
+}
+.input-datepicker:hover{
+  border: 1px solid #6EA6E0 !important;
+  box-shadow: 0px 0px 3px #77B1E2;
+}
+.input-datepicker:focus{
+  border: 1px solid #6EA6E0 !important;
+  box-shadow: 0px 0px 3px #77B1E2;
 }
 .AccountDetails{
   margin-top: 0px;
@@ -654,26 +682,21 @@ table.editable {
     height: 100%;
     margin: 0 auto;
 }
-.hex h1, .hex p {
-    width: 90%;
-    padding: 0 5%;
-    background-color: #008080;
-    background-color: rgba(0, 128, 128, 0.8);
-    -webkit-transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;
-            transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;
-}
-
-.hex h1 {
+.hex h1{
+    width: 100%;
+    background-color: #9b59b6;
+    background-color: rgba(155, 89, 182, 0.8);
+    -webkit-transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
+            transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
     bottom: 110%;
     font-style: italic;
     font-weight: normal;
     font-size: 1.5em;
     padding-top: 100%;
-    padding-bottom: 100%;
 }
 
 .hex h1:after {
-    content: '';
+
     display: block;
     position: absolute;
     bottom: -1px;
@@ -681,26 +704,15 @@ table.editable {
     width: 10%;
     text-align: center;
     z-index: 1;
-    border-bottom: 2px solid #fff;
-}
-
-.hex p {
-    padding-top: 50%;
-    top: 110%;
-    padding-bottom: 50%;
 }
 
 
 /* HOVER EFFECT  */
 
 .hexIn:hover h1 {
-    bottom: 50%;
-    padding-bottom: 10%;
-}
-
-.hexIn:hover p {
-    top: 50%;
-    padding-top: 10%;
+    bottom: -10%;
+    padding-bottom: 50%;
+    color: white;
 }
 
 /* SPACING AND SIZING */
@@ -812,7 +824,136 @@ table.editable {
     float: left;
     color: #333
     }
+.scrolldiv{
+  overflow-y:scroll;
+  overflow-y:auto;
+  background-color: #F5F5F5;
+    overflow-x:hidden;
+}
+#mask {
+        position: absolute;
+        width:49.5%;
+        height: 1px;
+        background-color:#fff;
+}
 
+#style-3::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
 
+#style-3::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+  background-color: #C1C1C1;
+}
+
+/*Дансны мэдээллийн хэсэг*/
+
+.red {
+    background: #e74c3c;
+}
+
+.terques {
+    background: #1abc9c;
+}
+
+.yellow {
+    background: #f1c40f;
+}
+
+.blue {
+    background: #41cac0;
+}
+
+.purple {
+    background: #9b59b6;
+}
+
+.symbol, .value {
+    display: inline-block;
+    text-align: center;
+}
+
+.fa-graduation-cap:before {
+    content: "\f06b";
+}
+.symbol {
+    margin-bottom: 20px;
+    width: 18%;
+    padding: 20px 15px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    -ms-border-radius: 4px 0px 0px 4px;
+    -o-border-radius: 4px 0px 0px 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    color: #ffffff;
+    float: left;
+    margin: 1%;
+}
+.symbol:hover{
+    box-shadow: 5px 5px 12px -4px rgba(0,0,0,0.75);
+    cursor: pointer;
+}
+.symbol i {
+    color: #fff;
+    font-size: 25px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-border: 2px dotted #fff;
+    -moz-border: 2px dotted #fff;
+    -ms-border: 2px dotted #fff;
+    -o-border: 2px dotted #fff;
+    border: 2px dotted #fff;
+    width: 60px;
+    height: 60px;
+    padding-top: 17px;
+}
+h1.count{
+    font-weight: 300;
+    font-size: 22px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0;
+    color: #ffffff;
+}
+p.count{
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding: 0;
+    color: #ffffff;
+}
+
+/*Block-ийн урамшууллын хүснэгт*/
+.BonusTable td,th{
+  padding: 5px;
+  text-align: center;
+}
+.BonusTable tr.current-bonus{
+  border: 1px;
+  background: #9B59B6;
+  border-radius: 4px;
+  color: white;
+}
+.BonusTable td{
+  border-top:1px solid #E6E9ED;
+}
+.bonus-list:hover{
+  background: #BD85D3;
+  color: #ffffff;
+}
 =======
 >>>>>>> origin/master
