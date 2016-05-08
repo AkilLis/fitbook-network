@@ -16,14 +16,19 @@ class AdminController extends Controller
 {
 	public function create(Request $request)
 	{
-		//СҮҮЛД ДУГААРЫГ НЬ НЭМЖ ХАРУУЛЖ МАГАДГҮЙ
-		if($request->get('userId'))
+		/*if($request->search)
 		{
-			$userId = $request->get('userId');  
+            \Log::info('Request = '. $request);
+			$searchValue = $request->search;  
 			try
 			{
-				$currentUser = User::where('userId', '=', $userId)
-					->orWhere('fName', '=', $userId)->firstOrFail();
+                \Log::info('SeachText = '.$searchValue);
+				$filteredUsers = User::where('userId', 'like', "%$searchValue%")
+					->orWhere('fName', 'like', "%$searchValue%")
+                    ->orWhere('lName', 'like', '%$searchValue%')  
+                    ->take(5)
+                    ->get();
+                \Log::info('Datas = '. $filteredUsers);
 			}
 			catch(ModelNotFoundException $ex)
 			{
@@ -34,12 +39,13 @@ class AdminController extends Controller
 
    			return Response::json([
    	    		'gotinfo' => 'success',
+                'users' => $filteredUsers,
     		]);
-		}
+		//}
 
 		return Response::json([
         		'gotinfo' => 'failed',
-    	]);
+    	]);*/
 	}
 
     public function index(Request $request)

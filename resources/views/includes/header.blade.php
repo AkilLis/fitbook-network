@@ -4,7 +4,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{asset('images/img.jpg')}}" alt="">Түвшинбат Гансүх
+                    <img src="{{asset('images/img.jpg')}}" alt="">{{Auth::user()->fName}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right" style="width: 250px" role="menu">
@@ -12,7 +12,7 @@
                       <div class="user-profile-menu">
                         <img src="{{asset('images/user.png')}}" class="user-profile-pic">
                         <p class="user-profile-desc">
-                          <span class="user-profile-name">Түвшинбат ГАНСҮХ</span></br>AA00000000
+                          <span class="user-profile-name">{{Auth::user()->fName}} {{Auth::user()->lName}}</span></br>{{Auth::user()->userId}}
                         </p>
                       </div>
                     </a></li>   

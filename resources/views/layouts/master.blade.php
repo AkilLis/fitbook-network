@@ -5,7 +5,7 @@
     @include('includes.modals')
 </head>
 <body class="nav-md">
-<div class="container body">
+<div class="container body" ng-controller="mainCtrl">
 
 	@include('includes.flash')
 

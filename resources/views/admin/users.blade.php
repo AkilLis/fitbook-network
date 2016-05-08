@@ -148,7 +148,7 @@
                         @endforeach
                       </tbody> 
                     </table>
-                    {{ $users->appends(Request::only('search'))->links() }}
+                    <div style="text-align: center;">{{ $users->appends(Request::only('search'))->links() }}</div>
                   </div>
                 </div>
               </div>
