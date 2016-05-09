@@ -110,7 +110,7 @@
                   </ul>
                 </li>
                 <li role="logo" style="float:left">
-                  <a href="javascript:;" class="logo">
+                  <a id="testNotif" href="javascript:;" class="logo">
                     <img src="{{asset('images/logo.png')}}">
                     <label>Сүлжээний систем</label>
                   </a>
