@@ -72,8 +72,15 @@
                 </div>
                 <div class="col-md-12 col-xs-12 col-sm-12">
                   <ul id="hexGrid">
-                    <div>
-
+                      <div>
+                        <li class="hex">
+                          <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="{{$capUser->fName}} {{$capUser->lName}} {{$capUser->userId}}">
+                            <img src="{{asset('images/user.png')}}" alt="" />
+                            <h1>{{$capUser->fCount}}</h1>
+                          </a>
+                        </li>
+                        <div class="badge bg-hex-not hex-not">А</div>
+                      </div>
                       @foreach ($blockUsers as $blockUser)
                         <li class="hex">
                         <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" 

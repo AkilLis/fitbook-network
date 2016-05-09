@@ -22,7 +22,26 @@ app.controller('mainCtrl', function($scope, $http) {
 	  url: $userAuth,
 	  data: formData,
 	}).then(function successCallback(response) {
-		
+		  
+      $('#MakeSponsor1').modal('hide');
+
+      $.notify({
+        title : 'Амжилттай',
+        message : 'Амжилттай идвэхжүүллээ.',
+        type : 'success',
+        animate : {
+          enter : 'animated bounceIn',
+          exit : 'animated fadeOutRight'
+        },
+        newest_on_top: true,
+        offset :{
+          x:20,
+          y:20
+        }
+      });
+
+      location.reload();
+
 	}, function errorCallback(response) {
 	    
 	});	

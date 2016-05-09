@@ -331,10 +331,10 @@
                                       </div>
                                     </div>
                                     <div class="clearfix"></div> 
-                                    <form>
-                                      <input type="checkbox" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
+                                    <!-- <form>
+                                      <input type="checkbox" style="display:none" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
                                     </form>
-                                    <div class="clearfix"></div>   
+                                    <div class="clearfix"></div>    -->
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>

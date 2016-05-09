@@ -51,20 +51,6 @@ class UserController extends Controller
         );
 
         $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId, @outParentId as parentId');
-
-        if($response->isDevide == 'Y')
-        {
-            DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId, @outParentId);',
-                array(
-                    $userId,
-                    $blockId->blockId,
-                    $parentId,
-                    500000,
-                    $rankId
-                )
-            );
-        }    
-
         \Log::info('response = ', $results);
         return Response::json(null);
     }
@@ -86,26 +72,44 @@ class UserController extends Controller
             ->groupBy('users.id')
             ->get();
 
-        //Блокын мэдээлэл
-        $myBlock = \DB::table('userblockmap')
-            ->join('block','userblockmap.blockId','=','block.id')
-            ->where('block.groupId','=', 1)
+        $matchThese = ['userblockmap.userId' => $id, 'block.isActive' => 'Y'];
+
+        $blockId = \DB::table('userblockmap')
+            ->join('block','block.id','=','userblockmap.blockId')
+            ->where($matchThese)
             ->first();
+
+        //Блокын мэдээлэл 
+        $capUser = \DB::table('userblockmap')
+            ->join('users', 'userblockmap.userId','=','users.id')
+            ->join('block','block.id','=','userblockmap.blockId')
+            ->where('block.id','=', $blockId->blockId)
+            ->where('block.isActive','=','Y')
+            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
+            ->first();          
+
+        \Log::info('Caps : '. $capUser->fCount);
 
         $blockUsers = \DB::table('userblockmap')
             ->join('users','userblockmap.userId','=','users.id')
-            ->orderBy('userblockmap.fCount','users.created_at DESC')
+            ->join('block','block.id','=','userblockmap.blockId')
+            ->where('users.id','<>', $capUser->id)
+            ->where('userblockmap.blockId','=',$blockId->blockId)
+            ->where('block.isActive','=','Y')
+            ->orderBy('userblockmap.fCount', 'DESC')
+            ->orderBy('users.created_at', 'ASC')
             ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
             ->get();
-    
+         
 
         \Log::info('Block : '.count($blockUsers));
 
-        $emptyUsers = 16 - count($blockUsers);
+        $emptyUsers = 15 - count($blockUsers);
 
         return \View::make('dashboard')->with('accounts', $accountsEndAmount[0])
                                        ->with('blockUsers', $blockUsers)
-                                       ->with('emptyUsers', $emptyUsers);
+                                       ->with('emptyUsers', $emptyUsers)
+                                       ->with('capUser', $capUser);
 
     }
 }
