@@ -22,35 +22,35 @@
               <div class="symbol red">
                   <i class="fa fa-money"></i>
                   <p class="count">Бэлэн мөнгө</p>
-                  <h1 class="count">22 000 000₮</h1>
+                  <h1 class="count">{{$accounts['cashEnd']}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol terques">
                   <i class="fa fa-graduation-cap"></i>
                   <p class="count">Урамшуулал</p>
-                  <h1 class="count">0</h1>
+                  <h1 class="count">{{$accounts['bonusEnd']}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol yellow">
                   <i class="fa fa-trophy"></i>
                   <p class="count">Шагнал</p>
-                  <h1 class="count">0</h1>
+                  <h1 class="count">{{$accounts['awardEnd']}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol blue">
                   <i class="fa fa-user"></i>
                   <p class="count">Хэрэглээ</p>
-                  <h1 class="count">0</h1>
+                  <h1 class="count">{{$accounts['usageEnd']}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol purple">
                   <i class="fa fa-hourglass-half"></i>
                   <p class="count">Хуримтлал</p>
-                  <h1 class="count">0</h1>
+                  <h1 class="count">{{$accounts['savingEnd']}}₮</h1>
               </div>
             </section>
           </div>

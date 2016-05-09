@@ -9,12 +9,35 @@ use App\Http\Requests;
 class UserController extends Controller
 {
     //
-    public function AddUser(Request $request)
+    public function activateUser(Request $request)
     {
-    	Auth::logout();
-        //unset($user->password);
-        //return view('auth.login',[]);
-        return redirect()->intended('/');
+        /*pUserId INT(20), 
+        IN pBlockId BIGINT(20), 
+        IN pParentId int(20),
+        IN pAmount decimal(24,6),
+        IN pRankId INT(20), 
+        OUT isDevide CHAR(1),
+        OUT OutUserId INT(20),
+        OUT OutBlockId INT(20), 
+        OUT OutParentId int(20)*/
+        
+        $rankId = 1;
+        $parenId = $request->parentId;
+        $userId = $request->id;
+
+        $blockId = DB::table('userblockmap')
+            ->join('block', 'userblockmap.blockId', '=', 'block.id')
+            ->where('userblockmap.userId','=', $parenId)
+            ->where('block.groupId', '=', $rankId)
+            ->select('userblockmap.blockId');
+
+        \Log::info('test = '.'gotIt');
+
+
+        /*DB::statement('call network_calculation("'+$userId+'", "'+$blockId+'","'+$parenId+'","500000","'+$rankId+'",
+            "'+$isDevide+'","'+$outUserId+'","'+$outBlockId+'","'+$outParentId+'")');*/
+       
+        return Response::json(null);
     }
 
     public function dashboard(Request $request)
@@ -33,8 +56,15 @@ class UserController extends Controller
             ->groupBy('users.id')
             ->get();
 
-        \Log::info('Account Infos: ', $accountsEndAmount);
+        if(!$accountsEndAmount)
+        {
+            $accountsEndAmount = array(['cashEnd' => 0, 'awardEnd' => 0, 'savingEnd' => 0, 'usageEnd' => 0, 'bonusEnd' => 0]);
+            //$accountsEndAmount[0] = (object) $accountsEndAmount[0];
+            //\Log::info('cash end =  '. $accountsEndAmount[0]['cashEnd']);
+        }    
 
-        return \View::make('dashboard');
+        //\Log::info('Account Infos: ', $accountsEndAmount[0]);
+
+        return \View::make('dashboard')->with('accounts', $accountsEndAmount[0]);
     }
 }

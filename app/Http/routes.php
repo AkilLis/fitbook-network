@@ -28,6 +28,8 @@ Route::get('/', function () {
 
 Route::post('auth/login', 'AuthController@login');
 Route::get('auth/logout', 'AuthController@logout');
+//Хэрэглэгч идвэхжүүлэх
+Route::post('auth/activate','UserController@activateUser');
 
 //Хэрэглэгчийн хэсэгтэй холбоотой
 Route::get('dashboard', 'UserController@dashboard');

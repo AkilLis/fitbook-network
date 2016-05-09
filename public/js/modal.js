@@ -3,12 +3,30 @@ var app = angular.module("fitwork", []);
 app.controller('mainCtrl', function($scope, $http) { 
   $userUrl = '/fitbook/public/admin/users';
   $adminUrl = '/fitbook/public/ceo/admins'; 
+  $userAuth = '/fitbook/public/auth/activate';
 
   $scope.loadData = function () {
     $http.get($adminUrl).success(function(data) {
       $scope.users = data;
     });
   };
+
+  $scope.addUser = function(){
+  	var formData = {
+    	id : $( "#searchAdmin" ).val(),
+    	parentId : 1,
+    }
+
+  	$http({
+	  method: 'POST',
+	  url: $userAuth,
+	  data: formData,
+	}).then(function successCallback(response) {
+		$scope.users.splice(index, 1);
+	}, function errorCallback(response) {
+	    
+	});	
+  }
 
   $scope.detachAdmin = function(id, index){
 	$http({
