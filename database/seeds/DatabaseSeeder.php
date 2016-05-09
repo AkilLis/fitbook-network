@@ -33,31 +33,31 @@ class DatabaseSeeder extends Seeder
       for($i = 200; $i < 207; $i ++)
       {
           $awardAccount = array(
-                'id' => $i, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+                'id' => $i * 5 + 1, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
             );
 
            $bonusAccount = array(
-                'id' => $i, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+                'id' => $i * 5 + 2, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
             );
 
            $cashAccount = array(
-                'id' => $i, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+                'id' => $i * 5 + 3, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
             );
 
            $usageAccount = array(
-                'id' => $i, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+                'id' => $i * 5 + 4, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
             );
 
            $savingAccount = array(
-                'id' => $i, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+                'id' => $i * 5 + 5, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
             );
 
            $maps = array(
-                ['userId' => $i, 'type' => 1,'accountId' => $i,'groupId' => 1],
-                ['userId' => $i, 'type' => 2,'accountId' => $i,'groupId' => 1],
-                ['userId' => $i, 'type' => 3,'accountId' => $i,'groupId' => 1],
-                ['userId' => $i, 'type' => 4,'accountId' => $i,'groupId' => 1],
-                ['userId' => $i, 'type' => 5,'accountId' => $i,'groupId' => 1],
+                ['userId' => $i, 'type' => 1,'accountId' => $i * 5 + 1,'groupId' => 1],
+                ['userId' => $i, 'type' => 2,'accountId' => $i * 5 + 2,'groupId' => 1],
+                ['userId' => $i, 'type' => 3,'accountId' => $i * 5 + 3,'groupId' => 1],
+                ['userId' => $i, 'type' => 4,'accountId' => $i * 5 + 4,'groupId' => 1],
+                ['userId' => $i, 'type' => 5,'accountId' => $i * 5 + 5,'groupId' => 1],
             );
 
            AwardAccount::create($awardAccount);

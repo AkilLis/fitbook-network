@@ -86,8 +86,8 @@
 
                       @for($id = 1; $id < $emptyUsers; $id ++)
                       <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        <a class="hexIn" href="#MakeSponsor1" data-toggle="modal" data-tt="tooltip" data-container="body" data-placement="bottom" title="Спонсорлох">
+                          <img src="http://localhost/fitbook/public/images/add.png" alt="" />
                         </a>
                       </li>
                       @endfor

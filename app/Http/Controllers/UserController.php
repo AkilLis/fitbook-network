@@ -52,6 +52,19 @@ class UserController extends Controller
 
         $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId, @outParentId as parentId');
 
+        if($response->isDevide == 'Y')
+        {
+            DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId, @outParentId);',
+                array(
+                    $userId,
+                    $blockId->blockId,
+                    $parentId,
+                    500000,
+                    $rankId
+                )
+            );
+        }    
+
         \Log::info('response = ', $results);
         return Response::json(null);
     }
@@ -81,7 +94,7 @@ class UserController extends Controller
 
         $blockUsers = \DB::table('userblockmap')
             ->join('users','userblockmap.userId','=','users.id')
-            ->orderBy('userblockmap.fCount','users.created_at')
+            ->orderBy('userblockmap.fCount','users.created_at DESC')
             ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
             ->get();
     
