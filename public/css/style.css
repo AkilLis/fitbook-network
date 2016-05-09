@@ -627,7 +627,7 @@ line-height:0px;
     border: 1px solid #CEC7C7;
     border-radius: 3px;
     padding: 0px 10px;
-    width: 200px;
+    width: 190px;
     margin-right: 14px;
     float: right;
 }
@@ -987,5 +987,14 @@ p.count{
   background-color: #DAB007;
   border-color: #DAB007;
 }
+
+#datetimepicker7, #datetimepicker6{
+  margin-top:10px;
+}
+
+.tooltip-inner {
+            max-width: 120px;
+            white-space:pre-wrap;
+        }
 =======
 >>>>>>> origin/master

@@ -9,6 +9,7 @@
 <script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
