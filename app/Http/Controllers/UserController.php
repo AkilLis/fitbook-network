@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
+use DB;
+use Response;
 
 class UserController extends Controller
 {
@@ -22,27 +25,41 @@ class UserController extends Controller
         OUT OutParentId int(20)*/
         
         $rankId = 1;
-        $parenId = $request->parentId;
-        $userId = $request->id;
+        $parentId = User::where('userId', '=', $request->parentId)->first()->id;
+        $userId = User::where('userId', '=', $request->id)->first()->id;
+
+        \Log::info('id = '. $userId);
+        \Log::info('parentId = '. $parentId);
 
         $blockId = DB::table('userblockmap')
             ->join('block', 'userblockmap.blockId', '=', 'block.id')
-            ->where('userblockmap.userId','=', $parenId)
+            ->where('userblockmap.userId','=', $parentId)
             ->where('block.groupId', '=', $rankId)
-            ->select('userblockmap.blockId');
+            ->select('userblockmap.blockId as blockId')
+            ->first();
 
-        \Log::info('test = '.'gotIt');
+        \Log::info('test = '. $blockId->blockId);
 
+        DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId, @outParentId);',
+            array(
+                $userId,
+                $blockId->blockId,
+                $parentId,
+                500000,
+                $rankId
+            )
+        );
 
-        /*DB::statement('call network_calculation("'+$userId+'", "'+$blockId+'","'+$parenId+'","500000","'+$rankId+'",
-            "'+$isDevide+'","'+$outUserId+'","'+$outBlockId+'","'+$outParentId+'")');*/
-       
+        $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId, @outParentId as parentId');
+
+        \Log::info('response = ', $results);
         return Response::json(null);
     }
 
     public function dashboard(Request $request)
     {
 		$id = \Auth::user()->id;
+        //Дансны мэдээлэл
     	$accountsEndAmount = \DB::table('users')
             ->join('UserAccountMap', 'users.id', '=', 'UserAccountMap.userId')
             ->leftJoin('AwardAccount', 'UserAccountMap.accountId', '=', 'AwardAccount.id')
@@ -56,15 +73,26 @@ class UserController extends Controller
             ->groupBy('users.id')
             ->get();
 
-        if(!$accountsEndAmount)
-        {
-            $accountsEndAmount = array(['cashEnd' => 0, 'awardEnd' => 0, 'savingEnd' => 0, 'usageEnd' => 0, 'bonusEnd' => 0]);
-            //$accountsEndAmount[0] = (object) $accountsEndAmount[0];
-            //\Log::info('cash end =  '. $accountsEndAmount[0]['cashEnd']);
-        }    
+        //Блокын мэдээлэл
+        $myBlock = \DB::table('userblockmap')
+            ->join('block','userblockmap.blockId','=','block.id')
+            ->where('block.groupId','=', 1)
+            ->first();
 
-        //\Log::info('Account Infos: ', $accountsEndAmount[0]);
+        $blockUsers = \DB::table('userblockmap')
+            ->join('users','userblockmap.userId','=','users.id')
+            ->orderBy('userblockmap.fCount','users.created_at')
+            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
+            ->get();
+    
 
-        return \View::make('dashboard')->with('accounts', $accountsEndAmount[0]);
+        \Log::info('Block : '.count($blockUsers));
+
+        $emptyUsers = 16 - count($blockUsers);
+
+        return \View::make('dashboard')->with('accounts', $accountsEndAmount[0])
+                                       ->with('blockUsers', $blockUsers)
+                                       ->with('emptyUsers', $emptyUsers);
+
     }
 }

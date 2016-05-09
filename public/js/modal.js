@@ -11,10 +11,10 @@ app.controller('mainCtrl', function($scope, $http) {
     });
   };
 
-  $scope.addUser = function(){
+  $scope.activateUser = function(){
   	var formData = {
-    	id : $( "#searchAdmin" ).val(),
-    	parentId : 1,
+    	id : $( "#searchActivated" ).val(),
+    	parentId : $( "#searchSponser" ).val(),
     }
 
   	$http({
@@ -22,7 +22,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	  url: $userAuth,
 	  data: formData,
 	}).then(function successCallback(response) {
-		$scope.users.splice(index, 1);
+		
 	}, function errorCallback(response) {
 	    
 	});	
@@ -41,7 +41,7 @@ app.controller('mainCtrl', function($scope, $http) {
 
   $scope.attachAdmin = function(){
   	var formData = {
-    	id : $( "#searchAdmin" ).val(),
+    	userId : $( "#searchAdmin" ).val(),
     }
   	$http({
 	  method: 'POST',
@@ -57,6 +57,7 @@ app.controller('mainCtrl', function($scope, $http) {
   $scope.chooseUser = function(index, currentUser, id){
   	$(".content-list:eq("+index+")").hide()
   	$("#"+id+"").val(currentUser.userId);
+  	$("#"+id+"").focus();
   };
 
   $scope.loadData();
@@ -70,7 +71,6 @@ app.controller('mainCtrl', function($scope, $http) {
 		  data: formData,
 		}).then(function successCallback(response) {
 		  	console.log(response);
-		  	debugger;
 		  	if(response.data.gotinfo == "failed")
 		  	{
 		  		$(".content-list:eq("+index+")").hide();
@@ -97,6 +97,20 @@ app.controller('mainCtrl', function($scope, $http) {
 	    $scope.findUser(newValue, 1);
     }
     else $('.content-list:eq(1)').hide();
+  });
+
+  $scope.$watch('searchSponser', function(newValue) {
+    if (newValue){
+	    $scope.findUser(newValue, 2);
+    }
+    else $('.content-list:eq(2)').hide();
+  });
+
+  $scope.$watch('searchActivated', function(newValue) {
+    if (newValue){
+	    $scope.findUser(newValue, 3);
+    }
+    else $('.content-list:eq(3)').hide();
   });
 });
 

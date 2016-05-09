@@ -187,6 +187,7 @@
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
                                         <input type="text" id="searchAdmin" name="userId" ng-model="searchAdmin" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
+                                        <input type="hidden" id="searchAdminId">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
@@ -309,7 +310,23 @@
                                         <label style="padding-left: 10px">Спонсор сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default" placeholder="Түвшинбат Гансүх" style="width: 100%;">
+                                        <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="hidden" id="searchSponserId">
+                                        <div class="content-list" id="list">
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(2, user, 'searchSponser')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div> 
@@ -322,7 +339,23 @@
                                         <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="searchActivated" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="hidden" id="searchActivatedId">
+                                        <div class="content-list" id="list">
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(3, user, 'searchActivated')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -330,7 +363,7 @@
                                 </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-green"><i class="fa fa-check"></i> Идэвхижүүлэх</button>
+                                <button type="button" ng-click="activateUser()" class="btn btn-green"><i class="fa fa-check"></i> Идэвхижүүлэх</button>
                               </div>
                             </div>
                           </div>

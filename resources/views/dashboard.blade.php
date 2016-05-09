@@ -22,35 +22,35 @@
               <div class="symbol red">
                   <i class="fa fa-money"></i>
                   <p class="count">Бэлэн мөнгө</p>
-                  <h1 class="count">{{$accounts['cashEnd']}}₮</h1>
+                  <h1 class="count">{{$accounts->cashEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol terques">
                   <i class="fa fa-graduation-cap"></i>
                   <p class="count">Урамшуулал</p>
-                  <h1 class="count">{{$accounts['bonusEnd']}}₮</h1>
+                  <h1 class="count">{{$accounts->bonusEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol yellow">
                   <i class="fa fa-trophy"></i>
                   <p class="count">Шагнал</p>
-                  <h1 class="count">{{$accounts['awardEnd']}}₮</h1>
+                  <h1 class="count">{{$accounts->awardEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol blue">
                   <i class="fa fa-user"></i>
                   <p class="count">Хэрэглээ</p>
-                  <h1 class="count">{{$accounts['usageEnd']}}₮</h1>
+                  <h1 class="count">{{$accounts->usageEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol purple">
                   <i class="fa fa-hourglass-half"></i>
                   <p class="count">Хуримтлал</p>
-                  <h1 class="count">{{$accounts['savingEnd']}}₮</h1>
+                  <h1 class="count">{{$accounts->savingEnd}}₮</h1>
               </div>
             </section>
           </div>
@@ -73,8 +73,27 @@
                 <div class="col-md-12 col-xs-12 col-sm-12">
                   <ul id="hexGrid">
                     <div>
+
+                      @foreach ($blockUsers as $blockUser)
+                        <li class="hex">
+                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" 
+                        title= "{{$blockUser->fName}} {{$blockUser->lName}} {{$blockUser->userId}}" >
+                          <img src="{{asset('images/user.png')}}" alt="" />
+                          <h1>{{$blockUser->fCount}}</h1>
+                          </a>
+                        </li>
+                      @endforeach
+
+                      @for($id = 1; $id < $emptyUsers; $id ++)
                       <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
+                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom">
+                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
+                        </a>
+                      </li>
+                      @endfor
+
+                     <!--  <li class="hex">
+                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Түвшинбат gym AA00000000">
                           <img src="{{asset('images/user.png')}}" alt="" />
                           <h1>3</h1>
                         </a>
@@ -156,7 +175,7 @@
                       <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
                         <img src="http://localhost/fitbook/public/images/user.png" alt="" />
                       </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </div>

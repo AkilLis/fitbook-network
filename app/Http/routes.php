@@ -73,9 +73,12 @@ Route::get('ceo/admins',function() {
 });
 
 Route::post('/ceo/admins',function(Request $request){
-    $user = User::find($request->id);
+    $user = User::where('userId', '=', $request->userId)->first();
     $adminRole = Role::find('1');
-    $user->attachRole($adminRole);
+
+    if(!$user->hasRole('Admin')) {
+        $user->attachRole($adminRole);
+    }
 
     $resp = ['id' => $user->id, 'userId' => $user->userId, 'fName' => $user->fName, 'lName' => $user->lName];
 
