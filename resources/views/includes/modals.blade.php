@@ -5,10 +5,12 @@
 <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
+<div ng-controller="mainCtrl">
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -111,54 +113,22 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default search-input" style="width: 100%" id="search" autocomplete="off">
+                                        <input type="text" class="input-default search-input" ng-model="searchValue" style="width: 100%" id="searchMoney" autocomplete="off">
                                         <div class="content-list" id="list">
-                                        <ul class="drop-list">
-                                          <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                            Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                          </li>
-                                          <li>
-                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <div class="row">
-                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                              </div>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <div class="row">
-                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                              </div>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <div class="row">
-                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                              </div>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <div class="row">
-                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                              </div>
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="javascript:;" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                              <div class="row">
-                                              <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                              <div class="col-md-10" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                              </div>
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(0, user, 'searchMoney')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>    
@@ -209,14 +179,28 @@
                               </div>
                               <div class="modal-body">
                                 <form class="reg-modal form-group">
-                                  <div class="row" ng-controller="adminCtrl">
+                                  <div class="row">
                                     <div>
                                       <div class="col-md-3 vertical-centered-label">
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" id="userId" name="userId" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
-                                        <img id="gotUser" src="{{asset('images/check.png')}}" style="height:16px; display:none;" >
+                                        <input type="text" id="searchAdmin" name="userId" ng-model="searchAdmin" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
+                                        <div class="content-list" id="list">
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(1, user, 'searchAdmin')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
                                       </div>
                                       <div class="col-md-4 vertical-centered-label">
                                         <button type="button" ng-click="attachAdmin()" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
@@ -248,18 +232,21 @@
               </div>  
         <meta name="_token" content="{!! csrf_token() !!}" />
         <script>
-
           $(document).ready(function() 
           {
-            var url = "/fitbook/public/admin/users";
-
-            /*$( "#userId" ).keydown(function( event ) {
-              if ( event.which == 13 ) {
-                $('#userId').focusout();
-              }
+            $(document).click(function(){
+              $('#list').hide();  
             });
 
-            $( "#userId" ).focusout(function(e) 
+            var url = "/fitbook/public/admin/users";
+/*
+            $( "#search" ).keydown(function( event ) {
+              debugger;
+              value = $('#search').val();
+              findUser(value);
+            });*/
+
+            /*$( "#userId" ).focusout(function(e) 
             {
               var searchId = $('#userId').val();
 
@@ -302,18 +289,6 @@
               })
             });*/
           });
-
-//Search dropdown
-$('#search').click( function(event)
-{
-  event.stopPropagation();
-  $("#list").fadeIn("fast");    
-});
-      
-$(document).click( function()
-{
-  $('#list').hide();
-});
         </script>           
     </div>
     <!--MODAL ENDS HERE-->
@@ -665,4 +640,5 @@ $(document).click( function()
                             </div>
                           </div>
     </div>
+</div>
     

@@ -439,8 +439,6 @@ a:hover, a:focus {
 }
 .navbar-header {
   background: #34495E;
-  position: fixed;
-  top: 0;
 }
 .navbar-right {
   margin-right: 0;

@@ -32,6 +32,33 @@ Route::get('auth/logout', 'AuthController@logout');
 //Хэрэглэгчийн хэсэгтэй холбоотой
 Route::get('dashboard', 'UserController@dashboard');
 Route::resource('admin/users', 'AdminController');
+Route::post('get/users',function(Request $request){
+    $searchValue = $request->search;  
+    try
+    {
+        $filteredUsers = User::where('userId', 'like', "%$searchValue%")
+            ->orWhere('fName', 'like', "%$searchValue%")
+            ->orWhere('lName', 'like', '%$searchValue%')  
+             ->take(5)
+            ->get();
+        }
+        catch(ModelNotFoundException $ex)
+        {
+            return Response::json([
+            'gotinfo' => 'failed',
+            ]); 
+        }
+
+        return Response::json([
+            'gotinfo' => 'success',
+            'users' => $filteredUsers,
+        ]);
+        //}
+
+        return Response::json([
+                'gotinfo' => 'failed',
+    ]);
+});
 
 //CEO хэсэг
 Route::get('ceo/admins',function() {
