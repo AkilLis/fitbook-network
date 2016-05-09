@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 	if(Auth::check())
 	{
-   		return View::make('dashboard');
+   		return redirect('dashboard');
 	}
     
     return view('auth.login',[]);

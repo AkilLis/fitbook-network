@@ -61,11 +61,11 @@ class AdminController extends Controller
             $users = User::where('lName', 'like', "%$search%")
 			    ->orWhere('fName', 'like', "%$search%")
 			    ->orWhere('userId', 'like', "%$search%")
-			    ->paginate(6);
+			    ->paginate(10);
         } 
         else
         {
-			$users = User::paginate(6);
+			$users = User::paginate(10);
         }
 
         $request->flash();
