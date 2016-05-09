@@ -17,6 +17,7 @@ class UserNetwork extends Migration
             $table->bigIncrements('Id');
             $table->bigInteger('userId');
             $table->bigInteger('parentId');
+            $table->string('sortedOrder');
             $table->bigInteger('blockId');
             $table->integer('fCount');
             $table->integer('mCount');
