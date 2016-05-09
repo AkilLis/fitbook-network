@@ -445,7 +445,7 @@ a:hover, a:focus {
 }
 .top_nav .navbar-right {
   margin: 0;
-  width: 70%;
+  width: 95%;
   float: right;
 }
 .top_nav .navbar-right li {
@@ -1524,7 +1524,7 @@ span.right {
 
 /** top tiles  */
 .tile_count {
-  margin-top: 65px;
+  margin-top: 0px;
 }
 .tile_count .tile_stats_count {
   border-bottom: 1px solid #D9DEE4;

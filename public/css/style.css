@@ -4,8 +4,21 @@ body{
 	font-size: 13px;
 }
 .logo{
-	height:60px;
-	background: url('image/testUser.png');
+  padding: 5px !important;
+  margin-left: 10% !important;
+}
+.logo img{
+  height: 45px;
+}
+.logo label{
+  font-size: 25px;
+  margin-left: 10px;
+  margin-right: 25px;
+  margin-bottom: 0px;
+  vertical-align: middle;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #73879C;
 }
 header{
 	height:60px;
@@ -494,9 +507,7 @@ Thanks :)*/
     background-color: #fff;
 	border: 1px solid #1ABB9C;
 }
-.reg-modal label, input{
-	margin-top: 10px;
-}
+
 .input-default{
 	height: 34px;
     border: 1px solid #CEC7C7;
@@ -954,6 +965,27 @@ p.count{
 .bonus-list:hover{
   background: #BD85D3;
   color: #ffffff;
+}
+/*Data toggle CHANGE BONUS*/
+.btn-changebonus-beginner{
+  color: #fff;
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+}
+.btn-changebonus-beginner:hover,.btn-changebonus-beginner:active{
+  color: #fff;
+  background-color: #00A082;
+  border-color: #00A082;
+}
+.btn-changebonus-advanced{
+  color: #fff;
+  background-color: #f1c40f;
+  border-color: #f1c40f;
+}
+.btn-changebonus-advanced:hover,.btn-changebonus-advanced:active{
+  color: #fff;
+  background-color: #DAB007;
+  border-color: #DAB007;
 }
 =======
 >>>>>>> origin/master

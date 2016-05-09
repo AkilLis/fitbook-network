@@ -11,3 +11,4 @@
 <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.min.css')}}" />
 <link rel="stylesheet" href="{{asset('css/custom.css')}}" rel="stylesheet">
 <link rel="stylesheet" href="{{asset('css/style.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('css/bootstrap2-toggle.min.css')}}" rel="stylesheet">

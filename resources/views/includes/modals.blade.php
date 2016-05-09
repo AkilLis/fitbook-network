@@ -8,6 +8,7 @@
 <script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
@@ -405,14 +406,9 @@
                               <div class="modal-body">
                                 <form class="reg-modal form-group" >
                                   <div class="row">
-                                    <div>
                                     <form>
-                                      <select class="ChooseCombo">
-                                        <option>Анхан шат</option>
-                                        <option>Ахьсан шат</option>
-                                      </select>
+                                      <input type="checkbox" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
                                     </form>
-                                    </div>
                                     <div class="clearfix"></div>   
                                     <ul class="nav nav-tabs" style="margin-left: 10px; margin-right: 10px;">
                                       <li class="active"><a data-toggle="tab" href="#firstStep">1р шат - Хамтрах шат</a></li>

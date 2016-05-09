@@ -37,7 +37,7 @@
                     <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i>Гарах</a></li>
                   </ul>
                 </li>
-                  <li role="presentation" class="dropdown">
+                <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-not">6</span>
@@ -108,6 +108,12 @@
                       </div>
                     </li>
                   </ul>
+                </li>
+                <li role="logo" style="float:left">
+                  <a href="javascript:;" class="logo">
+                    <img src="{{asset('images/logo.png')}}">
+                    <label>Сүлжээний систем</label>
+                  </a>
                 </li>
               </ul>
             </nav>
