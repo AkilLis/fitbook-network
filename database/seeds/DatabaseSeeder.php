@@ -24,9 +24,79 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        $users = array(
+                ['id' => 1, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 2, 'userId' => 'AA00002', 'fName' => 'Tuvshoo','lName' => 'Амарсанаа','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 3, 'userId' => 'AA00003', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 4, 'userId' => 'AA00004', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo2.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 5, 'userId' => 'AA00005', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo3.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 6, 'userId' => 'AA00006', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo4.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 7, 'userId' => 'AA00007', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+        );
+
+       foreach($users as $user){
+                User::create($user); 
+           }
       $blockA = array(
-                'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 200, 'U2' => 201, 'U3' => 202, 'U4' => 203, 'U5' => 204, 'U6' => 205 , 'U7' => 206
-      );  
+                'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 1, 'U2' => 2, 'U3' => 3, 'U4' => 4, 'U5' => 5, 'U6' => 6 , 'U7' => 7
+      ); 
+
+      Block::create($blockA);
+
+      for($i = 1; $i < 8; $i ++)
+      {
+          $awardAccount = array(
+                'id' => $i * 5 + 1, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+            );
+
+           $bonusAccount = array(
+                'id' => $i * 5 + 2, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+            );
+
+           $cashAccount = array(
+                'id' => $i * 5 + 3, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+            );
+
+           $usageAccount = array(
+                'id' => $i * 5 + 4, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+            );
+
+           $savingAccount = array(
+                'id' => $i * 5 + 5, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
+            );
+
+           $maps = array(
+                ['userId' => $i, 'type' => 1,'accountId' => $i * 5 + 1,'groupId' => 1],
+                ['userId' => $i, 'type' => 2,'accountId' => $i * 5 + 2,'groupId' => 1],
+                ['userId' => $i, 'type' => 3,'accountId' => $i * 5 + 3,'groupId' => 1],
+                ['userId' => $i, 'type' => 4,'accountId' => $i * 5 + 4,'groupId' => 1],
+                ['userId' => $i, 'type' => 5,'accountId' => $i * 5 + 5,'groupId' => 1],
+            );
+
+           AwardAccount::create($awardAccount);
+           BonusAccount::create($bonusAccount);
+           CashAccount::create($cashAccount);
+           UsageAccount::create($usageAccount);
+           SavingAccount::create($savingAccount);
+
+           foreach($maps as $map){
+                UserAccountMap::create($map); 
+           }
+      }
+
+      $blockMaps = array(['userId' => 1, 'parentId' => 0, 'sortedOrder' => '1','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 2, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '2', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 3, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '3', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 4, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '4', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 5, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '5','fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 6, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '6', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 7, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '7', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+        );
+
+       foreach($blockMaps as $map){
+                UserBlockMap::create($map); 
+        }
+      /* 
 
       Block::create($blockA);     
 
@@ -146,7 +216,7 @@ class DatabaseSeeder extends Seeder
                 UserBlockMap::create($map); 
         }
 
-
+*/
 
        /* $groupConfig = array(
             ['rankId' => 1, 'groupId' => 1, 'zeroAmount' => 0, 'oneAmount' => 5000, 'twoAmount' => 7000, 'isCapAmount' => 24000, 'capUpperAmount' => 144000 ,'UpperAmount' => 276000, 'firstLevel' => 1, 'secondLevel' => 2, 'thirdLevel' => 3],

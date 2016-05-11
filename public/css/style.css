@@ -651,6 +651,23 @@ table.editable {
     outline: 0px solid transparent;
 }
 
+/*BLOCK INFORMATION PANEL*/
+@media screen and (min-width: 1920px){
+.hex-height{
+  height: 325px !important;
+}
+}
+@media screen and (min-width: 970px) and (max-width: 1920px){
+.hex-height{
+  height: 260px !important;
+}
+}
+@media (min-width: 750px) and (max-width: 970px){
+  .hex-height{
+  height: 230px !important;
+}
+}
+
 /*HEXA*/
 /* ----------------------------------------- */
 
@@ -695,17 +712,22 @@ table.editable {
 }
 .hex h1{
     width: 100%;
-    background-color: #9b59b6;
+    /*background-color: #9b59b6;
     background-color: rgba(155, 89, 182, 0.8);
     -webkit-transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
             transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
     bottom: 110%;
-    font-style: italic;
+    font-style: italic;*/
+    bottom: 50%;
     font-weight: normal;
     font-size: 1.5em;
     padding-top: 100%;
 }
-
+.hex p{
+  top: 50%;
+  left: 15%;
+  text-align: center;
+}
 .hex h1:after {
 
     display: block;
@@ -716,15 +738,24 @@ table.editable {
     text-align: center;
     z-index: 1;
 }
+.hex:hover .hexIn:hover, p:hover, h1:hover,.hexIn:focus, p:focus, h1:focus,.hexIn:active, p:active, h1:active{
+  color: #ffffff;
+}
 
+.hexIn,h1,p{
+  cursor: default;
+}
+.hexIn.hex-empty{
+  cursor: pointer;
+}
 
 /* HOVER EFFECT  */
 
-.hexIn:hover h1 {
+/*.hexIn:hover h1 {
     bottom: -10%;
     padding-bottom: 50%;
     color: white;
-}
+}*/
 
 /* SPACING AND SIZING */
 
@@ -898,6 +929,7 @@ table.editable {
 .symbol {
     margin-bottom: 20px;
     width: 18%;
+    height: 170px;
     padding: 20px 15px;
     -webkit-border-radius: 4px 0px 0px 4px;
     -moz-border-radius: 4px 0px 0px 4px;
@@ -938,6 +970,10 @@ h1.count{
     margin-bottom: 0px;
     padding: 0;
     color: #ffffff;
+    text-align: left;
+}
+span.counttit{
+  font-size:12px;
 }
 p.count{
     font-weight: 300;
@@ -946,6 +982,14 @@ p.count{
     margin-bottom: 0px;
     padding: 0;
     color: #ffffff;
+}
+span.amount{
+  float: right;
+}
+
+.single-account{
+  margin-top: 15px;
+  text-align: right;
 }
 
 /*Block-ийн урамшууллын хүснэгт*/

@@ -22,35 +22,39 @@
               <div class="symbol red">
                   <i class="fa fa-money"></i>
                   <p class="count">Бэлэн мөнгө</p>
-                  <h1 class="count">{{$accounts->cashEnd}}₮</h1>
+                  <h1 class="count single-account">{{$accounts->cashEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol terques">
                   <i class="fa fa-graduation-cap"></i>
                   <p class="count">Урамшуулал</p>
-                  <h1 class="count">{{$accounts->bonusEnd}}₮</h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
               </div>
             </section>
             <section>
               <div class="symbol yellow">
                   <i class="fa fa-trophy"></i>
                   <p class="count">Шагнал</p>
-                  <h1 class="count">{{$accounts->awardEnd}}₮</h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->awardEnd}}₮</span></h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->awardEnd}}₮</span></h1>
               </div>
             </section>
             <section>
               <div class="symbol blue">
                   <i class="fa fa-user"></i>
                   <p class="count">Хэрэглээ</p>
-                  <h1 class="count">{{$accounts->usageEnd}}₮</h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->usageEnd}}₮</span></h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->usageEnd}}₮</span></h1>
               </div>
             </section>
             <section>
               <div class="symbol purple">
                   <i class="fa fa-hourglass-half"></i>
                   <p class="count">Хуримтлал</p>
-                  <h1 class="count">{{$accounts->savingEnd}}₮</h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
               </div>
             </section>
           </div>
@@ -59,10 +63,10 @@
         <div class="row">
           <div class="col-md-8 col-xs-12 col-sm-12">
             <!--Блокийн мэдээлэл-->
-            <div class="x_panel tile fixed_height_250">
+            <div class="x_panel tile hex-height">
               <div class="row x_title">
                 <div class="col-md-12 col-xs-12 col-sm-12">
-                <h3>Блокын мэдээлэл</h3>  
+                <h3>Блокын мэдээлэл</h3>
                 </div>
               </div>
               <div class="row">
@@ -70,30 +74,42 @@
                   <LABEL style="float:left">2-р шат - Өсөх шат</LABEL>
                   <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                 </div>
-                <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px;">
                   <ul id="hexGrid">
                       <div>
                         <li class="hex">
-                          <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="{{$capUser->fName}} {{$capUser->lName}} {{$capUser->userId}}">
-                            <img src="{{asset('images/user.png')}}" alt="" />
+                          <a class="hexIn">
+                            <img src="{{asset('images/hex/yellow.png')}}" alt="" />
                             <h1>{{$capUser->fCount}}</h1>
+                            <p>{{$capUser->userId}}</p>
                           </a>
                         </li>
-                        <div class="badge bg-hex-not hex-not">А</div>
+<!--                         <div class="badge bg-hex-not hex-not">а</div> -->
                       </div>
+                      <?php $counter = 0 ?>
                       @foreach ($blockUsers as $blockUser)
-                        <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" 
-                        title= "{{$blockUser->fName}} {{$blockUser->lName}} {{$blockUser->userId}}" >
-                          <img src="{{asset('images/user.png')}}" alt="" />
-                          <h1>{{$blockUser->fCount}}</h1>
-                          </a>
-                        </li>
+                        <?php $counter++ ?>
+                        @if($counter < 7)
+                          <li class="hex">
+                          <a class="hexIn">
+                            <img src="{{asset('images/hex/terques.png')}}" alt="" />
+                            <h1>{{$blockUser->fCount}}</h1>
+                            <p>{{$blockUser->userId}}</p>
+                            </a>
+                          </li>
+                        @else
+                          <li class="hex">
+                          <a class="hexIn">
+                            <img src="{{asset('images/hex/blue.png')}}" alt="" />
+                            <p style="top:40%">{{$blockUser->userId}}</p>
+                            </a>
+                          </li>
+                        @endif
                       @endforeach
 
                       @for($id = 1; $id < $emptyUsers; $id ++)
                       <li class="hex">
-                        <a class="hexIn" href="#MakeSponsor1" data-toggle="modal" data-tt="tooltip" data-container="body" data-placement="bottom" title="Спонсорлох">
+                        <a class="hexIn hex-empty" href="#MakeSponsor1" data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Спонсорлох">
                           <img src="http://localhost/fitbook/public/images/add.png" alt="" />
                         </a>
                       </li>
