@@ -18,7 +18,7 @@
                     </a></li>   
 
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө оруулах/CEO/</span></a></li>
+                      <li><a data-toggle="modal" ng-click="initLoadCash()" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө оруулах/CEO/</span></a></li>
                     @endif
                     
                     @if ( Auth::user()->hasRole('Ceo') )

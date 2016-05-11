@@ -4,6 +4,7 @@ use App\Permission;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\CashAccount;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -34,8 +35,37 @@ Route::post('auth/activate','UserController@activateUser');
 //Хэрэглэгчийн хэсэгтэй холбоотой
 Route::get('dashboard', 'UserController@dashboard');
 Route::resource('admin/users', 'AdminController');
+
+Route::put('get/account/{userId?}', function(Request $request, $userId){
+    $amount = $request->amount;
+
+    $accountId = DB::table('useraccountmap')
+     ->join('users','users.id','=','useraccountmap.userId')
+     ->where('users.userId','=', $userId)
+     ->where('type','=', 3)
+     ->select('useraccountmap.accountId')
+     ->first();
+
+    $account = CashAccount::find($accountId->accountId);
+
+    $account->endAmount = $account->endAmount + $amount;
+    $account->save();
+
+});
+Route::post('get/account', function(Request $request){
+    $id = $request->id;  
+
+    $cash = DB::table('cashaccount')
+        ->join('useraccountmap','cashaccount.id','=','useraccountmap.accountId')
+        ->where('useraccountmap.userId','=',$id)
+        ->first();
+
+    return Response::json([
+        'endAmount' => !$cash ? 0 : $cash->endAmount]);
+
+});
 Route::post('get/users',function(Request $request){
-    $searchValue = $request->search;  
+    $searchValue = $request->search;
     try
     {
         $filteredUsers = User::where('userId', 'like', "%$searchValue%")

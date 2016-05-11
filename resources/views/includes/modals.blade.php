@@ -101,28 +101,28 @@
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD MONEY FROM CEO DIALOG-->
     <div class="modal fade" id="addMoneyfromCEO" tabindex="-1" role="dialog" aria-labelledby="addMoneyfromCEO" aria-hidden="true" data-target="addMoneyfromCEO">
-                          <div class="modal-dialog">
+                          <div class="modal-dialog" ng-init="addAmount = 0">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel">Мөнгө оруулах</h4>
                               </div>
                               <div class="modal-body">
-                                <form class="reg-modal form-group" >
+                                <form id="add-money-form" class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default search-input" ng-model="searchValue" style="width: 100%" id="searchMoney" autocomplete="off">
+                                        <input type="text" ng-keydown="findUserKeyDown($event, 0, 'searchMoney', 'Y')" class="input-default search-input" ng-model="searchMoney" style="width: 100%" id="searchMoney" autocomplete="off">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(0, user, 'searchMoney')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <a ng-click="chooseUser(0, user, 'searchMoney', 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
                                                 <div class="row">
                                                 <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
                                                 <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
@@ -139,7 +139,8 @@
                                         <label style="padding-left: 10px">Дансан дахь бэлэн мөнгөний хэмжээ</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <label>100,000₮</label>
+                                        <label>@{{ endAmount | currency : ""}}</label>
+                                        <label>₮</label>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>    
@@ -149,7 +150,7 @@
                                         <label for="toggle" class="vertical-centered-label"></label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="number" class="input-default" style="width: 100%">
+                                        <input ng-model="addAmount" type="number" class="input-default" style="width: 100%">
                                       </div>
                                       <div class="clearfix"></div>
                                       <div>
@@ -157,7 +158,7 @@
                                         <label style="padding-left: 10px">Дансан дахь бэлэн мөнгө</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <label>100,000₮</label>
+                                        <label>@{{total() | currency : ""}}₮</label>
                                       </div>
                                     </div>
                                     </div>
@@ -165,7 +166,7 @@
                                 </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
+                                <button type="button" class="btn btn-green" ng-click="loadUserCash()"><i class="fa fa-save"></i> Хадгалах</button>
                               </div>
                             </div>
                           </div>
@@ -187,7 +188,7 @@
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" id="searchAdmin" name="userId" ng-model="searchAdmin" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
+                                        <input type="text" id="searchAdmin" ng-keydown="findUserKeyDown($event, 0, 'searchAdmin', 'N')" name="userId" ng-model="searchAdmin" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
                                         <input type="hidden" id="searchAdminId">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
@@ -233,66 +234,7 @@
                               </div>
                             </div>
               </div>  
-        <meta name="_token" content="{!! csrf_token() !!}" />
-        <script>
-          $(document).ready(function() 
-          {
-            $(document).click(function(){
-              $('#list').hide();  
-            });
-
-            var url = "/fitbook/public/admin/users";
-/*
-            $( "#search" ).keydown(function( event ) {
-              debugger;
-              value = $('#search').val();
-              findUser(value);
-            });*/
-
-            /*$( "#userId" ).focusout(function(e) 
-            {
-              var searchId = $('#userId').val();
-
-              var formData = {
-                 userId: searchId,
-              }
-
-              $.ajaxSetup({
-                 headers: 
-                 {
-                   'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                 }
-              })
-
-              e.preventDefault(); 
-
-              var my_url = url + "/create";
-                  
-              $.ajax({
-                type: "GET",
-                url: my_url,
-                data: formData,
-                dataType: 'json',
-                success: function (data) {
-                    if(data.gotinfo == "success")
-                    {
-                      $(' #btn-add ').prop('disabled', false);
-                      $( "#gotUser" ).show(200);
-                    }
-                    else
-                    {
-                      $( "#gotUser" ).hide(200);
-                      $(' #btn-add ').prop('disabled', true);
-                    }
-                    console.log(data);
-                },
-                error: function (data) {
-                           
-                }
-              })
-            });*/
-          });
-        </script>           
+        <meta name="_token" content="{!! csrf_token() !!}" />           
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // MAKE ACTIVATION FROM ALL USERS DIALOG-->
@@ -311,7 +253,7 @@
                                         <label style="padding-left: 10px">Спонсор сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <input type="hidden" id="searchSponserId">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
@@ -340,7 +282,7 @@
                                         <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchActivated" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="searchActivated" ng-keydown="findUserKeyDown($event, 0, 'searchActivated', 'N')" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <input type="hidden" id="searchActivatedId">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
