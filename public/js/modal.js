@@ -4,9 +4,11 @@ app.controller('mainCtrl', function($scope, $http) {
   $userUrl = '/fitbook/public/admin/users';
   $adminUrl = '/fitbook/public/ceo/admins'; 
   $userAuth = '/fitbook/public/auth/activate';
+  $loadUserCashUrl = '/fitbook/public/get/account';
 
-  $scope.displayNotification = function(type, text)
-  {
+  $addAmount = 0;
+
+  $scope.displayNotification = function(type, text) {
       $.notify({
         title : 'Амжилттай',
         message : text,
@@ -23,14 +25,44 @@ app.controller('mainCtrl', function($scope, $http) {
       }); 
   }
 
-  $scope.loadData = function () {
+  //INIT METHOD
+  $scope.initLoadCash = function(){
+    $('#add-money-form').trigger("reset");
+    $scope.addAmount = 0;
+    $scope.endAmount = 0;
+    $scope.total();
+  };
+
+  $scope.getAllAdmins = function (){
     $http.get($adminUrl).success(function(data) {
       $scope.users = data;
     });
-  };
+  }
 
-  $scope.activateUser = function()
-  {
+  $scope.getAllAdmins();
+
+  //ХЭРЭГЛЭГЧИЙН БЭЛЭН МӨНГӨНИЙ ДАНСЫГ ЦЭНЭГЛЭХ
+  $scope.loadUserCash = function () {
+    var formData = {
+      amount : $scope.total(),
+    }
+
+    $http({
+    method: 'PUT',
+    url: $loadUserCashUrl + '/' + $('#searchMoney').val(),
+    data: formData,
+
+    }).then(function successCallback(response) {
+      $('#addMoneyfromCEO').modal('hide');
+      $scope.displayNotification(0, 'Цэнэглэлээ');   
+    }, function errorCallback(response) {
+      $scope.displayNotification(0, 'цэнэглэх явцад алдаа гарлаа');
+    });     
+  }
+
+  //ХЭРЭГЛЭГЧТЭЙ ХОЛБООТОЙ ЛОЖИК
+
+  $scope.activateUser = function(){
     $('#loader').fadeIn(1000);
 
   	var formData = {
@@ -48,22 +80,21 @@ app.controller('mainCtrl', function($scope, $http) {
       $('#MakeSponsor1').modal('hide');
       $('#loader').fadeOut(1);
 
-	}, function errorCallback(response) {
-
-	    $('#loader').fadeOut(1);
-	});	
+	   }, function errorCallback(response) {
+	       $('#loader').fadeOut(1);
+	   });	
   }
 
   $scope.detachAdmin = function(id, index){
-	$http({
-	  method: 'DELETE',
-	  url: $adminUrl + '/' + id,
-	}).then(function successCallback(response) {
-		$scope.users.splice(index, 1);
-    $scope.displayNotification(1 , 'Эрх хаслаа');
-	}, function errorCallback(response) {
-	    
-	});
+  	$http({
+  	  method: 'DELETE',
+  	  url: $adminUrl + '/' + id,
+  	}).then(function successCallback(response) {
+  		$scope.users.splice(index, 1);
+      $scope.displayNotification(1 , 'Эрх хаслаа');
+  	}, function errorCallback(response) {
+  	    
+  	});
   }
 
   $scope.attachAdmin = function(){
@@ -74,25 +105,53 @@ app.controller('mainCtrl', function($scope, $http) {
 	  method: 'POST',
 	  url: $adminUrl,
 	  data: formData,
-	}).then(function successCallback(response) {
-	  $scope.users.push(response.data);
-	}, function errorCallback(response) {
-	    
-	});
+  	}).then(function successCallback(response) {
+  	  $scope.users.push(response.data);
+  	}, function errorCallback(response) {
+  	    
+  	});
   }
 
-  $scope.chooseUser = function(index, currentUser, id){
-  	$(".content-list:eq("+index+")").hide()
-  	$("#"+id+"").val(currentUser.userId);
-  	$("#"+id+"").focus();
+  $scope.findUserKeyDown = function(event, index, id, withAccount){
+    if(event.which == 13 && $scope.top5users.length == 1)
+    {
+      $scope.chooseUser(index, null, id, withAccount);
+    }
   };
 
-  $scope.loadData();
+  $scope.chooseUser = function(index, currentUser, id, withAccount){
+  	$(".content-list").hide()
+  	$("#"+id+"").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
+  	$("#"+id+"").focus();
+
+    if(withAccount == 'Y')
+    {
+      debugger;
+      var formData = {
+        id : currentUser == null ? $scope.top5users[0].id : currentUser.id,
+      }
+      $http({
+        method: 'POST',
+        url: 'get/account',
+        data: formData,
+      }).then(function successCallback(response) {
+        debugger;
+          $scope.endAmount = response.data.endAmount;
+      }, function errorCallback(response) {
+
+      });
+    }
+  };
+ 
+  $scope.total = function (){
+      return parseInt($scope.endAmount) + parseInt($scope.addAmount == null ? 0 : $scope.addAmount);
+  };
+
   $scope.findUser = function(value, index){
 		var formData = {
 	    	search : value,
-	    }
-	    $http({
+	  }
+	  $http({
 		  method: 'POST',
 		  url: 'get/users',
 		  data: formData,
@@ -105,6 +164,8 @@ app.controller('mainCtrl', function($scope, $http) {
 		  	else
 		  	{
 		  		$scope.top5users = response.data.users;
+          if($scope.top5users.length != 1)
+            $scope.endAmount = 0;
 		  		$(".content-list:eq("+index+")").fadeIn("fast");   
 		  	}
 		}, function errorCallback(response) {
@@ -112,7 +173,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		});
   };
 
-  $scope.$watch('searchValue', function(newValue) {
+  $scope.$watch('searchMoney', function(newValue) {
     if (newValue){
 	    $scope.findUser(newValue, 0);
     }
