@@ -564,6 +564,14 @@ Thanks :)*/
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+.vertical-content.hex-vertical{
+  width : 100%;
+  height : 100%;
+  display : table-cell;
+  vertical-align : middle;
+  border : 1px solid red;
+  float:none;
+}
 .input-search{
 	margin-left:5px;
 	height: 34px;
@@ -752,25 +760,16 @@ table.editable {
     height: 100%;
     margin: 0 auto;
 }
-.hex h1{
-    width: 100%;
-    /*background-color: #9b59b6;
-    background-color: rgba(155, 89, 182, 0.8);
-    -webkit-transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
-            transition: top .4s ease-out, bottom .4s ease-out, .2s padding .2s ease-out;
-    bottom: 110%;
-    font-style: italic;*/
-    bottom: 50%;
+/*.hex span{
     font-weight: normal;
     font-size: 1.5em;
-    padding-top: 100%;
-}
+}*/
 .hex p{
   top: 50%;
   left: 15%;
   text-align: center;
 }
-.hex h1:after {
+/*.hex h1:after {
 
     display: block;
     position: absolute;
@@ -779,7 +778,7 @@ table.editable {
     width: 10%;
     text-align: center;
     z-index: 1;
-}
+}*/
 .hex:hover .hexIn:hover, p.hexIn:hover, h1.hexIn:hover,.hexIn:focus, p.hexIn:focus, h1.hexIn:focus,.hexIn:active, p.hexIn:active, h1.hexIn:active{
   color: #ffffff;
 }
@@ -1101,6 +1100,13 @@ h1.single-account{
 .own-class:hover{
   background:#ffffff !important;
   color: #73879C !important;
+}
+
+.row-fluid {height: 100%; display:table-cell; vertical-align: middle;}
+
+.centering {
+  float:none;
+  margin:0 auto;
 }
 =======
 >>>>>>> origin/master

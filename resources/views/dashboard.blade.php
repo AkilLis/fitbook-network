@@ -84,8 +84,13 @@
                           <li class="hex">
                             <a class="hexIn">
                               <img src="{{asset('images/hex/yellow.png')}}" alt="" />
-                              <h1>{{$capUser->fCount}}</h1>
-                              <p>{{$capUser->userId}}</p>
+                              <div class="container-fluid" style="top: 30%;">
+                                <div class="row-fluid">
+                                    <div class="span3 centering text-center">
+                                      <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$capUser->fCount}}</b></br>{{$capUser->userId}}
+                                    </div>
+                                </div>
+                              </div>
                             </a>
                           </li>
   <!--                         <div class="badge bg-hex-not hex-not">а</div> -->
@@ -95,17 +100,28 @@
                           <?php $counter++ ?>
                           @if($counter < 7)
                             <li class="hex">
-                            <a class="hexIn">
+                            <a class="hexIn vertical class">
                               <img src="{{asset('images/hex/terques.png')}}" alt="" />
-                              <h1>{{$blockUser->fCount}}</h1>
-                              <p>{{$blockUser->userId}}</p>
+                                <div class="container-fluid" style="top: 30%;">
+                                  <div class="row-fluid">
+                                      <div class="span3 centering text-center">
+                                        <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
+                                      </div>
+                                  </div>
+                                </div>
                               </a>
                             </li>
                           @else
                             <li class="hex">
                             <a class="hexIn">
                               <img src="{{asset('images/hex/blue.png')}}" alt="" />
-                              <p style="top:40%">{{$blockUser->userId}}</p>
+                                <div class="container-fluid" style="top: 30%;">
+                                  <div class="row-fluid">
+                                      <div class="span3 centering text-center">
+                                        {{$blockUser->userId}}
+                                      </div>
+                                  </div>
+                                </div>
                               </a>
                             </li>
                           @endif
@@ -118,91 +134,6 @@
                           </a>
                         </li>
                         @endfor
-
-                       <!--  <li class="hex">
-                          <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Түвшинбат gym AA00000000">
-                            <img src="{{asset('images/user.png')}}" alt="" />
-                            <h1>3</h1>
-                          </a>
-                        </li>
-                        <div class="badge bg-hex-not hex-not">А</div>
-                      </div>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="{{asset('images/picture.jpg')}}" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                          <h1>3</h1>
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li>
-                      <li class="hex">
-                        <a class="hexIn" href="#" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Flex gym AA00000000">
-                          <img src="http://localhost/fitbook/public/images/user.png" alt="" />
-                        </a>
-                      </li> -->
                     </ul>
                   </div>
                 </div>
