@@ -652,9 +652,9 @@ table.editable {
 }
 
 /*BLOCK INFORMATION PANEL*/
-@media screen and (min-width: 1920px){
+@media screen and (min-width: 1550px){
 .hex-height{
-  height: 325px !important;
+  height: 350px !important;
 }
 }
 @media screen and (min-width: 970px) and (max-width: 1920px){
@@ -987,7 +987,7 @@ span.amount{
   float: right;
 }
 
-.single-account{
+h1.single-account{
   margin-top: 15px;
   text-align: right;
 }

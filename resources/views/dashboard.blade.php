@@ -26,27 +26,25 @@
               </div>
             </section>
             <section>
-              <div class="symbol terques">
-                  <i class="fa fa-graduation-cap"></i>
-                  <p class="count">Урамшуулал</p>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+              <div class="symbol blue">
+                  <i class="fa fa-user"></i>
+                  <p class="count">Хэрэглээ</p>
+                  <h1 class="count single-account">{{$accounts->usageEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol yellow">
                   <i class="fa fa-trophy"></i>
                   <p class="count">Шагнал</p>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->awardEnd}}₮</span></h1>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->awardEnd}}₮</span></h1>
+                  <h1 class="count single-account">{{$accounts->awardEnd}}₮</h1>
               </div>
             </section>
             <section>
-              <div class="symbol blue">
-                  <i class="fa fa-user"></i>
-                  <p class="count">Хэрэглээ</p>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->usageEnd}}₮</span></h1>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->usageEnd}}₮</span></h1>
+              <div class="symbol terques">
+                  <i class="fa fa-graduation-cap"></i>
+                  <p class="count">Урамшуулал</p>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
               </div>
             </section>
             <section>
