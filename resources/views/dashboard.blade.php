@@ -101,7 +101,11 @@
                           @if($counter < 7)
                             <li class="hex">
                             <a class="hexIn vertical class">
-                              <img src="{{asset('images/hex/terques.png')}}" alt="" />
+                              @if(Auth::user()->id == $blockUser->id)
+                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
+                              @else
+                                <img src="{{asset('images/hex/terques.png')}}" alt="" />
+                              @endif  
                                 <div class="container-fluid" style="top: 30%;">
                                   <div class="row-fluid">
                                       <div class="span3 centering text-center">
