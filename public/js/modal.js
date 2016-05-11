@@ -27,6 +27,7 @@ app.controller('mainCtrl', function($scope, $http) {
 
   //INIT METHOD
   $scope.initLoadCash = function(){
+    $('#searchMoney').focus();
     $('#add-money-form').trigger("reset");
     $scope.addAmount = 0;
     $scope.endAmount = 0;
@@ -34,6 +35,7 @@ app.controller('mainCtrl', function($scope, $http) {
   };
 
   $scope.getAllAdmins = function (){
+    $('#searchAdmin').focus();
     $http.get($adminUrl).success(function(data) {
       $scope.users = data;
     });

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $users = array(
+        /*$users = array(
                 ['id' => 1, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
                 ['id' => 2, 'userId' => 'AA00002', 'fName' => 'Tuvshoo','lName' => 'Амарсанаа','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
                 ['id' => 3, 'userId' => 'AA00003', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
@@ -96,8 +96,11 @@ class DatabaseSeeder extends Seeder
        foreach($blockMaps as $map){
                 UserBlockMap::create($map); 
         }
-      /* 
+      /* */
 
+    $blockA = array(
+                'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 200, 'U2' => 201, 'U3' => 202, 'U4' => 203, 'U5' => 204, 'U6' => 205 , 'U7' => 206
+      ); 
       Block::create($blockA);     
 
       for($i = 200; $i < 207; $i ++)
@@ -141,13 +144,13 @@ class DatabaseSeeder extends Seeder
            }
       }
 
-      $blockMaps = array(['userId' => 200, 'parentId' => 0, 'sortedOrder' => '1','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 201, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '2', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 202, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '3', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 203, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '4', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 204, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '5','fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 205, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '6', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 206, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '7', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+      $blockMaps = array(['userId' => 200, 'parentId' => 0, 'sortedOrder' => '100','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 201, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '101', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 202, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '102', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 203, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '103', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 204, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '104','fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 205, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '105', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+            ['userId' => 206, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '106', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
         );
 
        foreach($blockMaps as $map){
@@ -216,7 +219,7 @@ class DatabaseSeeder extends Seeder
                 UserBlockMap::create($map); 
         }
 
-*/
+
 
        /* $groupConfig = array(
             ['rankId' => 1, 'groupId' => 1, 'zeroAmount' => 0, 'oneAmount' => 5000, 'twoAmount' => 7000, 'isCapAmount' => 24000, 'capUpperAmount' => 144000 ,'UpperAmount' => 276000, 'firstLevel' => 1, 'secondLevel' => 2, 'thirdLevel' => 3],
