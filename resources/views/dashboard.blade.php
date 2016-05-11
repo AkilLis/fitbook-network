@@ -129,7 +129,7 @@
 
                         @for($id = 1; $id < $emptyUsers; $id ++)
                         <li class="hex">
-                          <a class="hexIn hex-empty" href="#MakeSponsor1" data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Спонсорлох">
+                          <a class="hexIn hex-empty" href="#MakeSponsor1" data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Зуучлах">
                             <img src="http://localhost/fitbook/public/images/add.png" alt="" />
                           </a>
                         </li>
@@ -210,7 +210,7 @@
                     <li class="active">Пүүжээ</li>
                   </ol>
                   <div class="row" style="margin-bottom:10px">
-                    <div class="col-md-6"><label style="margin-top:5px">Миний спонсор:</label></div>
+                    <div class="col-md-6"><label style="margin-top:5px">Миний зуучлагч:</label></div>
                       <div>
                         <span class="lvl-b user-profile">
                           <div class="col-md-6" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
