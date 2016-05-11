@@ -5,29 +5,11 @@ app.controller('mainCtrl', function($scope, $http) {
   $adminUrl = '/fitbook/public/ceo/admins'; 
   $userAuth = '/fitbook/public/auth/activate';
 
-  $scope.loadData = function () {
-    $http.get($adminUrl).success(function(data) {
-      $scope.users = data;
-    });
-  };
-
-  $scope.activateUser = function(){
-  	var formData = {
-    	id : $( "#searchActivated" ).val(),
-    	parentId : $( "#searchSponser" ).val(),
-    }
-
-  	$http({
-	  method: 'POST',
-	  url: $userAuth,
-	  data: formData,
-	}).then(function successCallback(response) {
-		  
-      $('#MakeSponsor1').modal('hide');
-
+  $scope.displayNotification = function(type, text)
+  {
       $.notify({
         title : 'Амжилттай',
-        message : 'Амжилттай идвэхжүүллээ.',
+        message : text,
         type : 'success',
         animate : {
           enter : 'animated bounceIn',
@@ -38,12 +20,37 @@ app.controller('mainCtrl', function($scope, $http) {
           x:20,
           y:20
         }
-      });
+      }); 
+  }
 
-      location.reload();
+  $scope.loadData = function () {
+    $http.get($adminUrl).success(function(data) {
+      $scope.users = data;
+    });
+  };
+
+  $scope.activateUser = function()
+  {
+    $('#loader').fadeIn(1000);
+
+  	var formData = {
+    	id : $( "#searchActivated" ).val(),
+    	parentId : $( "#searchSponser" ).val(),
+    }
+
+  	$http({
+	  method: 'POST',
+	  url: $userAuth,
+	  data: formData,
+
+	  }).then(function successCallback(response) {
+		  
+      $('#MakeSponsor1').modal('hide');
+      $('#loader').fadeOut(1);
 
 	}, function errorCallback(response) {
-	    
+
+	    $('#loader').fadeOut(1);
 	});	
   }
 
@@ -53,6 +60,7 @@ app.controller('mainCtrl', function($scope, $http) {
 	  url: $adminUrl + '/' + id,
 	}).then(function successCallback(response) {
 		$scope.users.splice(index, 1);
+    $scope.displayNotification(1 , 'Эрх хаслаа');
 	}, function errorCallback(response) {
 	    
 	});

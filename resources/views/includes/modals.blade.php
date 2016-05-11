@@ -674,5 +674,8 @@
                             </div>
                           </div>
     </div>
+    <div id="loader" >
+      <img src="{{asset('images/loader.gif')}}"/>
+    </div>
 </div>
     

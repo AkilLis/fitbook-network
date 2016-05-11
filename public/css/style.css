@@ -996,5 +996,17 @@ p.count{
             max-width: 120px;
             white-space:pre-wrap;
         }
+
+
+#loader {
+  display: none;
+}
+#loader img {
+  position: absolute; 
+  top:25%;
+  left:47%;
+  z-index: 2055;
+}
+
 =======
 >>>>>>> origin/master

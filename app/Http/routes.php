@@ -43,22 +43,17 @@ Route::post('get/users',function(Request $request){
             ->orWhere('lName', 'like', '%$searchValue%')  
              ->take(5)
             ->get();
-        }
-        catch(ModelNotFoundException $ex)
-        {
-            return Response::json([
-            'gotinfo' => 'failed',
-            ]); 
-        }
-
+    }
+    catch(ModelNotFoundException $ex)
+    {
         return Response::json([
-            'gotinfo' => 'success',
-            'users' => $filteredUsers,
-        ]);
-        //}
+        'gotinfo' => 'failed',
+        ]); 
+    }
 
-        return Response::json([
-                'gotinfo' => 'failed',
+    return Response::json([
+        'gotinfo' => 'success',
+        'users' => $filteredUsers,
     ]);
 });
 

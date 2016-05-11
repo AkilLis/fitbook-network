@@ -72,21 +72,28 @@ class UserController extends Controller
             ->groupBy('users.id')
             ->get();
 
-        $matchThese = ['userblockmap.userId' => $id, 'block.isActive' => 'Y'];
+
+        //Яг одоо идвэхтэй блок, ахисан шат сүүлд шалгана     
+        $condition = ['userblockmap.userId' => $id, 'block.isActive' => 'Y'];
 
         $blockId = \DB::table('userblockmap')
             ->join('block','block.id','=','userblockmap.blockId')
-            ->where($matchThese)
+            ->where($condition)
             ->first();
 
-        //Блокын мэдээлэл 
+        $condition = ['block.id' => $blockId->blockId, 'block.isActive' => 'Y'];
+
+        //Блокын ахлагчыг тусд нь олно 
         $capUser = \DB::table('userblockmap')
-            ->join('users', 'userblockmap.userId','=','users.id')
-            ->join('block','block.id','=','userblockmap.blockId')
-            ->where('block.id','=', $blockId->blockId)
-            ->where('block.isActive','=','Y')
-            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
-            ->first();          
+        ->join('users', 'userblockmap.userId','=','users.id')
+        ->join('block', function ($join) {
+            $join->on('block.id', '=', 'userblockmap.blockId')
+                 ->on('block.U1', '=', 'userblockmap.userId');
+        })
+        
+        ->where($condition)
+        ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
+        ->first();          
 
         \Log::info('Caps : '. $capUser->fCount);
 
