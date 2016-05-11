@@ -9,6 +9,7 @@ body{
 }
 .logo img{
   height: 45px;
+  cursor: pointer;
 }
 .logo label{
   font-size: 25px;
@@ -19,7 +20,9 @@ body{
   font-weight: normal;
   text-transform: uppercase;
   color: #73879C;
+  cursor: pointer;
 }
+
 header{
 	height:60px;
 	background:#fff;
@@ -231,6 +234,33 @@ content{
   /* 2 column */
   /* 3 column */
   /* DEPARTMENTS COLUMNs */
+}
+.org-chart-content{
+  font-weight: bold;
+  font-size: 20px;
+}
+.org-grey{
+  color: #A5A9AC;
+}
+.org-blue{
+  color: #41cac0;
+}
+.org-red{
+  color: #e74c3c;
+}
+.org-yellow{
+  color: #f1c40f;
+}
+.org-terques{
+  color: #1abc9c;
+}
+.org-purple{
+  color: #9b59b6;
+}
+.family-tree-group{
+position: relative;
+  height: 100%;
+  border: 1px solid;
 }
 .org-chart.cf:before, .org-chart.cf:after {
   content: " ";
@@ -519,8 +549,20 @@ Thanks :)*/
 	box-shadow: 0px 0px 3px #77B1E2;
 }
 .vertical-centered-label label{
-	vertical-align:middle;
-	margin-top:15px;
+  vertical-align: middle;
+  margin-top: 15px;
+}
+.vertical-class{
+  position: absolute;
+  height: 100%;
+  margin-left: 3px;
+}
+.vetical-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 .input-search{
 	margin-left:5px;
@@ -738,7 +780,7 @@ table.editable {
     text-align: center;
     z-index: 1;
 }
-.hex:hover .hexIn:hover, p:hover, h1:hover,.hexIn:focus, p:focus, h1:focus,.hexIn:active, p:active, h1:active{
+.hex:hover .hexIn:hover, p.hexIn:hover, h1.hexIn:hover,.hexIn:focus, p.hexIn:focus, h1.hexIn:focus,.hexIn:active, p.hexIn:active, h1.hexIn:active{
   color: #ffffff;
 }
 
@@ -1052,5 +1094,13 @@ h1.single-account{
   z-index: 2055;
 }
 
+.own-class{
+  background:#9B59B6 !important;
+  color: #ffffff !important;
+}
+.own-class:hover{
+  background:#ffffff !important;
+  color: #73879C !important;
+}
 =======
 >>>>>>> origin/master

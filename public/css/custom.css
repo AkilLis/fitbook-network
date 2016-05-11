@@ -208,6 +208,9 @@ body .container.body .right_col {
 .top_nav .nav>li>a:focus, .top_nav .nav>li>a:hover, .top_nav .nav .open>a, .top_nav .nav .open>a:focus, .top_nav .nav .open>a:hover {
   background: #D9DEE4;
 }
+.top_nav .nav>li>a.logo:hover,.top_nav .nav>li>a.logo:focus{
+  background: transparent;
+}
 body {
   color: #73879C;
   background: #2A3F54;
@@ -1360,7 +1363,7 @@ span.right {
 
 /** top tiles  */
 .tile_count {
-  margin-top: 0px;
+  margin-top: 50px;
 }
 .tile_count .tile_stats_count {
   border-bottom: 1px solid #D9DEE4;
