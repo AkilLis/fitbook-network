@@ -243,14 +243,14 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Спонсорлох</h4>
+                                <h4 class="modal-title" id="myModalLabel">Зуучлах</h4>
                               </div>
                               <div class="modal-body">
                                 <form class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Спонсор сонгох</label>
+                                        <label style="padding-left: 10px">Зуучлагч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
@@ -273,10 +273,10 @@
                                       </div>
                                     </div>
                                     <div class="clearfix"></div> 
-                                    <!-- <form>
+                                    <form>
                                       <input type="checkbox" style="display:none" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
                                     </form>
-                                    <div class="clearfix"></div>    -->
+                                    <div class="clearfix"></div>   
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>
@@ -301,6 +301,44 @@
                                         </div>
                                       </div>
                                     </div>
+                                    <div class="clearfix"></div>
+                                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-admin" cellspacing="0" width="100%">
+                                      <thead>
+                                        <tr>
+                                          <th width="40%">Данс</th>
+                                          <th width="30%">Дансан дахь үлдэгдэл</th>
+                                          <th width="30%">Идэвхижүүлэх дүн</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td>Бэлэн мөнгө</td>
+                                          <td>120,000₮</td>
+                                          <td contenteditable="true"></td>
+                                        </tr>
+                                        <tr>
+                                          <td>Шагнал</td>
+                                          <td>300,000₮</td>
+                                          <td contenteditable="true"></td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="3">Анхан</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Урамшуулал</td>
+                                          <td>100,000₮</td>
+                                          <td contenteditable="true"></td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="3">Ахисан</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Урамшуулал</td>
+                                          <td>300,000₮</td>
+                                          <td contenteditable="true"></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
                                     <div class="clearfix"></div>
                                   </div>
                                 </form>
@@ -342,13 +380,24 @@
                                       </thead>
                                       <tbody>
                                         <tr>
+                                          <td >Шагнал</td>
+                                          <td>300,000₮</td>
+                                          <td contenteditable="true"></td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="3">Анхан</td>
+                                        </tr>
+                                        <tr>
                                           <td>Урамшуулал</td>
                                           <td>100,000₮</td>
                                           <td contenteditable="true"></td>
                                         </tr>
                                         <tr>
-                                          <td>Шагнал</td>
-                                          <td>300,000₮</td>
+                                          <td colspan="3">Ахисан</td>
+                                        </tr>
+                                        <tr>
+                                          <td>Урамшуулал</td>
+                                          <td>100,000₮</td>
                                           <td contenteditable="true"></td>
                                         </tr>
                                       </tbody>
