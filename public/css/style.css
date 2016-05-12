@@ -1109,6 +1109,7 @@ h1.single-account{
   margin:0 auto;
 }
 
+<<<<<<< HEAD
 /*MODALS SPACING STYLE*/
 /*Зуучлах-ын Зуучлагч сонгох, хэрэглэгч сонгох Input-ийг янзлах*/
 .sponsor-input-spacing{
@@ -1145,6 +1146,11 @@ table tr:last-child td:first-child {
 /* bottom-right border-radius */
 table tr:last-child td:last-child {
     border-bottom-right-radius: 30px;
+=======
+.borderless-input {
+  border : 1px;
+  background-color: #F9F9F9;
+>>>>>>> b2551d7abf1a1ee8105ad78a03078c830ff9f84f
 }
 =======
 >>>>>>> origin/master

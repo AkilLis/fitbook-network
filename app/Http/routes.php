@@ -5,6 +5,8 @@ use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\CashAccount;
+use App\AwardAccount;
+use App\BonusAccount;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -52,7 +54,163 @@ Route::put('get/account/{userId?}', function(Request $request, $userId){
     $account->save();
 
 });
-Route::post('get/account', function(Request $request){
+Route::post('transaction', function(Request $request){
+    $userId = $request->id;
+    $rank = $request->rank; 
+    $awardAmount = $request->awardAmount;
+    $bonusAmountBg = $request->bonusAmountBg;
+    $bonusAmountAd = $request->bonusAmountAd;
+    $tranToken = $request->tranToken;
+
+    if(\Auth::user()->tranToken != $tranToken)
+    {
+        return Response::json([
+                'resultCode' => 2,
+            ]);
+    }    
+
+    $accountId = DB::table('useraccountmap')
+     ->join('users','users.id','=','useraccountmap.userId')
+     ->where('users.userId','=', $userId)
+     ->where('useraccountmap.type','=', 1)
+     ->select('useraccountmap.accountId')
+     ->first();
+
+    $account = AwardAccount::find($accountId->accountId);
+
+    $account->endAmount = $account->endAmount + $awardAmount + $bonusAmountBg + $bonusAmountAd;
+    $account->save();
+
+    $accountId = DB::table('useraccountmap')
+    ->where('useraccountmap.userId','=', \Auth::user()->id)
+    ->where('useraccountmap.type','=', 1)
+    ->select('useraccountmap.accountId')
+    ->first();
+
+    \Log::info('mineAccountId = '.$accountId->accountId);
+
+    $account = AwardAccount::find($accountId->accountId);
+
+    $account->endAmount = $account->endAmount - $awardAmount;
+
+    if($awardAmount != 0)
+    {
+        $accountId->save();
+    }
+
+    if($rank == 1)
+    {
+        $bonusId = DB::table('useraccountmap')
+        ->where('useraccountmap.userId','=', \Auth::user()->id)
+        ->where('useraccountmap.type','=', 2)
+        ->where('useraccountmap.groupId','=',1)
+        ->select('useraccountmap.accountId')
+        ->first();
+
+        $bonus = BonusAccount::find($bonusId->accountId);
+        $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
+        if($bonusAmountBg != 0)
+            $bonus->save();
+    }
+
+    if($rank == 2)
+    {
+        $bonusId = DB::table('useraccountmap')
+        ->where('useraccountmap.userId','=', \Auth::user()->id)
+        ->where('useraccountmap.type','=', 2)
+        ->where('useraccountmap.groupId','=', 2)
+        ->select('useraccountmap.accountId')
+        ->first();
+
+        $bonus = BonusAccount::find($bonusId->accountId);
+        \Log::info('bonus = '.$bonus->endAmount);
+        $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
+        \Log::info('subBonus = '.$bonus->endAmount);
+        if($bonusAmountAd != 0)
+            $bonus->save();
+    }
+
+    if($rank == 3)
+    {
+        $bonusId = DB::table('useraccountmap')
+        ->where('useraccountmap.userId','=', \Auth::user()->id)
+        ->where('useraccountmap.type','=', 2)
+        ->where('useraccountmap.groupId','=',1)
+        ->select('useraccountmap.accountId')
+        ->first();
+
+        $bonus = BonusAccount::find($bonusId->accountId);
+        $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
+        if($bonusAmountBg != 0)
+         $bonus->save();
+
+        $bonusId = DB::table('useraccountmap')
+        ->where('useraccountmap.userId','=', \Auth::user()->id)
+        ->where('useraccountmap.type','=', 2)
+        ->where('useraccountmap.groupId','=', 2)
+        ->select('useraccountmap.accountId')
+        ->first();
+
+        $bonus = BonusAccount::find($bonusId->accountId);
+        $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
+        if($bonusAmountAd != 0)
+          $bonus->save();
+    }
+
+    return Response::json([
+            'resultCode' => 0,
+        ]);
+}); 
+
+Route::get('get/account', function(){
+    $id = \Auth::user()->id;  
+
+    $cash = DB::table('cashaccount')
+        ->join('useraccountmap','cashaccount.id','=','useraccountmap.accountId')
+        ->where('useraccountmap.userId','=',$id)
+        ->first();
+
+    $bonus = DB::table('useraccountmap')
+        ->join('bonusaccount','bonusaccount.id','=','useraccountmap.accountId')
+        ->where('useraccountmap.userId','=',$id)
+        ->orderBy('useraccountmap.groupId', 'ASC')
+        ->select('useraccountmap.groupId', 'bonusaccount.endAmount')
+        ->get();
+
+    $award = DB::table('useraccountmap')
+        ->join('awardaccount','awardaccount.id','=','useraccountmap.accountId')
+        ->where('useraccountmap.userId','=',$id)
+        ->orderBy('useraccountmap.groupId', 'ASC')
+        ->select('useraccountmap.groupId', 'awardaccount.endAmount')
+        ->get();
+    // rankId = 1 Beginnner;
+    // rankId = 2 Advanced
+    // rankId = 3 Both;
+    $rankId = 1;
+    if(count($bonus) == 1)
+    {
+        $rankId = $bonus[0]->groupId;
+        return Response::json([
+                'rankId' => $rankId, 
+                'cashEndAmount' => !$cash ? 0 : $cash->endAmount,
+                'bonusEndAmount' => $bonus[0]->endAmount,
+                'awardEndAmount' => $award[0]->endAmount]
+        );
+    }
+    else
+    {
+        $rankId = 3;
+        return Response::json([
+        'rankId' => $rankId, 
+        'cashEndAmount' => !$cash ? 0 : $cash->endAmount,
+        'bonusEndAmountBg' => $bonus[0]->endAmount,
+        'bonusEndAmountAd' => $bonus[1]->endAmount,
+        'awardEndAmount' => $award[0]->endAmount]);
+    }
+});
+
+Route::post('get/account', function(Request $request)
+{
     $id = $request->id;  
 
     $cash = DB::table('cashaccount')
@@ -61,8 +219,8 @@ Route::post('get/account', function(Request $request){
         ->first();
 
     return Response::json([
-        'endAmount' => !$cash ? 0 : $cash->endAmount]);
-
+        'cashEndAmount' => !$cash ? 0 : $cash->endAmount, ]
+    );
 });
 Route::post('get/users',function(Request $request){
     $searchValue = $request->search;

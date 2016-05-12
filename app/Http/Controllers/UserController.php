@@ -17,11 +17,15 @@ class UserController extends Controller
         $rankId = 1;
         $parentId = User::where('userId', '=', $request->parentId)->first()->id;
         $userId = User::where('userId', '=', $request->id)->first()->id;
-        $currentBlock = $blockId = DB::table('userblockmap')
+
+        \Log::info('id = '.$userId);
+        \Log::info('parent = '.$parentId);
+
+        $currentBlock = DB::table('userblockmap')
             ->join('block', 'userblockmap.blockId', '=', 'block.id')
             ->where('userblockmap.userId','=', $parentId)
-            ->where('block.groupId', '=', $rankId)
-            ->select('userblockmap.blockId as blockId')
+            ->where('userblockmap.rankId', '=', $rankId)
+            ->select('userblockmap.blockId')
             ->first()->blockId;
 
         $isDevide = 'Y';

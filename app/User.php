@@ -34,4 +34,41 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function hasRank($rankId)
+    {
+        $rank = DB::table('userblockmap')
+                    ->whereIn('userblockmap.rankId', [1, 2]);
+        return count($rank) > 1 ? true : false;
+    }
+
+    public function isBoth() {
+
+        $ranks = \DB::table('userblockmap')
+                ->where('userblockmap.userId','=', \Auth::user()->id)
+                ->groupBy('rankId')
+                ->select('userblockmap.rankId')
+                ->get();
+        return count($ranks) > 1 ? true : false;
+    }
+        
+/*    public function isBeginner() {
+        \Log::info('Maps = ', $this->blockMaps()[0]);
+        foreach ($this->blockMaps() as $block) {
+                if ($block->rankId == 1) {
+
+                    return true;
+                }
+        }
+    }
+
+    public function isAdvanced() {
+        foreach ($this->blockMaps() as $block) {
+                if ($block->rankId == 2) {
+                    return true;
+                }
+        }
+    }
+
+    */
 }
