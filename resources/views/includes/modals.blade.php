@@ -101,7 +101,7 @@
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD MONEY FROM CEO DIALOG-->
     <div class="modal fade" id="addMoneyfromCEO" tabindex="-1" role="dialog" aria-labelledby="addMoneyfromCEO" aria-hidden="true" data-target="addMoneyfromCEO">
-                          <div class="modal-dialog" ng-init="addAmount = 0">
+                          <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -254,7 +254,6 @@
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
-                                        <input type="hidden" id="searchSponserId">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
@@ -321,6 +320,7 @@
                                           <td>300,000₮</td>
                                           <td contenteditable="true"></td>
                                         </tr>
+
                                         <tr>
                                           <td colspan="3">Анхан</td>
                                         </tr>
@@ -329,6 +329,7 @@
                                           <td>100,000₮</td>
                                           <td contenteditable="true"></td>
                                         </tr>
+
                                         <tr>
                                           <td colspan="3">Ахисан</td>
                                         </tr>
@@ -352,7 +353,7 @@
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // TRANSACTION DIALOG-->
     <div class="modal fade" id="UserTrans" tabindex="-1" role="dialog" aria-labelledby="UserTrans" aria-hidden="true" data-target="UserTrans">
-      <div class="modal-dialog">
+      <div class="modal-dialog" ng-init="getAccountInfo()">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -366,7 +367,22 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default" placeholder="Түвшинбат Гансүх" style="width: 100%;">
+                                        <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchTrans" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchTrans', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <div class="content-list" id="list">
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(2, user, 'searchTrans')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>   
@@ -379,36 +395,47 @@
                                         </tr>
                                       </thead>
                                       <tbody>
+                                        
                                         <tr>
                                           <td >Шагнал</td>
-                                          <td>300,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shAwardAmount | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edAwardAmount"/>
+                                          </td>
                                         </tr>
-                                        <tr>
+
+                                        <tr ng-show="isShown(1)">
                                           <td colspan="3">Анхан</td>
                                         </tr>
-                                        <tr>
+
+                                        <tr ng-show="isShown(1)">
                                           <td>Урамшуулал</td>
-                                          <td>100,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shBonusAmountBg | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountBg"/>
+                                          </td>
                                         </tr>
-                                        <tr>
+                                        
+                                        <tr ng-show="isShown(2)">
                                           <td colspan="3">Ахисан</td>
                                         </tr>
-                                        <tr>
+                                        <tr ng-show="isShown(2)">
                                           <td>Урамшуулал</td>
-                                          <td>100,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shBonusAmountAd | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountAd"/>
+                                          </td>
                                         </tr>
                                       </tbody>
                                     </table>
+
                                     <div class="clearfix"></div> 
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Тан код оруулах</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" class="input-default" style="width: 90%;">
+                                        <input type="password" ng-model="tokenPassword" maxlength="4" class="input-default" style="width: 90%;">
                                       </div>
                                       <div class="col-md-1 vertical-centered-label">
                                         <label class="fa fa-key" style="vertical-align: middle; text-align: left;"></label>
@@ -418,7 +445,7 @@
                                 </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-green"><i class="fa fa-envelope-o"></i> Илгээх</button>
+                                <button type="button" ng-click="makeTransaction()" class="btn btn-green"><i class="fa fa-envelope-o"></i> Илгээх</button>
                               </div>
                             </div>
                           </div>

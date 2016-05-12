@@ -36,6 +36,7 @@
               <div class="symbol yellow">
                   <i class="fa fa-trophy"></i>
                   <p class="count">Шагнал</p>
+                  
                   <h1 class="count single-account">{{$accounts->awardEnd}}₮</h1>
               </div>
             </section>
@@ -43,16 +44,27 @@
               <div class="symbol terques">
                   <i class="fa fa-graduation-cap"></i>
                   <p class="count">Урамшуулал</p>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+
+                  @if(Auth::user()->isBoth())
+                    <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+                    <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->bonusEnd}}₮</span></h1>
+                  @else
+                    <h1 class="count single-account">{{$accounts->bonusEnd}}₮</h1>          
+                  @endif  
               </div>
             </section>
             <section>
               <div class="symbol purple">
                   <i class="fa fa-hourglass-half"></i>
                   <p class="count">Хуримтлал</p>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
-                  <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
+                  
+                  @if(Auth::user()->isBoth())
+                    <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Анхан">АН: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
+                    <h1 class="count"><span class="counttit" data-toggle="tooltip" data-container="body" data-placement="left" title="Ахьсан">АХ: </span><span class="amount">{{$accounts->savingEnd}}₮</span></h1>
+                  @else
+                    <h1 class="count single-account">{{$accounts->savingEnd}}₮</h1>          
+                  @endif  
+                  
               </div>
             </section>
           </div>
@@ -61,7 +73,9 @@
         <div class="row">
           <div class="row x_title" style="margin-left:0px; margin-right:0px;">
             <div class="col-md-12">
-              <h3>Анхан шат <a class="glyphicon glyphicon-chevron-right" href="#" data-toggle="tooltip" data-placement="right" title="Ахисан шат руу шилжих" style="float: right; cursor: pointer;"></a></h3>
+              <h3>Анхан шат 
+                <a class="glyphicon glyphicon-chevron-right" href="#" data-toggle="tooltip" data-placement="right" title="Ахисан шат руу шилжих" style="float: right; cursor: pointer;"></a>
+              </h3>
             </div>
           </div>
           <div class="row">

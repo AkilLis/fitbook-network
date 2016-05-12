@@ -1,0 +1,133 @@
+﻿CREATE DEFINER=`root`@`localhost` PROCEDURE `block_divide`(
+	in pBlockId BIGINT(20))
+BEGIN
+    /* тухайн блокын ахлагчаас бусад хүмүүсээ 2 блокд хуваах */
+    DROP TEMPORARY TABLE IF EXISTS cte_FirstBlock;
+    CREATE TEMPORARY TABLE cte_FirstBlock
+	SELECT a.id AS parentId, A.groupId, 0 AS userCount, A.U2 AS U1, A.U4 AS U2, A.U6 AS U3, A.B1 AS U4, A.B3 AS U5, B5 AS U6, B7 AS U7
+		from fitbook.block A
+        WHERE A.Id= pBlockId AND isActive = 'Y'
+        LIMIT 1;
+    
+    DROP TEMPORARY TABLE IF EXISTS cte_SecondtBlock;
+    CREATE TEMPORARY TABLE cte_SecondtBlock
+	SELECT a.id AS parentId, A.groupId, 0 AS userCount, A.U3 AS U1, A.U5 AS U2, A.U7 AS U3, A.B2 AS U4, A.B4 AS U5, B6 AS U6, B8 AS U7
+		from fitbook.block A
+        WHERE A.Id= pBlockId AND isActive = 'Y'
+        LIMIT 1;
+    
+    SET @firstBlockId =  NOW() + 0;
+    SET @sectondBlockId =  @firstBlockId + 1;
+    
+    /* Шинэ 2 блок үүсгэх */
+    INSERT INTO fitbook.block (id, parentId, groupId, userCount,U1, U2 ,U3, U4, U5, U6, U7, isActive, created_at, updated_at)
+		SELECT @firstBlockId, cte_FirstBlock.*, 'Y', NOW(), NOW() FROM cte_FirstBlock;
+
+	INSERT INTO fitbook.block (id, parentId, groupId, userCount,U1, U2 ,U3, U4, U5, U6, U7, isActive, created_at, updated_at)
+		SELECT @sectondBlockId, cte_SecondtBlock.*, 'Y',NOW(), NOW() FROM cte_SecondtBlock;
+	/* 2 блокынхоо хүмүүсийг тэмп таблед авах */
+	
+    DROP TEMPORARY TABLE IF EXISTS tmpfirstBlockUsers;
+    CREATE TEMPORARY TABLE tmpfirstBlockUsers
+		SELECT 1 AS id, U1 AS userId , groupId, 0 as amount FROM cte_FirstBlock;
+        
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 2, U2, groupId, 0 FROM cte_FirstBlock;
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 3, U3, groupId, 0 FROM cte_FirstBlock;
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 4, U4, groupId, 0 FROM cte_FirstBlock;
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 5, U5, groupId, 0 FROM cte_FirstBlock;
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 6, U6, groupId, 0 FROM cte_FirstBlock;
+	INSERT INTO tmpfirstBlockUsers
+		SELECT 7, U7, groupId, 0 FROM cte_FirstBlock;
+        
+	DROP TEMPORARY TABLE IF EXISTS tmpSecondBlockUsers;
+	CREATE TEMPORARY TABLE tmpSecondBlockUsers
+		SELECT 1 AS id, U1 AS userId, groupId, 0 as amount FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 2, U2, groupId, 0 FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 3, U3, groupId, 0 FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 4, U4, groupId, 0 FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 5, U5, groupId, 0 FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 6, U6, groupId, 0 FROM cte_SecondtBlock;
+	INSERT INTO tmpSecondBlockUsers
+		SELECT 7, U7, groupId, 0 FROM cte_SecondtBlock;
+	
+    INSERT INTO userBlockMap
+		(userId, parentId, sortedOrder,blockId, fCount, mCount, rankId, created_at, updated_at)
+		SELECT A.userId, B.parentId, b.sortedOrder, @firstBlockId, b.fCount, b.mCount, b.RankId, NOW(), NOW()
+			FROM tmpfirstBlockUsers A
+			JOIN userBlockMap B ON A.userId = B.userId 
+            WHERE B.blockId = pBlockId;
+            
+	INSERT INTO userBlockMap
+		(userId, parentId, sortedOrder,blockId, fCount, mCount, rankId, created_at, updated_at)
+		SELECT A.userId, B.parentId, b.sortedOrder, @secondBlockId, b.fCount, b.mCount, b.RankId, NOW(), NOW()
+			FROM tmpSecondBlockUsers A
+			JOIN userBlockMap B ON A.userId = B.userId 
+            WHERE B.blockId = pBlockId;
+    
+    DELETE FROM tmpFirstBlockUsers WHERE id > 1;
+	DELETE FROM tmpSecondBlockUsers WHERE id > 1;
+    
+    /* Ахлагч болсоны урамшуулал */
+    
+    UPDATE tmpfirstBlockUsers A
+         JOIN useraccountmap B ON A.userId = B.userId AND B.groupId = A.groupId
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET A.Amount = capUpperAmount
+         WHERE userBlockMap.blockId = @firstBlockId;
+	
+	UPDATE tmpSecondBlockUsers A
+         JOIN useraccountmap B ON A.userId = B.userId AND B.groupId = A.groupId
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET A.Amount = capUpperAmount
+         WHERE userBlockMap.blockId = @sectondBlockId;
+	
+    UPDATE bonusAccount C
+         JOIN useraccountmap B ON  B.AccountID = C.Id
+         JOIN tmpfirstBlockUsers A oN A.userId = B.userId AND B.groupId = A.groupId 
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET C.endAmount = C.endAmount + A.Amount * 0.9
+         WHERE userBlockMap.blockId = @firstBlockId;
+         
+	UPDATE bonusAccount C
+         JOIN useraccountmap B ON  B.AccountID = C.Id
+         JOIN tmpSecondBlockUsers A oN A.userId = B.userId AND B.groupId = A.groupId
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET C.endAmount = C.endAmount + A.Amount * 0.9
+         WHERE userBlockMap.blockId = @sectondBlockId;
+         
+	UPDATE usageAccount C
+         JOIN useraccountmap B ON  B.AccountID = C.Id
+         JOIN tmpfirstBlockUsers A oN A.userId = B.userId AND B.groupId = A.groupId
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET C.endAmount = C.endAmount + A.Amount * 0.1
+         WHERE userBlockMap.blockId = @firstBlockId;
+         
+	UPDATE usageAccount C
+         JOIN useraccountmap B ON  C.AccountID = C.Id
+         JOIN tmpSecondBlockUsers A oN A.userId = B.userId AND B.groupId = A.groupId
+         JOIN groups ON A.groupId = groups.id
+         JOIN grouprankConfig ON groups.rankId = grouprankConfig.rankId
+         JOIN userBlockMap ON A.userId = userBlockMap.userId
+         SET C.endAmount = C.endAmount + A.Amount * 0.1
+         WHERE userBlockMap.blockId = @sectondBlockId;
+END

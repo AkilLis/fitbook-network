@@ -17,14 +17,14 @@
                     </a></li>   
 
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" ng-click="initLoadCash()" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
+                      <li><a data-toggle="modal" ng-click="init()" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
                     @endif
                     
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" href="#AddAdmin">Админ тохируулах</a></li>
+                      <li><a data-toggle="modal" ng-click="init()" href="#AddAdmin">Админ тохируулах</a></li>
                     @endif
                     
-                    <li><a data-toggle="modal" href="#MakeSponsor1">Зуучлах</a></li>
+                    <li><a data-toggle="modal" ng-click="init()" href="#MakeSponsor1">Зуучлах</a></li>
                     
                     <li><a data-toggle="modal" href="#UserTrans">Мөнгө шилжүүлэх</a></li>
                     @if ( Auth::user()->hasRole('Ceo') )
@@ -32,7 +32,7 @@
                     @endif
                     @if ( Auth::user()->hasRole('Admin') )
                       <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
-                      <li><a data-toggle="modal" href="#AddMoneyFromAdmin">Мөнгө цэнэглэх/Админ/</a></li>
+                      <li><a data-toggle="modal" ng-click="init()" href="#AddMoneyFromAdmin">Мөнгө цэнэглэх/Админ/</a></li>
                     @endif
                     <li><a data-toggle="modal" href="#ChangePass">Нууц үг солих</a></li>
                     <li><a data-toggle="modal" href="#ChangeTan">Тан код солих</a></li>
@@ -62,7 +62,7 @@
                     <li>
                       <a>
                         <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
+                                          <img src="{{asset('images/img.jpg')}}" alt="Profile Image" />
                                       </span>
                         <span>
                                           <span>John Smith</span>

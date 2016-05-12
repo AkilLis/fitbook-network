@@ -1108,5 +1108,10 @@ h1.single-account{
   float:none;
   margin:0 auto;
 }
+
+.borderless-input {
+  border : 1px;
+  background-color: #F9F9F9;
+}
 =======
 >>>>>>> origin/master

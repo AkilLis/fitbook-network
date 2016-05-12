@@ -1,0 +1,34 @@
+﻿CREATE DEFINER=`root`@`localhost` PROCEDURE `Process_block_data`(in pBlockId BIGINT(20))
+BEGIN
+    DROP TEMPORARY TABLE IF EXISTS tmp;
+    CREATE TEMPORARY TABLE tmp
+		SELECT U2 AS userId, id AS blockId FROM fitbook.block 
+        WHERE Id= pBlockId AND isActive = 'Y';
+	INSERT INTO tmp
+		SELECT U3, id FROM fitbook.block 
+        WHERE Id= pBlockId AND isActive = 'Y';
+	INSERT INTO tmp
+		SELECT U4, id FROM fitbook.block 
+        WHERE Id= pBlockId AND isActive = 'Y';
+	INSERT INTO tmp
+		SELECT U5, id FROM fitbook.block 
+        WHERE Id= pBlockId AND isActive = 'Y';
+	INSERT INTO tmp
+		SELECT U6, id FROM fitbook.block A
+        WHERE A.Id= pBlockId AND A.isActive = 'Y';
+	INSERT INTO tmp
+		SELECT U7, id FROM fitbook.block A
+        WHERE A.Id= pBlockId AND A.isActive = 'Y';
+	
+    INSERT INTO tmpblockuser
+	SELECT B.userId, A.blockId FROM userBlockMap A
+			INNER JOIN tmp B ON A.userId = B.userId AND A.blockId = b.blockId
+			Order by a.fCount DESC, a.Created_at ASC, userId ASC;
+	IF EXISTS (SELECT *FROM tmpblockUser)
+    THEN 
+		BEGIN
+			CALL update_block();
+            DELETE FROM tmpBlockUser;
+        END;
+	END IF;
+END
