@@ -132,7 +132,11 @@
                           @else
                             <li class="hex">
                             <a class="hexIn">
-                              <img src="{{asset('images/hex/blue.png')}}" alt="" />
+                              @if(Auth::user()->id == $blockUser->id)
+                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
+                              @else
+                                <img src="{{asset('images/hex/blue.png')}}" alt="" />
+                              @endif 
                                 <div class="container-fluid" style="top: 30%;">
                                   <div class="row-fluid">
                                       <div class="span3 centering text-center">
@@ -147,7 +151,7 @@
 
                         @for($id = 1; $id < $emptyUsers; $id ++)
                         <li class="hex">
-                          <a class="hexIn hex-empty" href="#MakeSponsor1" data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Зуучлах">
+                          <a class="hexIn hex-empty" ng-click="init('sponser')"  data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Зуучлах">
                             <img src="http://localhost/fitbook/public/images/add.png" alt="" />
                           </a>
                         </li>

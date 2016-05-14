@@ -1111,6 +1111,7 @@ h1.single-account{
 
 .borderless-input {
   border : 1px;
+  text-align: left;
   background-color: #F9F9F9;
 }
 =======

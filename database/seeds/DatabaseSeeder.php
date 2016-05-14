@@ -144,13 +144,13 @@ class DatabaseSeeder extends Seeder
            }
       }
 
-      $blockMaps = array(['userId' => 200, 'parentId' => 0, 'sortedOrder' => '100','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 201, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '101', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 202, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '102', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 203, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '103', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 204, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '104','fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 205, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '105', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 206, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '106', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+      $blockMaps = array(['userId' => 200, 'parentId' => 0, 'sortedOrder' => '100','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 1],
+            ['userId' => 201, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '101', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 2],
+            ['userId' => 202, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '102', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 3],
+            ['userId' => 203, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '103', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 4],
+            ['userId' => 204, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '104','fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 5],
+            ['userId' => 205, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '105', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 6],
+            ['userId' => 206, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '106', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 7],
         );
 
        foreach($blockMaps as $map){
@@ -206,13 +206,13 @@ class DatabaseSeeder extends Seeder
            }
       }
 
-      $blockMaps = array(['userId' => 207, 'parentId' => 0, 'sortedOrder' => '8','blockId' => 2, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 208, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '9', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 209, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '10', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 210, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '11', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 211, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '12','fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 212, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '13', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
-            ['userId' => 213, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '14', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1],
+      $blockMaps = array(['userId' => 207, 'parentId' => 0, 'sortedOrder' => '8','blockId' => 2, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 1],
+            ['userId' => 208, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '9', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 2],
+            ['userId' => 209, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '10', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 3],
+            ['userId' => 210, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '11', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 4],
+            ['userId' => 211, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '12','fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 5],
+            ['userId' => 212, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '13', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 6],
+            ['userId' => 213, 'parentId' => 0, 'blockId' => 2, 'sortedOrder' => '14', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 7],
         );
 
        foreach($blockMaps as $map){

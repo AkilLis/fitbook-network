@@ -17,16 +17,16 @@
                     </a></li>   
 
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" ng-click="init()" href="#addMoneyfromCEO"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
+                      <li><a data-toggle="modal" ng-click="init('ceomoney')"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
                     @endif
                     
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" ng-click="init()" href="#AddAdmin">Админ тохируулах</a></li>
+                      <li><a data-toggle="modal" ng-click="init('admin')">Админ тохируулах</a></li>
                     @endif
                     
-                    <li><a data-toggle="modal" ng-click="init()" href="#MakeSponsor1">Зуучлах</a></li>
+                    <li><a data-toggle="modal" ng-click="init('sponser')">Зуучлах</a></li>
                     
-                    <li><a data-toggle="modal" href="#UserTrans">Мөнгө шилжүүлэх</a></li>
+                    <li><a data-toggle="modal" ng-click="init('moneyTrans')">Мөнгө шилжүүлэх</a></li>
                     @if ( Auth::user()->hasRole('Ceo') )
                       <li><a data-toggle="modal" href="#ChangeBonus">Урамшууллын мөнгөн дүн өөрчлөх</a></li>
                     @endif

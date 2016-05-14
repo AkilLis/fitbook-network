@@ -11,6 +11,7 @@ use View;
 use Response;
 use Session;
 use Mail;
+use DB;
 
 class AdminController extends Controller
 {
@@ -58,14 +59,17 @@ class AdminController extends Controller
         if($request->get('search'))
         {
         	$search = $request->get('search');     
-            $users = User::where('lName', 'like', "%$search%")
-			    ->orWhere('fName', 'like', "%$search%")
-			    ->orWhere('userId', 'like', "%$search%")
-			    ->paginate(10);
+            $users = DB::table('users')
+                ->leftJoin('role_user','users.id','=','role_user.user_id')
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+                ->paginate(10);
         } 
         else
         {
-			$users = User::paginate(10);
+            $users = DB::table('users')
+                ->leftJoin('role_user','users.id','=','role_user.user_id')
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+                ->paginate(10);
         }
 
         $request->flash();

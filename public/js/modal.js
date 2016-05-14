@@ -8,15 +8,17 @@ app.controller('mainCtrl', function($scope, $http) {
   $makeTranUrl = 'http://localhost/fitbook/public/transaction'
   $rootUrl = 'http://localhost/fitbook/public/';
   $scope.bonusAmount = 0;
+  $scope.cashEndAmount = 0;
   $rank = 1;
 
+  $scope.form = {};
   $addAmount = 0;
+  $endAmount = 0;
 
   $scope.displayNotification = function(type, text) {
       $.notify({
-        title : 'Амжилттай',
+        title : "", /*("success" == type ? 'Амжилттай' : ("error" == type ? "Алдаа" : "Сануулах")),*/
         message : text,
-        type : 'success',
         animate : {
           enter : 'animated bounceIn',
           exit : 'animated fadeOutRight'
@@ -25,28 +27,61 @@ app.controller('mainCtrl', function($scope, $http) {
         offset :{
           x:20,
           y:20
-        }
-      }); 
+        },},{
+          type: type
+        });
   }
 
-  $scope.init = function(){
-    $('#add-money-form').trigger("reset");
-    $scope.addAmount = 0;
-    $(".reg-modal").trigger("reset");
-    $scope.endAmount = 0;
-    $scope.shAwardAmount = 0;
-    $scope.shBonusAmountBg = 0;
-    $scope.shBonusAmountAd = 0;
+  $scope.init = function(index){
 
-    $scope.edAwardAmount = 0;
-    $scope.edBonusAmountBg = 0;
-    $scope.edBonusAmountAd = 0;
-    $scope.total();
+    switch(index) {
+      case 'admin' :
+        $scope.getAllAdmins();
+        $('#AddAdmin').modal('show');
+        debugger;
+        break;
+      case 'moneyTrans' :
+        $scope.endAmount = 0;
+        $scope.edAwardAmount = 0;
+        $scope.edBonusAmountAd = 0;
+        $scope.edBonusAmountBg = 0;
+        $('#usertranForm').trigger("reset");
+        $('#UserTrans').modal('show');
+        break;
+      case 'sponser' :
+        $scope.getAccountInfo();
+        $scope.endAmount = 0;
+        $scope.edAwardAmount = 0;
+        $scope.edBonusAmountAd = 0;
+        $scope.edBonusAmountBg = 0;
+        $('#sponserForm').trigger("reset");
+        $('#MakeSponsor1').modal('show');
+        break;
+      case 'ceomoney' :
+        $scope.endAmount = 0;
+        $scope.addAmount = 0;
+        $('#addMoneyForm').trigger("reset");
+        $('#addMoneyfromCEO').modal('show');
+        debugger;
+        break;
+      default:
+        break;
+
+    }
+    /*$scope.formCeo.$setPristine();*/
+    /*$scope.endAmount.$setPristine;
+    $scope.shAwardAmount.$setPristine();
+    $scope.shBonusAmountBg.$setPristine();
+    $scope.shBonusAmountAd.$setPristine();
+    $scope.addAmount = 0;
+    $scope.edAwardAmount.$setPristine();
+    $scope.edBonusAmountBg.$setPristine();
+    $scope.edBonusAmountAd.$setPristine();*/
   };
 
 
   $scope.total = function (){
-      return parseInt($scope.endAmount) + parseInt($scope.addAmount == null ? 0 : $scope.addAmount);
+      return parseInt($scope.cashEndAmount) + parseInt($scope.addAmount == null ? 0 : $scope.addAmount);
   };
 
   $scope.getAllAdmins = function (){
@@ -55,16 +90,16 @@ app.controller('mainCtrl', function($scope, $http) {
       $scope.users = data;
     });
   }
-
+  
   $scope.getAllAdmins();
 
   //ХЭРЭГЛЭГЧИЙН БЭЛЭН МӨНГӨНИЙ ДАНСЫГ ЦЭНЭГЛЭХ
   $scope.getAccountInfo = function(){
+    debugger;
     $http({
     method: 'GET',
     url: $loadUserCashUrl,
     }).then(function successCallback(response) {
-        debugger;
         $scope.rank = response.data.rankId
         $scope.endAmount = response.data.cashEndAmount;
         $scope.shAwardAmount = response.data.awardEndAmount;
@@ -97,13 +132,13 @@ app.controller('mainCtrl', function($scope, $http) {
   $scope.makeTransaction = function(){
     if(!$("#searchTrans").val())
     {
-       $scope.displayNotification(0 , 'Хэрэглэгч сонгоно уу');
+       $scope.displayNotification('warning' , 'Хэрэглэгч сонгоно уу');
        return;
     }
 
     if(!$scope.tokenPassword)
     {
-       $scope.displayNotification(0 , 'Тан кодоо оруулна уу');
+       $scope.displayNotification('warning' , 'Тан кодоо оруулна уу');
        return;
     }
 
@@ -128,18 +163,19 @@ app.controller('mainCtrl', function($scope, $http) {
       if(response.data.resultCode != 0)
       {
         if(response.data.resultCode == 2)  
-          $scope.displayNotification(0 , 'Тан кодоо зөв оруулна уу!');
+          $scope.displayNotification('warning' , 'Тан кодоо зөв оруулна уу!');
         else
-          $scope.displayNotification(0 , 'Гүйлгээ хийх явцад алдаа гарлаа.');
+          $scope.displayNotification('error' , 'Гүйлгээ хийх явцад алдаа гарлаа.');
       }
       else
       {
         $('#UserTrans').modal('hide');
-        $scope.displayNotification(0 , 'Гүйлгээ амжилттай хийгдлээ.');
+        $scope.displayNotification('success' , 'Гүйлгээ амжилттай хийгдлээ.');
+        location.reload();
       }
 
      }, function errorCallback(response) {
-         $scope.displayNotification(0 , 'Гүйлгээ хийх явцад алдаа гарлаа.');
+         $scope.displayNotification('error' , 'Гүйлгээ хийх явцад алдаа гарлаа.');
      });  
   }
 
@@ -150,9 +186,10 @@ app.controller('mainCtrl', function($scope, $http) {
 
   $scope.loadUserCash = function () {
 
+    debugger;
     if(!$('#searchMoney').val())
     {
-       $scope.displayNotification(0 , 'Хэрэглэгч сонгоно уу');
+       $scope.displayNotification('warning' , 'Хэрэглэгч сонгоно уу');
        return;
     }
 
@@ -167,20 +204,67 @@ app.controller('mainCtrl', function($scope, $http) {
 
     }).then(function successCallback(response) {
       $('#addMoneyfromCEO').modal('hide');
-      $scope.displayNotification(0, 'Цэнэглэлээ');   
+      $scope.displayNotification('success', 'Цэнэглэлээ');   
     }, function errorCallback(response) {
-      $scope.displayNotification(0, 'цэнэглэх явцад алдаа гарлаа');
+      $scope.displayNotification('error', 'цэнэглэх явцад алдаа гарлаа');
     });     
   }
 
   //ХЭРЭГЛЭГЧТЭЙ ХОЛБООТОЙ ЛОЖИК
 
   $scope.activateUser = function(){
+
+    if(!$('#searchActivated').val())
+    {
+      $scope.displayNotification('warning', 'Идэвхжүүлэх хэрэглэгч сонгон уу.');
+      $('#searchActivated').focus();
+      return;
+    }
+
+    if(!$scope.edEndAmount || $scope.edEndAmount < ($('#rank').prop('checked') ? 120000 : 240000))
+    {
+      $scope.displayNotification('warning', 'Бэлэн мөнгөний хэмжээ нийт мөнгөний 20% байх шаардлагатай.');
+      $('#activate_endcash').focus();
+      return;
+    }
+
+    var sum = 0;
+
+    debugger;
+
+    if($scope.rank > 2)
+    {
+      sum += parseInt($scope.edEndAmount) + parseInt($scope.edBonusAmountBg) + parseInt($scope.edAwardAmount) + parseInt($scope.edBonusAmountAd);
+    }
+    else
+    {
+      if($scope.rank == 1)
+      {
+        sum += parseInt($scope.edEndAmount) + parseInt($scope.edBonusAmountBg) + parseInt($scope.edAwardAmount);
+      }
+      else
+      {
+        sum += parseInt($scope.edEndAmount) + parseInt($scope.edBonusAmountAd) + parseInt($scope.edAwardAmount);
+      }
+    }
+
+    if(sum != ($('#rank').prop('checked') ? 600000 : 1200000))
+    {
+      $scope.displayNotification('error', 'Идэхжүүлэх мөнгө зөрж байна.');
+      $('#activate_endcash').focus();
+      return;
+    }
+
     $('#loader').fadeIn(1);
 
   	var formData = {
     	id : $( "#searchActivated" ).val(),
     	parentId : $( "#searchSponser" ).val(),
+      rank : $('#rank').prop('checked'),
+      cashAmount : $scope.edEndAmount,
+      awardAmount : $scope.edAwardAmount,
+      bonusAmountBg : $scope.edBonusAmountBg,
+      bonusAmountAd : $scope.edBonusAmountAd, 
     }
 
   	$http({
@@ -189,13 +273,60 @@ app.controller('mainCtrl', function($scope, $http) {
 	  data: formData,
 
 	  }).then(function successCallback(response) {
-		  
-      $('#MakeSponsor1').modal('hide');
+
       $('#loader').fadeOut(1);
+      
+      if(response.data.status == "success")
+      {
+        $('#MakeSponsor1').modal('hide');
+        location.reload();
+      }
+      else
+      {
+        if(response.data.status == "_amount")
+        {
+          $scope.displayNotification('error', 'Дансны үлдэгдэл хүрэлцэхгүй байна.');
+        }
+      }
 
 	   }, function errorCallback(response) {
 	       $('#loader').fadeOut(1);
 	   });	
+  }
+
+  $scope.attachRole = function (role, id) {
+    var formData = {
+      roleName : role
+    }
+
+    $http({
+      method: 'PUT',
+      url: $rootUrl + 'auth/attachrole/' + id,
+      data : formData,
+    }).then(function successCallback(response) {
+      $scope.displayNotification('success' , 'Шивэгч эрх нэмлээ');
+      debugger;
+      $('#img'+ id).attr("src", $rootUrl + 'images/check.png'); 
+    }, function errorCallback(response) {
+        
+    });
+  }
+
+  $scope.detachRole = function (role, id) {
+    var formData = {
+      roleName : role
+    }
+
+    $http({
+      method: 'PUT',
+      url: $rootUrl + 'auth/detachrole/' + id,
+      data : formData,
+    }).then(function successCallback(response) {
+      $scope.displayNotification('success' , 'Шивэгч эрх хаслаа');
+      $('#img'+ id).attr("src", $rootUrl + 'images/close.png');
+    }, function errorCallback(response) {
+        
+    });
   }
 
   $scope.detachAdmin = function(id, index){
@@ -204,7 +335,7 @@ app.controller('mainCtrl', function($scope, $http) {
   	  url: $adminUrl + '/' + id,
   	}).then(function successCallback(response) {
   		$scope.users.splice(index, 1);
-      $scope.displayNotification(1 , 'Эрх хаслаа');
+      $scope.displayNotification('success' , 'Эрх хаслаа');
   	}, function errorCallback(response) {
   	    
   	});
@@ -228,7 +359,6 @@ app.controller('mainCtrl', function($scope, $http) {
   $scope.findUserKeyDown = function(event, index, id, withAccount){
     if(event.which == 13 && $scope.top5users.length == 1)
     {
-      debugger;
       $scope.chooseUser(index, null, id, withAccount);
     }
   };
@@ -240,7 +370,6 @@ app.controller('mainCtrl', function($scope, $http) {
 
     if(withAccount == 'Y')
     {
-      debugger;
       var formData = {
         id : currentUser == null ? $scope.top5users[0].id : currentUser.id,
       }
@@ -249,6 +378,7 @@ app.controller('mainCtrl', function($scope, $http) {
         url: $rootUrl + 'get/account',
         data: formData,
       }).then(function successCallback(response) {
+          debugger;
           $scope.endAmount = response.data.cashEndAmount; 
       }, function errorCallback(response) {
 
@@ -266,6 +396,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		  data: formData,
 		}).then(function successCallback(response) {
 		  	console.log(response);
+        debugger;
 		  	if(response.data.gotinfo == "failed")
 		  	{
 		  		$(".content-list:eq("+index+")").hide();
@@ -275,7 +406,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		  		$scope.top5users = response.data.users;
           if($scope.top5users.length != 1)
           {
-            if(index != 4)
+            if(!(index == 4 || index == 3))
               $scope.endAmount = 0;
           }
 		  		$(".content-list:eq("+index+")").fadeIn("fast");   

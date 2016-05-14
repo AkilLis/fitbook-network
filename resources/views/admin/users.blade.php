@@ -141,7 +141,17 @@
                               <td>{{$user->fName}} {{$user->lName}}</td>
                               <td><a href="#">Дэлгэрэнгүй</a></td>
                               <td align="center"><img class="imgCheck" src="{{asset('images/check.png')}}" style="height:16px" ></td>
-                              <td align="center"><img src="{{asset('images/check.png')}}" style="height:16px" ></td>
+                              <td align="center">
+                                @if ($user->registration == 1)
+                                  <a ng-click="detachRole('Registration', {{$user->id}})">
+                                    <img id="img{{$user->id}}" src="{{asset('images/check.png')}}" style="height:16px" >
+                                  </a>
+                                @else
+                                  <a ng-click="attachRole('Registration', {{$user->id}})">
+                                    <img id="img{{$user->id}}" src="{{asset('images/close.png')}}" style="height:16px" >
+                                  </a>
+                                @endif
+                              </td>
                               <td><a href="#">Нууц үг авах</a></td>
                               <td><a href="#">Тан авах</a></td>
                           </tr>
