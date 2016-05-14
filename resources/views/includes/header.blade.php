@@ -120,4 +120,51 @@
               </ul>
             </nav>
           </div>
+          <!--MODAL STARTS HERE // ADD MONEY FROM ADMIN-->
+    <div class="modal fade" id="ChangePass" tabindex="-1" ro le="dialog" aria-labelledby="ChangePass" aria-hidden="true" data-target="ChangePass">
+                          <div class="modal-dialog" ng-init="addAmount = 0">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Нууц үг солих</h4>
+                              </div>
+                              <div class="modal-body">
+                                <form id="add-money-form" class="reg-modal form-group" >
+                                  <div class="row">
+                                    <div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <label style="padding-left: 10px">Хуучин нууц үг оруулах</label>
+                                      </div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <input type="text" class="input-default">
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <label style="padding-left: 10px">Шинэ нууц үг оруулах</label>
+                                      </div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <input type="text" class="input-default">
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <label style="padding-left: 10px">Давтан оруулах</label>
+                                      </div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <input type="text" class="input-default">
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-green" ng-click="loadUserCash()"><i class="fa fa-save"></i> Хадгалах</button>
+                              </div>
+                            </div>
+                          </div>
+    </div>
+    <!--MODAL ENDS HERE-->
 </div>
