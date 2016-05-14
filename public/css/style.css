@@ -1125,6 +1125,20 @@ h1.single-account{
 .sponsor-inline-spacing{
   margin-bottom: 15px;
 }
+.borderless-input{
+  border: 1px solid transparent;
+  background: transparent;
+    padding-left: 5px;
+}
+.borderless-input:hover, .borderless-input:active, .borderless-input:focus{
+  border: 1px solid #CEC7C7;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+.pass-space{
+  float: right;
+  margin-right: 10px;
+}
 /*бүх table-д нөлөөлөх*/
 /* top-left border-radius */
 table tr:first-child th:first-child,
@@ -1146,12 +1160,6 @@ table tr:last-child td:first-child {
 /* bottom-right border-radius */
 table tr:last-child td:last-child {
     border-bottom-right-radius: 30px;
-=======
-.borderless-input {
-  border : 1px;
-  text-align: left;
-  background-color: #F9F9F9;
->>>>>>> b2551d7abf1a1ee8105ad78a03078c830ff9f84f
 }
-=======
->>>>>>> origin/master
+
+

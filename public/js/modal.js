@@ -1,12 +1,12 @@
 var app = angular.module("fitwork", []);
 
 app.controller('mainCtrl', function($scope, $http) { 
-  $userUrl = 'http://localhost/fitbook/public/admin/users';
-  $adminUrl = 'http://localhost/fitbook/public/ceo/admins'; 
-  $userAuth = 'http://localhost/fitbook/public/auth/activate';
-  $loadUserCashUrl = 'http://localhost/fitbook/public/get/account';
-  $makeTranUrl = 'http://localhost/fitbook/public/transaction'
-  $rootUrl = 'http://localhost/fitbook/public/';
+  $userUrl = 'http://192.168.1.4/fitbook/public/admin/users';
+  $adminUrl = 'http://192.168.1.4/fitbook/public/ceo/admins'; 
+  $userAuth = 'http://192.168.1.4/fitbook/public/auth/activate';
+  $loadUserCashUrl = 'http://192.168.1.4/fitbook/public/get/account';
+  $makeTranUrl = 'http://192.168.1.4/fitbook/public/transaction'
+  $rootUrl = 'http://192.168.1.4/fitbook/public/';
   $scope.bonusAmount = 0;
   $scope.cashEndAmount = 0;
   $rank = 1;
@@ -399,14 +399,14 @@ app.controller('mainCtrl', function($scope, $http) {
         debugger;
 		  	if(response.data.gotinfo == "failed")
 		  	{
-		  		$(".content-list:eq("+index+")").hide();
+		  		$(".content-list").hide();
 		  	}
 		  	else
 		  	{
 		  		$scope.top5users = response.data.users;
           if($scope.top5users.length != 1)
           {
-            if(!(index == 4 || index == 3))
+            if(!(index == 4 || index == 3 || index == 2))
               $scope.endAmount = 0;
           }
 		  		$(".content-list:eq("+index+")").fadeIn("fast");   

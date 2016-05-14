@@ -24,13 +24,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        for($i = 200; $i < 400; $i ++)
-        {
-          $users = array(
-                'id' => $i, 'userId' => 'AA00' + $i, 'fName' => $i,'lName' => $i,'email' => $i+'@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y');
-          User::create($users);
-
-        }
         /*$users = array(
                 ['id' => 1, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
                 ['id' => 2, 'userId' => 'AA00002', 'fName' => 'Tuvshoo','lName' => 'Амарсанаа','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
@@ -105,7 +98,7 @@ class DatabaseSeeder extends Seeder
         }
       /* */
 
-    /*$blockA = array(
+    $blockA = array(
                 'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 200, 'U2' => 201, 'U3' => 202, 'U4' => 203, 'U5' => 204, 'U6' => 205 , 'U7' => 206
       ); 
       Block::create($blockA);     
@@ -224,7 +217,7 @@ class DatabaseSeeder extends Seeder
 
        foreach($blockMaps as $map){
                 UserBlockMap::create($map); 
-        }*/
+        }
 
 
 

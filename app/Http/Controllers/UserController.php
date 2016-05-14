@@ -19,10 +19,6 @@ class UserController extends Controller
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
     {
-        if($request->parentId != \Auth::user()->userId){
-            return Response::json(['status' => '_notId']);
-        }   
-
         $cashAmount = $request->cashAmount;
         $awardAmount = $request->awardAmount;
         $bonusAmountBg = $request->bonusAmountBg;

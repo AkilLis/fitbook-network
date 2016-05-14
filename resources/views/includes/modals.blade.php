@@ -139,7 +139,7 @@
                                         <label style="padding-left: 10px">Дансан дахь бэлэн мөнгөний хэмжээ</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <label ng-bind="cashEndAmount | currency : ''"></label>
+                                        <label ng-bind="endAmount | currency : ''"></label>
                                         <label>₮</label>
                                       </div>
                                     </div>
@@ -253,7 +253,7 @@
                                         <label style="padding-left: 10px">Зуучлагч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" disabled="true" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
@@ -702,87 +702,79 @@
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD MONEY FROM ADMIN-->
-    <div class="modal fade" id="AddMoneyFromAdmin" tabindex="-1" ro le="dialog" aria-labelledby="AddMoneyFromAdmin" aria-hidden="true" data-target="AddMoneyFromAdmin">
+    <div class="modal fade" id="ChangePass" tabindex="-1" ro le="dialog" aria-labelledby="ChangePass" aria-hidden="true" data-target="ChangePass">
                           <div class="modal-dialog" ng-init="addAmount = 0">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Бэлэн мөнгө цэнэглэх</h4>
+                                <h4 class="modal-title" id="myModalLabel">Нууц үг солих</h4>
                               </div>
                               <div class="modal-body">
                                 <form id="add-money-form" class="reg-modal form-group" >
-                                  <div class="row">
-                                    <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Цэнэглэх боломжит бэлэн мөнгөний хэмжээ</label>
+                                  <div class="row"> 
+                                    <ul class="nav nav-tabs" style="margin-left: 10px; margin-right: 10px;">
+                                      <li class="active"><a data-toggle="tab" href="#pass-tab">Нууц үг өөрчлөх</a></li>
+                                      <li><a data-toggle="tab" href="#tan-tab">Тан код өөрчлөх</a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="tab-content">
+                                      <div id="pass-tab" class="tab-pane fade in active">  
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Хуучин нууц үг оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Шинэ нууц үг оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Давтан оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label>@{{ endAmount | currency : ""}}</label>
-                                        <label>₮</label>
-                                      </div>
-                                    </div>
-                                    <div class="clearfix"></div>  
-                                    <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
-                                      </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" ng-keydown="findUserKeyDown($event, 0, 'searchMoney', 'Y')" class="input-default search-input" ng-model="searchMoney" style="width: 100%" id="searchMoney" autocomplete="off">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(0, user, 'searchMoney', 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
-                                              </a>
-                                            </li>
-                                          </ul>
+                                      <div id="tan-tab" class="tab-pane fade in active">  
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Хуучин тан код оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Шинэ тан код оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <label style="padding-left: 10px">Давтан оруулах</label>
+                                          </div>
+                                          <div class="col-md-6 vertical-centered-label">
+                                            <input type="password" class="input-default pass-space">
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="clearfix"></div>    
-                                    <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Дансан дахь бэлэн мөнгөний хэмжээ</label>
-                                      </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label>@{{ endAmount | currency : ""}}</label>
-                                        <label>₮</label>
-                                      </div>
-                                    </div>
-                                    <div class="clearfix"></div>    
-                                    <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <input type="checkbox" name="toggle" id="toggle" style="display: none;" />
-                                        <label for="toggle" class="vertical-centered-label"></label>
-                                      </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <input ng-model="addAmount" type="number" class="input-default" style="width: 100%">
-                                      </div>
-                                      <div class="clearfix"></div>
-                                      <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Дансан дахь бэлэн мөнгө</label>
-                                      </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label>@{{total() | currency : ""}}₮</label>
-                                      </div>
-                                    </div>
-                                    <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Тайлбар</label>
-                                      </div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" class="input-default" style="width: 100%"autocomplete="off">
-                                      </div>
-                                    </div>
-                                    </div>
-                                  </div>
                                 </form>
                               </div>
                               <div class="modal-footer">
