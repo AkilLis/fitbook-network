@@ -7,7 +7,7 @@
 <body class="nav-md" id="style-3">
 <div class="container body">
 <body class="nav-md">
-<div class="container body" ng-controller="mainCtrl" ng-init="init()">
+<div class="container body" ng-controller="mainCtrl">
 
 	@include('includes.flash')
 

@@ -32,6 +32,26 @@ Route::get('/', function () {
 Route::post('auth/login', 'AuthController@login');
 Route::get('auth/logout', 'AuthController@logout');
 //Хэрэглэгч идвэхжүүлэх
+Route::put('auth/attachrole/{userId?}', function(Request $request, $id){
+    $roleName = $request->roleName;
+    $user = User::find($id);
+
+    if(!$user->hasRole($roleName))
+    {
+        $role = Role::where('name','=', $roleName)->first();
+        $user->attachRole($role);
+    }
+});
+Route::put('auth/detachrole/{userId?}', function(Request $request, $id){
+    $roleName = $request->roleName;
+    $user = User::find($id);
+
+    if($user->hasRole($roleName))
+    {
+        $role = Role::where('name','=', $roleName)->first();
+        $user->detachRole($role);
+    }
+});
 Route::post('auth/activate','UserController@activateUser');
 
 //Хэрэглэгчийн хэсэгтэй холбоотой

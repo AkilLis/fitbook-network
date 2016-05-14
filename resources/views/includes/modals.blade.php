@@ -107,8 +107,8 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel">Мөнгө оруулах</h4>
                               </div>
-                              <div class="modal-body">
-                                <form id="add-money-form" class="reg-modal form-group" >
+                              <div class="modal-body" ng-init="endAmount = 0">
+                                <form name="formCeo" id="addMoneyForm" class="reg-modal form-group">
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
@@ -139,7 +139,7 @@
                                         <label style="padding-left: 10px">Дансан дахь бэлэн мөнгөний хэмжээ</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <label>@{{ endAmount | currency : ""}}</label>
+                                        <label ng-bind="cashEndAmount | currency : ''"></label>
                                         <label>₮</label>
                                       </div>
                                     </div>
@@ -150,7 +150,7 @@
                                         <label for="toggle" class="vertical-centered-label"></label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input ng-model="addAmount" type="number" class="input-default" style="width: 100%">
+                                        <input ng-model="addAmount" type="number" class="input-default currenyAmount" style="width: 100%">
                                       </div>
                                       <div class="clearfix"></div>
                                       <div>
@@ -246,14 +246,14 @@
                                 <h4 class="modal-title" id="myModalLabel">Зуучлах</h4>
                               </div>
                               <div class="modal-body">
-                                <form class="reg-modal form-group" >
+                                <form id="sponserForm" class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Зуучлагч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" disabled="true" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
@@ -272,9 +272,9 @@
                                       </div>
                                     </div>
                                     <div class="clearfix"></div> 
-                                    <form>
-                                      <input type="checkbox" style="display:none" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
-                                    </form>
+                                  
+                                    <input type="checkbox" checked="true" id="rank" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
+                                    
                                     <div class="clearfix"></div>   
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
@@ -312,31 +312,39 @@
                                       <tbody>
                                         <tr>
                                           <td>Бэлэн мөнгө</td>
-                                          <td>120,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{endAmount | currency : ""}}₮</td>
+                                          <td>
+                                            <input id="activate_endcash" class="borderless-input" type="text" ng-model="edEndAmount"/>
+                                          </td>
                                         </tr>
                                         <tr>
                                           <td>Шагнал</td>
-                                          <td>300,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shAwardAmount | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edAwardAmount"/>
+                                          </td>
                                         </tr>
 
-                                        <tr>
+                                        <tr ng-show="isShown(1)">
                                           <td colspan="3">Анхан</td>
                                         </tr>
-                                        <tr>
+                                        <tr ng-show="isShown(1)">
                                           <td>Урамшуулал</td>
-                                          <td>100,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shBonusAmountBg | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountBg"/>
+                                          </td>
                                         </tr>
 
-                                        <tr>
+                                        <tr ng-show="isShown(2)">
                                           <td colspan="3">Ахисан</td>
                                         </tr>
-                                        <tr>
+                                        <tr ng-show="isShown(2)">
                                           <td>Урамшуулал</td>
-                                          <td>300,000₮</td>
-                                          <td contenteditable="true"></td>
+                                          <td>@{{shBonusAmountAd | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountAd"/>
+                                          </td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -360,7 +368,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Мөнгө шилжүүлэх</h4>
                               </div>
                               <div class="modal-body">
-                                <form class="reg-modal form-group" >
+                                <form id="usertranForm" class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
