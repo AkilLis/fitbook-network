@@ -5,8 +5,6 @@
     @include('includes.modals')
 </head>
 <body class="nav-md" id="style-3">
-<div class="container body">
-<body class="nav-md">
 <div class="container body" ng-controller="mainCtrl">
 
 	@include('includes.flash')
@@ -17,9 +15,9 @@
         
         @yield('content')
 	</div>
-        <footer class="row">
-            @include('includes.footer')
-        </footer>
+    <footer class="row">
+         @include('includes.footer')
+    </footer>
 </div>
 </body>
 </html>
