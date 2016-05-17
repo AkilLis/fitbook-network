@@ -114,7 +114,7 @@
                           <?php $counter++ ?>
                           @if($counter < 7)
                             <li class="hex">
-                            <a class="hexIn vertical class">
+                            <a class="hexIn vertical-class">
                               @if(Auth::user()->id == $blockUser->id)
                                 <img src="{{asset('images/hex/purple.png')}}" alt="" />
                               @else
@@ -131,7 +131,7 @@
                             </li>
                           @else
                             <li class="hex">
-                            <a class="hexIn">
+                            <a class="hexIn vertical-class">
                               @if(Auth::user()->id == $blockUser->id)
                                 <img src="{{asset('images/hex/purple.png')}}" alt="" />
                               @else
@@ -140,7 +140,7 @@
                                 <div class="container-fluid" style="top: 30%;">
                                   <div class="row-fluid">
                                       <div class="span3 centering text-center">
-                                        {{$blockUser->userId}}
+                                        <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
                                       </div>
                                   </div>
                                 </div>
