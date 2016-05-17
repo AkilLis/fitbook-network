@@ -1,12 +1,15 @@
 var app = angular.module("fitwork", []);
 
 app.controller('mainCtrl', function($scope, $http) { 
-  $userUrl = 'http://192.168.1.4/fitbook/public/admin/users';
-  $adminUrl = 'http://192.168.1.4/fitbook/public/ceo/admins'; 
-  $userAuth = 'http://192.168.1.4/fitbook/public/auth/activate';
-  $loadUserCashUrl = 'http://192.168.1.4/fitbook/public/get/account';
-  $makeTranUrl = 'http://192.168.1.4/fitbook/public/transaction'
-  $rootUrl = 'http://192.168.1.4/fitbook/public/';
+
+  $production = 'http://localhost/fitbook/public/';
+
+  $userUrl = $production + 'admin/users';
+  $adminUrl = $production + 'ceo/admins'; 
+  $userAuth = $production + 'auth/activate';
+  $loadUserCashUrl = $production + 'get/account';
+  $makeTranUrl = $production + '/transaction'
+  $rootUrl = $production;
   $scope.bonusAmount = 0;
   $scope.cashEndAmount = 0;
   $rank = 1;
@@ -255,7 +258,7 @@ app.controller('mainCtrl', function($scope, $http) {
       return;
     }
 
-    $('#loader').fadeIn(1);
+    $.LoadingOverlay("show");
 
   	var formData = {
     	id : $( "#searchActivated" ).val(),
@@ -274,7 +277,7 @@ app.controller('mainCtrl', function($scope, $http) {
 
 	  }).then(function successCallback(response) {
 
-      $('#loader').fadeOut(1);
+      $.LoadingOverlay("hide");
       
       if(response.data.status == "success")
       {
@@ -290,7 +293,7 @@ app.controller('mainCtrl', function($scope, $http) {
       }
 
 	   }, function errorCallback(response) {
-	       $('#loader').fadeOut(1);
+	       $.LoadingOverlay("hide");
 	   });	
   }
 

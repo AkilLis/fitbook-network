@@ -102,7 +102,7 @@ class AdminController extends Controller
         		return Response::json(array('errors' => $validator->errors()->toArray()));
         	}
 
-        	$planPassword = rand(1000,9999);
+        	$planPassword = $request->phone;
         	$tranToken = rand(1000, 9999);
 			$password = \Hash::make($planPassword);
 
