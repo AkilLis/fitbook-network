@@ -140,14 +140,14 @@ class UserController extends Controller
        
         //ДАНСНААС НЬ МӨНГӨ ХЭСЭХ
         if($cashAmount != 0)
-            $this->subractCashAccount($parentId, $cashAmount);
+            $this->subractCashAccount(\Auth::user()->id, $cashAmount);
         if($awardAmount != 0)
-            $this->subractAwardAccount($parentId, $awardAmount);
+            $this->subractAwardAccount(\Auth::user()->id, $awardAmount);
         
         if($bonusAmountBg != 0)
-            $this->subractBonusAccount($parentId, $bonusAmountBg, 1);
+            $this->subractBonusAccount(\Auth::user()->id, $bonusAmountBg, 1);
         if($bonusAmountAd != 0)
-            $this->subractBonusAccount($parentId, $bonusAmountAd, 2);
+            $this->subractBonusAccount(\Auth::user()->id, $bonusAmountAd, 2);
 
         return Response::json(['status' => 'success']);
     }

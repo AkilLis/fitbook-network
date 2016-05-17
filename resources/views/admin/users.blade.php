@@ -10,7 +10,7 @@
             <h3>Хэрэглэгчийн жагсаалт</h3>
             </div>
             <div class="col-md-4">
-            <div class="row text-center">
+            <div class="row text-center" style="margin-top:50px;">
               <a href="" id="btn-add" class="btn btn-green" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"></i> Нэмэх</a>
             </div>
             <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -38,7 +38,7 @@
                     <label>Хэрэглэгчийн код</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
+                    <input id = "userId" name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
                     <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
                   </div>
                   <div class="clearfix"></div>    
@@ -68,7 +68,7 @@
                     <label>Дансны дугаар</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="accountId" required ng-model="accountId" class="input-default" type="text" style="width:100%"/>
+                    <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -82,7 +82,7 @@
                     <label>Цахим шуудан</label>
                   </div>
                   <div class="col-md-8">
-                    <input name="email" ng-model="email" class="input-default" type="email" style="width:100%"/>
+                    <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-md-4 vertical-centered-label">
@@ -210,8 +210,11 @@
 
             e.preventDefault(); 
 
+            debugger;
+
             var formData = {
-                  userId: $( "input[name*='userId']" ).val(),
+                  userId: $("#userId").val(),
+                  planText: $("#userId").val().substring(6, 8),
                   fName: $( "input[name*='nameF']" ).val(),
                   lName: $( "input[name*='nameL']" ).val(),
                   email: $( "input[name*='email']" ).val(),
