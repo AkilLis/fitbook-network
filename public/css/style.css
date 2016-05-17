@@ -613,7 +613,6 @@ Thanks :)*/
     border-radius: 3px;
 	padding: 0px 10px;
 	width:200px;
-	margin-top: 10px;
     margin-right: 5px;
     float: right;
 }
@@ -1161,5 +1160,9 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
     border-bottom-right-radius: 30px;
 }
-
-
+.pop-pass{
+  font-size: 30px;
+}
+.pop-icon-vertical{
+  text-align: center;
+}
