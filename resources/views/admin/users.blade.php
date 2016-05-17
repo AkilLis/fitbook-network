@@ -3,7 +3,7 @@
 <!-- page content -->
         <div class="right_col" role="main">
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 60px;">
                 <div class="x_panel">
                   <div class="row x_title">
             <div class="col-md-8">
@@ -133,7 +133,6 @@
                           <th align="center" width="10%">Тан код авах</th>
                         </tr>
                       </thead>
-
                       <tbody id="tasks-list" name="tasks-list">
                         @foreach ($users as $user)
                           <tr id="user{{$user->id}}">
@@ -152,13 +151,20 @@
                                   </a>
                                 @endif
                               </td>
-                              <td><a href="#">Нууц үг авах</a></td>
-                              <td><a href="#">Тан авах</a></td>
+                              <td><a href="#" id="pass_change_popover" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="focus" data-title="Нууц үг" >Нууц үг авах</a></td>
+                              <td><a href="#" id="tan_change_popover" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="focus" data-title="Тан код">Тан авах</a></td>
                           </tr>
                         @endforeach
                       </tbody> 
                     </table>
                     <div style="text-align: center;">{{ $users->appends(Request::only('search'))->links() }}</div>
+                    <div id="pass_popover_content" style="display: none;">
+                      <div class="pop-pass">1234</div>
+                      <div class="pop-icon-vertical">
+                      <img src="{{asset('images/check.png')}}" style="height:16px">
+                      <img src="{{asset('images/close.png')}}" style="height:16px" >
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -171,6 +177,18 @@
       <script>
       $(document).ready(function() 
       {
+        $("#pass_change_popover").popover({
+          html: true,
+          content:  function() {
+            return $('#pass_popover_content').html();
+            }
+        });
+        $("#tan_change_popover").popover({
+          html: true,
+          content:  function() {
+            return $('#pass_popover_content').html();
+            }
+        });
         var url = "/fitbook/public/admin/users";
 
         $('#btn-add').click(function (e)
