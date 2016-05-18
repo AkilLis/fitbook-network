@@ -16,7 +16,7 @@ class CreateGroupRankConfigTable extends Migration
         Schema::create('GroupRankConfig', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('rankId')->nullable();
-            $table->bigInteger('groupId');
+            $table->bigInteger('groupId')->nullable();
             $table->bigInteger('zeroAmount')->nullable();
             $table->bigInteger('oneAmount')->nullable();
             $table->bigInteger('twoAmount')->nullable();

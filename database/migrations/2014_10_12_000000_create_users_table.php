@@ -14,10 +14,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('userId');
+            $table->string('userId')->unique();
             $table->string('fName');
             $table->string('lName');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->string('address');
             $table->string('phone');
@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->char('isNetwork', 1);
             $table->char('isManager', 1);
             $table->integer('starCount');
+            $table->string('tranToken');
+            $table->char('isActive', 1);
             $table->rememberToken();
             $table->timestamps();
         });

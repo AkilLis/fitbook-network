@@ -22,7 +22,8 @@ class UserNetwork extends Migration
             $table->integer('fCount');
             $table->integer('mCount');
             $table->integer('rankId');
-            $table->timestamps();        
+            $table->timestamps();   
+            $table->integer('viewOrder');     
             });
     }
 
