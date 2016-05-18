@@ -62,15 +62,11 @@ class AdminController extends Controller
         	$search = $request->get('search');     
             $users = DB::table('users')
                 ->leftJoin('role_user','users.id','=','role_user.user_id')
-<<<<<<< HEAD
-                ->orderBy('users.created_at', 'DESC')
-                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'users.isNetwork', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
-=======
                 ->where('lName', 'like', "%$search%")
                 ->orWhere('fName', 'like', "%$search%")
                 ->orWhere('userId', 'like', "%$search%")
-                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
->>>>>>> e240e5542b2e1319a75414c1897808480465bdeb
+                ->orderBy('users.created_at', 'DESC')
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'users.isNetwork', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
                 ->paginate(10);
         } 
         else

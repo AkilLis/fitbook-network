@@ -2,96 +2,12 @@
 @section('content')
 <!-- page content -->
         <div class="right_col" role="main">
-<<<<<<< HEAD
           <div class="row">
             <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 60px;">
               <div class="x_panel">
                 <div class="row x_title">
                   <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <h3>Хэрэглэгчийн жагсаалт</h3>
-=======
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 60px;">
-                <div class="x_panel">
-                  <div class="row x_title">
-            <div class="col-md-8">
-            <h3>Хэрэглэгчийн жагсаалт</h3>
-            </div>
-            <div class="col-md-4">
-            <div class="row text-center" style="margin-top:50px;">
-              <a href="" id="btn-add" class="btn btn-green" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"></i> Нэмэх</a>
-            </div>
-            <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-              <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Хэрэглэгчийн бүртгэл</h4>
-                </div>
-                <div class="modal-body">
-                @if (count($errors) > 0)
-                                    <div class="alert alert-danger" style="margin-top: 0px;">
-                                        <strong>Ups!</strong> Existe algum problema com o formulário.<br><br>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                <form name="myForm" class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
-
-                 <div class="row">
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Хэрэглэгчийн код</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input id = "userId" name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
-                    <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
-                  </div>
-                  <div class="clearfix"></div>    
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Овог</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
-                    <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Нэр</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Регистрийн №</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Дансны дугаар</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Гэрийн хаяг</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="address" class="input-default" type="textarea" style="width:100%"/>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="col-md-4 vertical-centered-label">
-                    <label>Цахим шуудан</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
->>>>>>> e240e5542b2e1319a75414c1897808480465bdeb
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="row text-center">
