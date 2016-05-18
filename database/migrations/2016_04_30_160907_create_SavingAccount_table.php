@@ -13,7 +13,7 @@ class CreateSavingAccountTable extends Migration
     public function up()
     {
         //
-        Schema::create('SavingAccount', function (Blueprint $table) {
+        Schema::create('savingaccount', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('accountId',20);
             $table->string('nameL',100);

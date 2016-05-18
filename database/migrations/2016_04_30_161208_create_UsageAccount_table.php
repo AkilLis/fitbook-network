@@ -13,7 +13,7 @@ class CreateUsageAccountTable extends Migration
     public function up()
     {
         //
-         Schema::create('UsageAccount', function (Blueprint $table) {
+         Schema::create('usageaccount', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('accountId',20);
             $table->string('nameL',100);

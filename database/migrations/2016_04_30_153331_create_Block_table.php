@@ -13,7 +13,7 @@ class CreateBlockTable extends Migration
     public function up()
     {
         //
-        Schema::create('Block', function (Blueprint $table) {
+        Schema::create('block', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('parentId');
             $table->bigInteger('groupId');

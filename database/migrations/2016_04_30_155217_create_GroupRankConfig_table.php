@@ -13,7 +13,7 @@ class CreateGroupRankConfigTable extends Migration
     public function up()
     {
         //
-        Schema::create('GroupRankConfig', function (Blueprint $table) {
+        Schema::create('grouprankconfig', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('rankId')->nullable();
             $table->bigInteger('groupId')->nullable();

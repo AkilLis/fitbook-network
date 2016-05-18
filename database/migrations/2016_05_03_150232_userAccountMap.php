@@ -13,7 +13,7 @@ class UserAccountMap extends Migration
     public function up()
     {
         //
-        Schema::create('UserAccountMap', function (Blueprint $table) {
+        Schema::create('useraccountmap', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('userId');
             $table->integer('type');

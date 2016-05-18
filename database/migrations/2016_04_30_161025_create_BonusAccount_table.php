@@ -13,7 +13,7 @@ class CreateBonusAccountTable extends Migration
     public function up()
     {
         //
-        Schema::create('BonusAccount', function (Blueprint $table) {
+        Schema::create('bonusaccount', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('accountId',20);
             $table->string('nameL',100);
