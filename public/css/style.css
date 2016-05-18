@@ -1109,6 +1109,7 @@ h1.single-account{
 .centering {
   float:none;
   margin:0 auto;
+  margin-left: -7px;
 }
 
 <<<<<<< HEAD

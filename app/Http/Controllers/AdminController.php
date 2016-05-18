@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Str;
 use App\Http\Requests;
 use App\User;
 use View;
@@ -61,8 +62,15 @@ class AdminController extends Controller
         	$search = $request->get('search');     
             $users = DB::table('users')
                 ->leftJoin('role_user','users.id','=','role_user.user_id')
+<<<<<<< HEAD
                 ->orderBy('users.created_at', 'DESC')
                 ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'users.isNetwork', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+=======
+                ->where('lName', 'like', "%$search%")
+                ->orWhere('fName', 'like', "%$search%")
+                ->orWhere('userId', 'like', "%$search%")
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+>>>>>>> e240e5542b2e1319a75414c1897808480465bdeb
                 ->paginate(10);
         } 
         else
@@ -94,9 +102,7 @@ class AdminController extends Controller
     		$validator = Validator::make($request->all(), [
             	'fName' => 'required',
             	'lName' => 'required',
-            	'email' => 'required|email|unique:users',
             	'registryNo' => 'required',
-            	'accountId' => 'required'
         	], $messages);	
 
         	if ($validator->fails()) 
@@ -104,7 +110,9 @@ class AdminController extends Controller
         		return Response::json(array('errors' => $validator->errors()->toArray()));
         	}
 
-        	$planPassword = $request->phone;
+            \Log::info('userId = '.$request->userId);
+        	$planPassword = $request->planText;
+            \Log::info('plantext = '.$planPassword);
         	$tranToken = rand(1000, 9999);
 			$password = \Hash::make($planPassword);
 
