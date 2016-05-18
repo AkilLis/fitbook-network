@@ -61,14 +61,16 @@ class AdminController extends Controller
         	$search = $request->get('search');     
             $users = DB::table('users')
                 ->leftJoin('role_user','users.id','=','role_user.user_id')
-                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+                ->orderBy('users.created_at', 'DESC')
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'users.isNetwork', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
                 ->paginate(10);
         } 
         else
         {
             $users = DB::table('users')
                 ->leftJoin('role_user','users.id','=','role_user.user_id')
-                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
+                ->orderBy('users.created_at', 'DESC')
+                ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'users.isNetwork', DB::raw('CASE WHEN role_user.user_id IS NULL THEN 0 ELSE 1 END AS registration'))
                 ->paginate(10);
         }
 
@@ -108,7 +110,7 @@ class AdminController extends Controller
 
         	$newUser = array(
                 ['userId' => $request->userId,'fName' => $request->fName, 'lName' => $request->lName, 'email' => $request->email, 'address' => $request->address
-                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'Y', 'tranToken', $tranToken]
+                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'N', 'tranToken', $tranToken]
         	);
 
             foreach ($newUser as $user)

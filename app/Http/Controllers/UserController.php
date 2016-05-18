@@ -136,7 +136,9 @@ class UserController extends Controller
                     ->first()->parentId;
         }
 
-
+        $currentUser = User::find(\Auth::user()->id);
+        $currentUser->isNetwork = 'Y';
+        $currentUser->save();
        
         //ДАНСНААС НЬ МӨНГӨ ХЭСЭХ
         if($cashAmount != 0)

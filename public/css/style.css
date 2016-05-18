@@ -518,9 +518,13 @@ Thanks :)*/
 }
 .centered table tr td{
 	text-align: center;
+  vertical-align: middle;
 }
 .centered table thead th {
 	text-align:center;
+}
+td img{
+  height: 16px;
 }
 .btn-green:active,.btn-green:focus,
 .btn-green{

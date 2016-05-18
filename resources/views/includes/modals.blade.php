@@ -11,6 +11,9 @@
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables.net/jquery.dataTables.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+<script type="text/javascript" src="{{asset('js/datatable.resposive/dataTabls.responsive.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
@@ -712,14 +715,7 @@
                               </div>
                               <div class="modal-body">
                                 <form id="add-money-form" class="reg-modal form-group" >
-                                  <div class="row"> 
-                                    <ul class="nav nav-tabs" style="margin-left: 10px; margin-right: 10px;">
-                                      <li class="active"><a data-toggle="tab" href="#pass-tab">Нууц үг өөрчлөх</a></li>
-                                      <li><a data-toggle="tab" href="#tan-tab">Тан код өөрчлөх</a></li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                    <div class="tab-content">
-                                      <div id="pass-tab" class="tab-pane fade in active">  
+                                  <div class="row">
                                         <div>
                                           <div class="col-md-6 vertical-centered-label">
                                             <label style="padding-left: 10px">Хуучин нууц үг оруулах</label>
@@ -746,36 +742,7 @@
                                             <input type="password" class="input-default pass-space">
                                           </div>
                                         </div>
-                                      </div>
-                                      <div id="tan-tab" class="tab-pane fade in active">  
-                                        <div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <label style="padding-left: 10px">Хуучин тан код оруулах</label>
-                                          </div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
-                                          </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <label style="padding-left: 10px">Шинэ тан код оруулах</label>
-                                          </div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
-                                          </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <label style="padding-left: 10px">Давтан оруулах</label>
-                                          </div>
-                                          <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                  </div>
                                 </form>
                               </div>
                               <div class="modal-footer">
