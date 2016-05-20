@@ -13,7 +13,7 @@ class UserNetwork extends Migration
     public function up()
     {
         //
-        Schema::create('UserBlockMap', function (Blueprint $table) {
+        Schema::create('userblockmap', function (Blueprint $table) {
             $table->bigIncrements('Id');
             $table->bigInteger('userId');
             $table->bigInteger('parentId');
@@ -22,7 +22,8 @@ class UserNetwork extends Migration
             $table->integer('fCount');
             $table->integer('mCount');
             $table->integer('rankId');
-            $table->timestamps();        
+            $table->timestamps();   
+            $table->integer('viewOrder');     
             });
     }
 

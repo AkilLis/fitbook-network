@@ -13,7 +13,7 @@ class CreateTmpblockuserTable extends Migration
     public function up()
     {
         //
-         Schema::create('tmpBlockUser', function (Blueprint $table) {
+         Schema::create('tmpblockuser', function (Blueprint $table) {
             $table->biginteger('userId');
             $table->biginteger('blockId');
         });

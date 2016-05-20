@@ -1,20 +1,3 @@
-<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/datatables.net/jquery.dataTables.min.js')}}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
-<script type="text/javascript" src="{{asset('js/datatable.resposive/dataTabls.responsive.min.js')}}"></script>
-
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
@@ -694,22 +677,22 @@
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD MONEY FROM ADMIN-->
-    <div class="modal fade" id="ChangePass" tabindex="-1" ro le="dialog" aria-labelledby="ChangePass" aria-hidden="true" data-target="ChangePass">
-                          <div class="modal-dialog" ng-init="addAmount = 0">
+    <div class="modal fade" id="ChangePass" tabindex="-1" role="dialog" aria-labelledby="ChangePass" aria-hidden="true" data-target="ChangePass">
+                          <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel">Нууц үг солих</h4>
                               </div>
                               <div class="modal-body">
-                                <form id="add-money-form" class="reg-modal form-group" >
+                                <form name="changeForm" id="changeForm" class="reg-modal form-group" novalidate>
                                   <div class="row">
                                         <div>
                                           <div class="col-md-6 vertical-centered-label">
                                             <label style="padding-left: 10px">Хуучин нууц үг оруулах</label>
                                           </div>
                                           <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
+                                            <input id="oldPassword" type="password" class="input-default pass-space">
                                           </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -718,7 +701,7 @@
                                             <label style="padding-left: 10px">Шинэ нууц үг оруулах</label>
                                           </div>
                                           <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
+                                            <input id="newPassword" type="password" class="input-default pass-space">
                                           </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -727,14 +710,14 @@
                                             <label style="padding-left: 10px">Давтан оруулах</label>
                                           </div>
                                           <div class="col-md-6 vertical-centered-label">
-                                            <input type="password" class="input-default pass-space">
+                                            <input id="verifyPassword" type="password" class="input-default pass-space">
                                           </div>
                                         </div>
                                   </div>
                                 </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-green" ng-click="loadUserCash()"><i class="fa fa-save"></i> Хадгалах</button>
+                                <button type="button" class="btn btn-green" ng-click="setPassword()"><i class="fa fa-save"></i> Хадгалах</button>
                               </div>
                             </div>
                           </div>
@@ -791,4 +774,20 @@
       <img src="{{asset('images/loader.gif')}}"/>
     </div>
 </div>
+
+<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables.net/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatable.resposive/dataTabls.responsive.min.js')}}"></script>
     

@@ -13,7 +13,8 @@ app.controller('mainCtrl', function($scope, $http) {
   $scope.bonusAmount = 0;
   $scope.cashEndAmount = 0;
   $rank = 1;
-
+  $scope.user = {};
+  $scope.changeForm = {};
   $scope.form = {};
   $addAmount = 0;
   $endAmount = 0;
@@ -67,6 +68,11 @@ app.controller('mainCtrl', function($scope, $http) {
         $('#addMoneyfromCEO').modal('show');
         debugger;
         break;
+      case 'changepassword' :
+        debugger;
+        $("#changeForm").trigger('reset');
+        $('#ChangePass').modal('show');
+        break;
       default:
         break;
 
@@ -81,6 +87,51 @@ app.controller('mainCtrl', function($scope, $http) {
     $scope.edBonusAmountBg.$setPristine();
     $scope.edBonusAmountAd.$setPristine();*/
   };
+
+  $scope.setPassword = function () {
+    if(!$('#oldPassword').val())
+    {
+      $('#oldPassword').focus();
+      return;
+    }
+
+    if(!$('#newPassword').val())
+    {
+      $('#newPassword').focus();
+      return;
+    }
+
+    if($('#newPassword').val() != $('#verifyPassword').val())
+    {
+      $scope.displayNotification('warning' , 'Баталгаажуулах нууц үгээ зөв оруулна уу.');
+      $('#verifyPassword').focus();
+      return;
+    }
+
+    var formData = {
+      oldPassword : $('#oldPassword').val(),
+      verifyPassword : $('#verifyPassword').val(),
+    }
+
+    $http({
+      method: 'POST',
+      url: $rootUrl + 'auth/password',
+      data : formData,
+    }).then(function successCallback(response) {
+        if(response.data.status == "_notValid")
+        {  
+          $scope.displayNotification('warning' , 'Хуучин нууц үгээ зөв оруурна уу.');
+          return;
+        }
+
+        $scope.displayNotification('warning' , 'Амжилттай хадгаллаа.');
+        $('#ChangePass').modal('hide');
+
+    }, function errorCallback(response) {
+        
+    });
+
+  }
 
 
   $scope.total = function (){
@@ -98,7 +149,6 @@ app.controller('mainCtrl', function($scope, $http) {
 
   //ХЭРЭГЛЭГЧИЙН БЭЛЭН МӨНГӨНИЙ ДАНСЫГ ЦЭНЭГЛЭХ
   $scope.getAccountInfo = function(){
-    debugger;
     $http({
     method: 'GET',
     url: $loadUserCashUrl,

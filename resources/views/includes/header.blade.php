@@ -34,7 +34,7 @@
                       <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
                       <li><a data-toggle="modal" ng-click="init('ceomoney')">Мөнгө цэнэглэх/Админ/</a></li>
                     @endif
-                    <li><a data-toggle="modal" href="#ChangePass">Нууц үг солих</a></li>
+                    <li><a data-toggle="modal" ng-click="init('changepassword')">Нууц үг солих</a></li>
                     <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i>Гарах</a></li>
                   </ul>
                 </li>
