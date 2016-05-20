@@ -101,6 +101,7 @@ class UserController extends Controller
             ->join('block', 'userblockmap.blockId', '=', 'block.id')
             ->where('userblockmap.userId','=', $parentId)
             ->where('userblockmap.rankId', '=', $rankId)
+            ->where('block.isActive', '=', 'Y')
             ->select('userblockmap.blockId')
             ->first()->blockId;
 
@@ -186,7 +187,7 @@ class UserController extends Controller
         ->join('users', 'userblockmap.userId','=','users.id')
         ->where('userblockmap.viewOrder','=', 1)
         ->where('userblockmap.blockId', '=', $blockId->blockId)
-        ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
+        ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount', 'userblockmap.created_at')
         ->first();          
 
         $blockUsers = \DB::table('userblockmap')
@@ -194,7 +195,7 @@ class UserController extends Controller
             ->where('userblockmap.viewOrder','<>', 1)
             ->where('userblockmap.blockId','=',$blockId->blockId)
             ->orderBy('userblockmap.viewOrder', 'ASC')
-            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount')
+            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount','userblockmap.created_at')
             ->get();
 
         $emptyUsers = 15 - count($blockUsers);

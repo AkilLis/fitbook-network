@@ -100,8 +100,8 @@
                               <img src="{{asset('images/hex/yellow.png')}}" alt="" />
                               <div class="container-fluid" style="top: 30%;">
                                 <div class="row-fluid">
-                                    <div class="span3 centering text-center" style="font-size: 12px !important">
-                                      <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$capUser->fCount}}</b></br>{{$capUser->userId}}
+                                    <div class="span3 centering text-center" style="font-size: 9px !important">
+                                      <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$capUser->fCount}}</b></br>{{$capUser->userId}}
                                     </div>
                                 </div>
                               </div>
@@ -122,8 +122,8 @@
                               @endif  
                                 <div class="container-fluid" style="top: 30%;">
                                   <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 12px !important">
-                                        <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
+                                      <div class="span3 centering text-center" style="font-size: 9px !important">
+                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
                                       </div>
                                   </div>
                                 </div>
@@ -139,8 +139,8 @@
                               @endif 
                                 <div class="container-fluid" style="top: 30%;">
                                   <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 12px !important">
-                                        <b style="font-size: 24px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
+                                      <div class="span3 centering text-center" style="font-size: 9px !important">
+                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
                                       </div>
                                   </div>
                                 </div>

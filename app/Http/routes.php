@@ -31,6 +31,7 @@ Route::get('/', function () {
 
 Route::post('auth/login', 'AuthController@login');
 Route::get('auth/logout', 'AuthController@logout');
+Route::post('auth/password', 'AuthController@password');
 //Хэрэглэгч идвэхжүүлэх
 Route::put('auth/attachrole/{userId?}', function(Request $request, $id){
     $roleName = $request->roleName;

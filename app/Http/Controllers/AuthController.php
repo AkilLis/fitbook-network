@@ -8,6 +8,7 @@ use GuzzleHttp;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use App\User;
 use Auth;
+use Response;
 
 class AuthController extends Controller {
     /**
@@ -97,5 +98,20 @@ class AuthController extends Controller {
         $user->password = Hash::make($request->input('password'));
         $user->save();
         return response()->json(['token' => $this->createToken($user)]);
+    }
+
+    public function password(Request $request)
+    {
+        if (Hash::check($request->oldPassword, Auth::user()->password))
+        {
+            $user = User::find(Auth::user()->id);
+            $user->password = Hash::make($request->verifyPassword);
+            $user->save();
+            return Response::json(['status' => 'success']);
+        }
+        else
+        {
+            return Response::json(['status' => '_notValid']);
+        }
     }
 }
