@@ -93,7 +93,6 @@
                     <LABEL style="float:left">2-р шат - Өсөх шат</LABEL>
                     <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                   </div>
-<<<<<<< HEAD
                   <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px; margin-bottom: 50px">
                     <div>
                       <div class='hexagon-wrapper'>
@@ -119,23 +118,6 @@
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
                                       <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
-=======
-                  <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px;">
-                    <ul id="hexGrid">
-                        <div>
-                          <li class="hex">
-                            <a class="hexIn">
-                              <img src="{{asset('images/hex/yellow.png')}}" alt="" />
-                              <div class="container-fluid" style="top: 30%;">
-                                <div class="row-fluid">
-                                    <div class="span3 centering text-center" style="font-size: 9px !important">
-                                      <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$capUser->fCount}}</b></br>{{$capUser->userId}}
->>>>>>> 07015c5ec98e05b6170be1fb67545c106332b373
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-<<<<<<< HEAD
                             @else
                               <div class='hexagon-wrapper'>
                                 <div class='hexagon first-down-level'>
@@ -160,46 +142,6 @@
                                 <div class='hexagon-vertical-align'>
                                   <span class="hexagon-text hex-empty fa fa-plus" ng-click="init('sponser')"  data-toggle="modal" data-container="body">
                                   </span>
-=======
-                            </a>
-                          </li>
-  <!--                         <div class="badge bg-hex-not hex-not">а</div> -->
-                        </div>
-                        <?php $counter = 0 ?>
-                        @foreach ($blockUsers as $blockUser)
-                          <?php $counter++ ?>
-                          @if($counter < 7)
-                            <li class="hex">
-                            <a class="hexIn vertical-class">
-                              @if(Auth::user()->id == $blockUser->id)
-                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
-                              @else
-                                <img src="{{asset('images/hex/terques.png')}}" alt="" />
-                              @endif  
-                                <div class="container-fluid" style="top: 30%;">
-                                  <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 9px !important">
-                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
-                                      </div>
-                                  </div>
-                                </div>
-                              </a>
-                            </li>
-                          @else
-                            <li class="hex">
-                            <a class="hexIn vertical-class">
-                              @if(Auth::user()->id == $blockUser->id)
-                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
-                              @else
-                                <img src="{{asset('images/hex/blue.png')}}" alt="" />
-                              @endif 
-                                <div class="container-fluid" style="top: 30%;">
-                                  <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 9px !important">
-                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
-                                      </div>
-                                  </div>
->>>>>>> 07015c5ec98e05b6170be1fb67545c106332b373
                                 </div>
                               </div>
                             </div>
