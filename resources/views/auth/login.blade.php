@@ -5,17 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="{{asset('css/login.css')}}" rel="stylesheet" type="text/css" media="all">
-  <link rel="stylesheet" href="//rawgit.com/JanStevens/angular-growl-2/master/build/angular-growl.css" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="//rawgit.com/JanStevens/angular-growl-2/master/build/angular-growl.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-animate.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-sanitize.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-resource.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-mocks.js" type="text/javascript"></script>
-  <script src="//rawgit.com/JanStevens/angular-growl-2/master/build/angular-growl.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+  <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 </head>
 <body>
 <div growl></div>
@@ -57,21 +49,6 @@
 <script src="js/ligro.js"></script>
 <script>
     $('div.flash-message').delay(2000).slideUp(300);
-
-    var demoBasic = angular.module('demoBasic', ['angular-growl', 'ngAnimate']);
-    
-    demoBasic.config(['growlProvider', function (growlProvider) {
-      growlProvider.globalTimeToLive(2000);
-      growlProvider.globalReversedOrder(true);
-    }]);
-
-    demoBasic.controller('basicDemoCtrl', ['$scope', 'growl',      
-    function($scope, growl) {
-        $scope.basicUsage = function (type) 
-        {
-            growl.error("<b>Нэр болон нууц үгээ зөв оруулна уу!", {disableIcons: true});
-        };
-    }]);  
 </script>
 </body>
 </html>

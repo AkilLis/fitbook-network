@@ -788,6 +788,4 @@
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/datatables.net/jquery.dataTables.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/datatable.resposive/dataTabls.responsive.min.js')}}"></script>
     

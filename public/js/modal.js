@@ -2,7 +2,8 @@ var app = angular.module("fitwork", []);
 
 app.controller('mainCtrl', function($scope, $http) { 
 
-  $production = 'http://localhost/fitbook/public/';
+  $isproduction = false;
+  $production = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
 
   $userUrl = $production + 'admin/users';
   $adminUrl = $production + 'ceo/admins'; 
