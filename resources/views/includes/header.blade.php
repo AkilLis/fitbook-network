@@ -111,7 +111,7 @@
                   </ul>
                 </li>
                 <li role="logo" href="#" style="float:left; cursor: pointer;">
-                  <a class="logo">
+                  <a class="logo" href="{{url('/dashboard')}}">
                     <div class="row">
                       <div class="col-lg-2 col-md-2">
                         <img src="{{asset('images/logo.png')}}">

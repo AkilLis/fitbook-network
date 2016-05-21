@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="description" content="Финтессийн сүлжээ систем">
-<meta name="author" content="Түвшинбат">
+<meta name="author" content="Fitbook Team">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Фитнессийн сүлжээний систем</title>
