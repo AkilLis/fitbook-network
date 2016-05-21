@@ -83,7 +83,7 @@
                         </span>
                         <span class="message">
                                           Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
+                        </span>
                       </a>
                     </li>
                     <li>
@@ -97,7 +97,7 @@
                         </span>
                         <span class="message">
                                           Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
+                        </span>
                       </a>
                     </li>
                     <li>
@@ -112,8 +112,14 @@
                 </li>
                 <li role="logo" href="#" style="float:left; cursor: pointer;">
                   <a class="logo">
-                    <img src="{{asset('images/logo.png')}}">
-                    <label>Сүлжээний систем</label>
+                    <div class="row">
+                      <div class="col-lg-2 col-md-2">
+                        <img src="{{asset('images/logo.png')}}">
+                      </div>
+                      <div class="hidden-sm hidden-xs col-lg-10 col-md-10">
+                        <label>Сүлжээний систем</label>
+                      </div>
+                    </div>
                   </a>
                 </li>
               </ul>

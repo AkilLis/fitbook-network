@@ -4,37 +4,39 @@
       <script type="text/javascript">
           $(document).ready(function(){
               $('[data-toggle="tooltip"]').tooltip();   
+              var x = "Total Width: " + screen.width + "px";
+              document.getElementById("demo").innerHTML = x;
           });
-        </script>
+      </script>
         <div main-page>
     <div class="right_col" role="main">
       <!-- top tiles -->
       <div class="main-page">
-        <!--ДАнсны мэдээлэл блок-->
+        <!--Дансны мэдээлэл блок-->
         <div class="row tile_count">
-          <div class="row x_title" style="margin-left:0px; margin-right:0px;">
+          <div class="row x_title" style="margin-left:0px;;">
             <div class="col-md-12">
               <h3>Дансны мэдээлэл</h3>
             </div>
           </div>
-          <div>
+          <div data-toggle="modal" href="#AccountDetail">
             <section>
               <div class="symbol red">
-                  <i class="fa fa-money"></i>
+                  <i class="fa fa-money count-icon"></i>
                   <p class="count">Бэлэн мөнгө</p>
                   <h1 class="count single-account">{{$accounts->cashEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol blue">
-                  <i class="fa fa-user"></i>
+                  <i class="fa fa-user count-icon"></i>
                   <p class="count">Хэрэглээ</p>
                   <h1 class="count single-account">{{$accounts->usageEnd}}₮</h1>
               </div>
             </section>
             <section>
               <div class="symbol yellow">
-                  <i class="fa fa-trophy"></i>
+                  <i class="fa fa-trophy count-icon"></i>
                   <p class="count">Шагнал</p>
                   
                   <h1 class="count single-account">{{$accounts->awardEnd}}₮</h1>
@@ -42,7 +44,7 @@
             </section>
             <section>
               <div class="symbol terques">
-                  <i class="fa fa-graduation-cap"></i>
+                  <i class="fa fa-graduation-cap count-icon"></i>
                   <p class="count">Урамшуулал</p>
 
                   @if(Auth::user()->isBoth())
@@ -55,7 +57,7 @@
             </section>
             <section>
               <div class="symbol purple">
-                  <i class="fa fa-hourglass-half"></i>
+                  <i class="fa fa-hourglass-half count-icon"></i>
                   <p class="count">Хуримтлал</p>
                   
                   @if(Auth::user()->isBoth())
@@ -64,7 +66,6 @@
                   @else
                     <h1 class="count single-account">{{$accounts->savingEnd}}₮</h1>          
                   @endif  
-                  
               </div>
             </section>
           </div>
@@ -79,7 +80,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md-12 col-xs-12 col-sm-12">
               <!--Блокийн мэдээлэл-->
               <div class="x_panel tile hex-height">
                 <div class="row x_title">
@@ -92,76 +93,70 @@
                     <LABEL style="float:left">2-р шат - Өсөх шат</LABEL>
                     <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                   </div>
-                  <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px;">
-                    <ul id="hexGrid">
-                        <div>
-                          <li class="hex">
-                            <a class="hexIn">
-                              <img src="{{asset('images/hex/yellow.png')}}" alt="" />
-                              <div class="container-fluid" style="top: 30%;">
-                                <div class="row-fluid">
-                                    <div class="span3 centering text-center" style="font-size: 9px !important">
-                                      <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$capUser->fCount}}</b></br>{{$capUser->userId}}
+                  <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px; margin-bottom: 50px">
+                    <div>
+                      <div class='hexagon-wrapper'>
+                        <div class='hexagon captain'>
+                          <div class='hexagon-container'>
+                            <div class='hexagon-vertical-align'>
+                              <span class='hexagon-text'><h2>{{$capUser->fCount}}</h2>{{$capUser->userId}}</br>16:50:23:00</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <?php $counter = 0 ?>
+                          @foreach ($blockUsers as $blockUser)
+                            <?php $counter++ ?>
+                            @if($counter < 7)
+                              <div class='hexagon-wrapper'>
+                                <div class='hexagon first-level'>
+                                @if(Auth::user()->id == $blockUser->id)
+                                  <!-- <img src="{{asset('images/hex/purple.png')}}" alt="" /> -->
+                                @else
+                                  <!-- <img src="{{asset('images/hex/terques.png')}}" alt="" /> -->
+                                @endif
+                                  <div class='hexagon-container'>
+                                    <div class='hexagon-vertical-align'>
+                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
                                     </div>
+                                  </div>
                                 </div>
                               </div>
-                            </a>
-                          </li>
-  <!--                         <div class="badge bg-hex-not hex-not">а</div> -->
-                        </div>
-                        <?php $counter = 0 ?>
-                        @foreach ($blockUsers as $blockUser)
-                          <?php $counter++ ?>
-                          @if($counter < 7)
-                            <li class="hex">
-                            <a class="hexIn vertical-class">
-                              @if(Auth::user()->id == $blockUser->id)
-                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
-                              @else
-                                <img src="{{asset('images/hex/terques.png')}}" alt="" />
-                              @endif  
-                                <div class="container-fluid" style="top: 30%;">
-                                  <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 9px !important">
-                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
-                                      </div>
+                            @else
+                              <div class='hexagon-wrapper'>
+                                <div class='hexagon first-down-level'>
+                                @if(Auth::user()->id == $blockUser->id)
+                                  <!-- <img src="{{asset('images/hex/purple.png')}}" alt="" /> -->
+                                @else
+                                  <!-- <img src="{{asset('images/hex/terques.png')}}" alt="" /> -->
+                                @endif
+                                  <div class='hexagon-container'>
+                                    <div class='hexagon-vertical-align'>
+                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
+                                    </div>
                                   </div>
                                 </div>
-                              </a>
-                            </li>
-                          @else
-                            <li class="hex">
-                            <a class="hexIn vertical-class">
-                              @if(Auth::user()->id == $blockUser->id)
-                                <img src="{{asset('images/hex/purple.png')}}" alt="" />
-                              @else
-                                <img src="{{asset('images/hex/blue.png')}}" alt="" />
-                              @endif 
-                                <div class="container-fluid" style="top: 30%;">
-                                  <div class="row-fluid">
-                                      <div class="span3 centering text-center" style="font-size: 9px !important">
-                                        <b style="font-size: 15px; margin-left: -15%; margin-top: -20%;">{{$blockUser->fCount}}</b></br>{{$blockUser->userId}}
-                                      </div>
-                                  </div>
+                              </div>
+                            @endif
+                          @endforeach                        
+                          @for($id = 1; $id < $emptyUsers; $id ++)
+                          <div class='hexagon-wrapper'>
+                            <div class='hexagon grey' data-toggle="tooltip" data-placement="bottom" title="Зуучлах">
+                              <div class='hexagon-container' style="top: 0;">
+                                <div class='hexagon-vertical-align'>
+                                  <span class="hexagon-text hex-empty fa fa-plus" ng-click="init('sponser')"  data-toggle="modal" data-container="body">
+                                  </span>
                                 </div>
-                              </a>
-                            </li>
-                          @endif
-                        @endforeach
-
-                        @for($id = 1; $id < $emptyUsers; $id ++)
-                        <li class="hex">
-                          <a class="hexIn hex-empty" ng-click="init('sponser')"  data-toggle="modal" data-tooltip="true" data-container="body" data-placement="bottom" title="Зуучлах">
-                            <img src="http://localhost/fitbook/public/images/add.png" alt="" />
-                          </a>
-                        </li>
-                        @endfor
-                    </ul>
+                              </div>
+                            </div>
+                          </div>
+                          @endfor
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6 col-xs-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
                   <div class="x_panel tile fixed_height_250">
                     <div class="row x_title">
                         <h3>Одоогийн авах урамшуулал</h3>  
@@ -190,7 +185,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="col-md-6 col-xs-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
                   <div class="x_panel tile fixed_height_250">
                     <div class="row x_title">
                       <h3>Хэрэв ахлагч болвол</h3>  
@@ -217,7 +212,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel tile" style="height:525px">
                 <div class="row x_title">
                 <div class="col-md-12">
@@ -329,6 +324,7 @@
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
         <!-- /page content --> 
