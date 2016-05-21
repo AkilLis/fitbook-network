@@ -19,7 +19,7 @@
               <h3>Дансны мэдээлэл</h3>
             </div>
           </div>
-          <div>
+          <div data-toggle="modal" href="#AccountDetail">
             <section>
               <div class="symbol red">
                   <i class="fa fa-money count-icon"></i>
@@ -118,6 +118,10 @@
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
                                       <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             @else
                               <div class='hexagon-wrapper'>
                                 <div class='hexagon first-down-level'>
@@ -320,6 +324,7 @@
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
         <!-- /page content --> 
