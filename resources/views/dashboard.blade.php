@@ -90,7 +90,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom:10px;">
-                    <LABEL style="float:left">2-р шат - Өсөх шат</LABEL>
+                    <LABEL style="float:left">{{$groupName}}</LABEL>
                     <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                   </div>
                   <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px; margin-bottom: 50px">
@@ -109,26 +109,25 @@
                             <?php $counter++ ?>
                             @if($counter < 7)
                               <div class='hexagon-wrapper'>
-                                <div class='hexagon first-level'>
                                 @if(Auth::user()->id == $blockUser->id)
-                                  <!-- <img src="{{asset('images/hex/purple.png')}}" alt="" /> -->
+                                <div class='hexagon hex-own'>  
                                 @else
-                                  <!-- <img src="{{asset('images/hex/terques.png')}}" alt="" /> -->
+                                <div class='hexagon first-level'>
                                 @endif
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
+                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:08:14:30:30</span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             @else
                               <div class='hexagon-wrapper'>
-                                <div class='hexagon first-down-level'>
+                                
                                 @if(Auth::user()->id == $blockUser->id)
-                                  <!-- <img src="{{asset('images/hex/purple.png')}}" alt="" /> -->
+                                <div class='hexagon hex-own'>  
                                 @else
-                                  <!-- <img src="{{asset('images/hex/terques.png')}}" alt="" /> -->
+                                <div class='hexagon first-down-level'>
                                 @endif
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>

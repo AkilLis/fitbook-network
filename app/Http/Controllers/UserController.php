@@ -200,10 +200,28 @@ class UserController extends Controller
 
         $emptyUsers = 15 - count($blockUsers);
 
+        $groupName = "1-р шат - Хамтрах шат";
+        switch ($blockId->groupId) {
+            case 1:
+                break;
+            case 2:
+                $groupName = "2-р шат - Өсөх шат";
+                break;
+            case 3:
+                $groupName = "3-р шат - Баяжих шат";
+                break;
+            case 4:
+                $groupName = "4-р шат - Лидер";
+                break;
+            default:
+                break;
+        }
+
         return \View::make('dashboard')->with('accounts', $accountsEndAmount[0])
                                        ->with('blockUsers', $blockUsers)
                                        ->with('emptyUsers', $emptyUsers)
-                                       ->with('capUser', $capUser);
+                                       ->with('capUser', $capUser)
+                                       ->with('groupName', $groupName);
 
     }
 

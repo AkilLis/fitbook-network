@@ -816,7 +816,7 @@ table.editable {
 }
 @media only screen and (min-width: 900px) {
   .hexagon-text {
-    font-size: 3em;
+    font-size: 2em;
   }
 }
 .hexagon.captain{
@@ -832,12 +832,14 @@ table.editable {
   color: #F1C40F;
 }
 .hex-own{
-  border-left: 4px solid #9B59B6 !important;
-  border-right: 4px solid #9B59B6 !important;
+  border-left: 4px solid #1abc9c !important;
+  border-right: 4px solid #1abc9c !important;
+  background-color: #1abc9c;
 }
 .hex-own:before, .hex-own:after{
   border-left: inherit;
   border-right: inherit;
+  background-color: inherit;
 }
 .hex-empty{
 font-size: 45px; 

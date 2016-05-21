@@ -124,7 +124,7 @@ app.controller('mainCtrl', function($scope, $http) {
           return;
         }
 
-        $scope.displayNotification('warning' , 'Амжилттай хадгаллаа.');
+        $scope.displayNotification('success' , 'Амжилттай хадгаллаа.');
         $('#ChangePass').modal('hide');
 
     }, function errorCallback(response) {
