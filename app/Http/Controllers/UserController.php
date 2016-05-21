@@ -137,7 +137,7 @@ class UserController extends Controller
                     ->first()->parentId;
         }
 
-        $currentUser = User::find($request->id);
+        $currentUser = User::where('userId', '=', $request->id)->first();
         $currentUser->isNetwork = 'Y';
         $currentUser->save();
        

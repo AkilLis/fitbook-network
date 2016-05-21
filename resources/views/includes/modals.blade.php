@@ -1,3 +1,17 @@
+<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
+
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
@@ -609,24 +623,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <script type="text/javascript">
-                                          $(function () {
-                                              $('#datetimepicker6').datetimepicker({
-                                            format: "DD/MM/YYYY"
-                                          });
-                                              $('#datetimepicker7').datetimepicker({
-                                                  useCurrent: false,
-                                            format: "DD/MM/YYYY"
-                                              });
-                                              $("#datetimepicker6").on("dp.change", function (e) {
-                                                  $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-                                              });
-                                              $("#datetimepicker7").on("dp.change", function (e) {
-                                                  $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-                                              });
-                                          
-                                          });
-                                      </script>
                                       </div>
                                     </div>
                                     <div  class="col-md-5">
@@ -775,17 +771,5 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
+
     

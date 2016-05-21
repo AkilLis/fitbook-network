@@ -37,7 +37,7 @@
                                   <label>Хэрэглэгчийн код</label>
                                 </div>
                                 <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="userId" ng-model="userId" required class="input-default" type="text" style="width:100%"/>
+                                  <input name="userId" ng-model="userId" id="userId" required class="input-default" type="text" style="width:100%"/>
                                   <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
                                 </div>
                                 <div class="clearfix"></div>    
@@ -193,6 +193,7 @@
             }
         });
         var url = "http://103.17.108.49/admin/users";
+        /*var url = "http://localhost/fitbook/public/admin/users";*/
 
         $('#btn-add').click(function (e)
         {
@@ -235,7 +236,6 @@
 
             var formData = {
                   userId: $("#userId").val(),
-                  planText: $("#userId").val().substring(6, 8),
                   fName: $( "input[name*='nameF']" ).val(),
                   lName: $( "input[name*='nameL']" ).val(),
                   email: $( "input[name*='email']" ).val(),
@@ -274,66 +274,9 @@
                 }
             });
           });
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
-//Table Responsive JavaScript
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
-
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
-
-        $('#datatable-responsive').DataTable();
-
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
-
-        TableManageButtons.init();
       });
     </script>
-  @stop
-
+@stop
 
     
    
