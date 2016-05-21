@@ -137,7 +137,7 @@ class UserController extends Controller
                     ->first()->parentId;
         }
 
-        $currentUser = User::find(\Auth::user()->id);
+        $currentUser = User::find($request->id);
         $currentUser->isNetwork = 'Y';
         $currentUser->save();
        
@@ -222,7 +222,6 @@ class UserController extends Controller
                                        ->with('emptyUsers', $emptyUsers)
                                        ->with('capUser', $capUser)
                                        ->with('groupName', $groupName);
-
     }
 
     public function subractAwardAccount($id, $amount){

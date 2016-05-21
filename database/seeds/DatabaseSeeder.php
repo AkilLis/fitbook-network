@@ -105,11 +105,11 @@ class DatabaseSeeder extends Seeder
             User::create($user); 
         } */
 
-      for($i = 500; $i < 2000; $i ++)
+      /*for($i = 500; $i < 2000; $i ++)
       {
         $newUser = array('id' => $i, 'userId' => $i, 'fName' => $i,'lName' => 'l'+$i,'email' => $i+'@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'N');
         User::create($newUser);
-      }
+      }*/
 
       /*$users = array(
                 ['id' => 200, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
                 User::create($user); 
            }*/
 
-      /*$blockA = array(
+      $blockA = array(
                 'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 200, 'U2' => 201, 'U3' => 202, 'U4' => 203, 'U5' => 204, 'U6' => 205 , 'U7' => 206
       ); 
       Block::create($blockA);     
