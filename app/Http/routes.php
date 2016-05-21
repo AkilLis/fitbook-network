@@ -56,7 +56,7 @@ Route::put('auth/detachrole/{userId?}', function(Request $request, $id){
 Route::post('auth/activate','UserController@activateUser');
 
 //Хэрэглэгчийн хэсэгтэй холбоотой
-Route::get('dashboard', 'UserController@dashboard');
+Route::get('dashboard', ['middleware' => 'auth' , 'uses' => 'UserController@dashboard']);
 Route::resource('admin/users', 'AdminController');
 
 Route::put('get/account/{userId?}', function(Request $request, $userId){
