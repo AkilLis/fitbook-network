@@ -67,7 +67,7 @@
                                   <label>Дансны дугаар</label>
                                 </div>
                                 <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="accountId" required ng-model="accountId" class="input-default" type="text" style="width:100%"/>
+                                  <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
@@ -81,7 +81,7 @@
                                   <label>Цахим шуудан</label>
                                 </div>
                                 <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="email" ng-model="email" class="input-default" type="email" style="width:100%"/>
+                                  <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
@@ -192,7 +192,7 @@
             return $('#pass_popover_content').html();
             }
         });
-        var url = "/fitbook/public/admin/users";
+        var url = "http://103.17.108.49/admin/users";
 
         $('#btn-add').click(function (e)
         {
