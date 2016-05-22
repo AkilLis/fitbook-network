@@ -59,13 +59,35 @@ Route::post('auth/activate','UserController@activateUser');
 Route::get('dashboard', ['middleware' => 'auth' , 'uses' => 'UserController@dashboard']);
 Route::resource('admin/users', 'AdminController');
 
-Route::put('get/account/{userId?}', function(Request $request, $userId){
+Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], function(Request $request, $userId){
     $amount = $request->amount;
 
+    /** Admin үед дансний үлдэгдэл шалгаад хасна */
+    if(\Auth::user()->hasRole('Admin'))
+    {
+ 
+        $adminAccount = DB::table('useraccountmap')
+            ->where('useraccountmap.userId','=', \Auth::user()->id)
+            ->where('useraccountmap.type','=', 3)
+            ->select('useraccountmap.accountId')
+            ->first();
+
+        $adminCash = CashAccount::find($adminAccount->accountId);
+        if($adminCash->endAmount < $amount)
+        {
+            return Response::json([
+                'status' => '_cashNotEnought',
+            ]);
+        }
+
+        $adminCash->endAmount = $adminCash->endAmount - $amount;
+        $adminCash->save();
+    }
+
     $accountId = DB::table('useraccountmap')
-     ->join('users','users.id','=','useraccountmap.userId')
+     ->join('users','useraccountmap.userId','=','users.id')
      ->where('users.userId','=', $userId)
-     ->where('type','=', 3)
+     ->where('useraccountmap.type','=', 3)
      ->select('useraccountmap.accountId')
      ->first();
 
@@ -74,7 +96,10 @@ Route::put('get/account/{userId?}', function(Request $request, $userId){
     $account->endAmount = $account->endAmount + $amount;
     $account->save();
 
-});
+    return Response::json([
+        'status' => 'success'
+    ]);
+}]);
 Route::post('transaction', function(Request $request){
     $userId = $request->id;
     $rank = $request->rank; 

@@ -107,9 +107,9 @@ class AdminController extends Controller
         	}
 
             \Log::info('userId = '.$request->userId);
-        	$planPassword = substr($request->userId, 6, 8);
+        	$planPassword = substr($request->userId, 8, 10);
             \Log::info('plantext = '.$planPassword);
-        	$tranToken = rand(1000, 9999);
+        	$tranToken = substr($request->userId, 6, 10);
 			$password = \Hash::make($planPassword);
 
         	$newUser = array(

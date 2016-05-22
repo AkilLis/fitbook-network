@@ -2,7 +2,7 @@ var app = angular.module("fitwork", []);
 
 app.controller('mainCtrl', function($scope, $http) { 
 
-  $isproduction = true;
+  $isproduction = false;
   $production = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
 
   $userUrl = $production + 'admin/users';
@@ -90,6 +90,7 @@ app.controller('mainCtrl', function($scope, $http) {
   };
 
   $scope.setPassword = function () {
+    debugger;
     if(!$('#oldPassword').val())
     {
       $('#oldPassword').focus();
@@ -257,8 +258,17 @@ app.controller('mainCtrl', function($scope, $http) {
     data: formData,
 
     }).then(function successCallback(response) {
-      $('#addMoneyfromCEO').modal('hide');
-      $scope.displayNotification('success', 'Цэнэглэлээ');   
+      
+      if(response.data.status == "success")
+      {
+        $('#addMoneyfromCEO').modal('hide');
+        $scope.displayNotification('success', 'Цэнэглэлээ');   
+        location.reload();
+      }
+      else
+      {
+        $scope.displayNotification('error', 'Дансны үлдэгдэл хүрэлцэхгүй байна.');    
+      }
     }, function errorCallback(response) {
       $scope.displayNotification('error', 'цэнэглэх явцад алдаа гарлаа');
     });     
@@ -460,7 +470,7 @@ app.controller('mainCtrl', function($scope, $http) {
 		  		$scope.top5users = response.data.users;
           if($scope.top5users.length != 1)
           {
-            if(!(index == 4 || index == 3 || index == 2))
+            if(!(index < 5))
               $scope.endAmount = 0;
           }
 		  		$(".content-list:eq("+index+")").fadeIn("fast");   

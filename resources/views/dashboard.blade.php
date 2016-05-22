@@ -4,8 +4,6 @@
       <script type="text/javascript">
           $(document).ready(function(){
               $('[data-toggle="tooltip"]').tooltip();   
-              var x = "Total Width: " + screen.width + "px";
-              document.getElementById("demo").innerHTML = x;
           });
       </script>
         <div main-page>

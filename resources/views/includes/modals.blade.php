@@ -2,7 +2,6 @@
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
@@ -10,7 +9,7 @@
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/loadingoverlay.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/loadingoverlay.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
@@ -111,28 +110,33 @@
                               <div class="modal-body" ng-init="endAmount = 0">
                                 <form name="formCeo" id="addMoneyForm" class="reg-modal form-group">
                                   <div class="row">
-                                    <div>
-                                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
-                                        <label style="padding-left: 10px">Цэнэглэх боломжих бэлэн мөнгөний хэмжээ</label>
+                                    
+                                    @if ( Auth::user()->hasRole('Admin') )
+                                      <div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
+                                          <label style="padding-left: 10px">Цэнэглэх боломжих бэлэн мөнгөний хэмжээ</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
+                                          <label class="wrap">@{{endAmount | currency : ""}}₮</label>
+                                        </div>
                                       </div>
-                                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
-                                        <label class="wrap">@{{total() | currency : ""}}₮</label>
-                                      </div>
-                                    </div>
-                                    <div class="clearfix"></div>  
+                                      <div class="clearfix">
+                                      </div>  
+                                    @endif
+
                                     <div>
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
-                                        <input type="text" ng-keydown="findUserKeyDown($event, 0, 'searchMoney', 'Y')" class="input-default search-input wrap" ng-model="searchMoney" style="width: 100%" id="searchMoney" autocomplete="off">
+                                        <input type="text" ng-keydown="findUserKeyDown($event, 0, 'searchMoney', 'N')" class="input-default search-input wrap" ng-model="searchMoney" style="width: 100%" id="searchMoney" autocomplete="off">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(0, user, 'searchMoney', 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <a ng-click="chooseUser(0, user, 'searchMoney', 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
                                                 <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
