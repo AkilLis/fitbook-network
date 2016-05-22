@@ -97,7 +97,7 @@
                         <div class='hexagon captain'>
                           <div class='hexagon-container'>
                             <div class='hexagon-vertical-align'>
-                              <span class='hexagon-text'><h2>{{$capUser->fCount}}</h2>{{$capUser->userId}}</br>16:50:23:00</span>
+                              <span class='hexagon-text'><h2>{{$capUser->fCount}}</h2>{{$capUser->userId}}</br>{{$capUser->created_at}}</span>
                             </div>
                           </div>
                         </div>
@@ -114,7 +114,7 @@
                                 @endif
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:08:14:30:30</span>
+                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -129,7 +129,7 @@
                                 @endif
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>16:50:23:00</span>
+                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                     </div>
                                   </div>
                                 </div>
