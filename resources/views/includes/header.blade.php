@@ -1,4 +1,4 @@
-<div class="top_nav">
+<div class="top_nav" ng-controller="userCtrl">
           <div class="nav_menu">
             <nav role="navigation">
               <ul class="nav navbar-nav navbar-right">
@@ -44,69 +44,24 @@
                     <span class="badge bg-not">6</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
+                    <li ng-repeat="notif in notifications">
                       <a>
-                        <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
+                        <div class="row" >
+                          <div class="col-md-11">
+                            <div class="col-md-12">
+                              <span class="time">@{{notif.created_at}}</span>
+                            </div>
+                            <div class="col-md-12">
+                              <span class="message">
+                                  @{{notif.description}}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="col-md-1" style="vertical-align: middle; margin-top: 15px;">
+                            <i data-toggle="tooltip" data-container="body" data-placement="top" title="Уншсан болгох" class="fa fa-check-circle org-terques" style="font-size: 10px !important;"></i>
+                          </div>
+                        </div>
                       </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="{{asset('images/img.jpg')}}" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                                      </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image">
-                                          <img src="images/img.jpg" alt="Profile Image" />
-                                      </span>
-                        <span>
-                                          <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a href="inbox.html">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
                     </li>
                   </ul>
                 </li>

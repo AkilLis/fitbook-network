@@ -162,7 +162,6 @@
                         @endforeach
                       </tbody> 
                     </table>
-                    <div style="text-align: center;">{{ $users->appends(Request::only('search'))->links() }}</div>
                     <div id="pass_popover_content" style="display: none;">
                       <div class="pop-pass">1234</div>
                       <div class="pop-icon-vertical">
@@ -192,8 +191,8 @@
             return $('#pass_popover_content').html();
             }
         });
-        var url = "http://103.17.108.49/admin/users";
-        /*var url = "http://localhost/fitbook/public/admin/users";*/
+        //var url = "http://103.17.108.49/admin/users";
+        var url = "http://localhost/fitbook/public/admin/users";
 
         $('#btn-add').click(function (e)
         {

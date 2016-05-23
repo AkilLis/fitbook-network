@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\CashAccount;
 use App\AwardAccount;
 use App\BonusAccount;
+use App\Transactions;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -29,6 +30,8 @@ Route::get('/', function () {
     return view('auth.login',[]);
 });
 
+/* Notification */
+Route::resource('notification', 'NotificationController');
 Route::post('auth/login', 'AuthController@login');
 Route::get('auth/logout', 'AuthController@logout');
 Route::post('auth/password', 'AuthController@password');
@@ -206,7 +209,29 @@ Route::post('transaction', function(Request $request){
     return Response::json([
             'resultCode' => 0,
         ]);
-}); 
+});
+
+Route::get('account/{type}', function(Request $request, $type){
+    switch ($type) 
+    {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        default:
+            return null;
+            break;
+    }
+
+    $accountInfo = Transactions::all();
+    return Response::json($accountInfo);
+});
 
 Route::get('get/account', function(){
     $id = \Auth::user()->id;  

@@ -6,6 +6,7 @@
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
+<script type="text/javascript" src="{{asset('app/controller/usercontroller.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
@@ -650,22 +651,20 @@
                                         <tr>
                                           <th width="5%">Гүйлгээний огноо</th>
                                           <th width="15%">Дансны нэр</th>
-                                          <th width="30%">Гүйлгээний утга</th>
-                                          <th width="20%">Харьцсан дансны нэр</th>
-                                          <th width="10%">Орлого</th>
-                                          <th width="10%">Зарлага</th>
-                                          <th width="10%">Үлдэгдэл</th>
+                                          <th width="35%">Гүйлгээний утга</th>
+                                          <th width="15%">Орлого</th>
+                                          <th width="15%">Зарлага</th>
+                                          <th width="15%">Үлдэгдэл</th>
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>16/04/15</td>
-                                          <td>Урамшуулал</td>
-                                          <td>Бат - Хэрэглэгчээс</td>
-                                          <td>Бусад</td>
-                                          <td>100,000₮</td>
-                                          <td></td>
-                                          <td>100,000₮</td>
+                                        <tr ng-repeat="data in accountDatas">
+                                          <td>@{{data.invDate}}</td>
+                                          <td>@{{data.invType}}</td>
+                                          <td>@{{data.invDescription}}</td>
+                                          <td>@{{data.inAmt}}</td>
+                                          <td>@{{data.outAmt}}</td>
+                                          <td>@{{data.endAmt}}</td>
                                         </tr>
                                       </tbody>
                                     </table>

@@ -19,6 +19,7 @@ app.controller('mainCtrl', function($scope, $http) {
   $scope.form = {};
   $addAmount = 0;
   $endAmount = 0;
+  $scope.accountDatas = {};
 
   $scope.displayNotification = function(type, text) {
       $.notify({
@@ -38,7 +39,7 @@ app.controller('mainCtrl', function($scope, $http) {
   }
 
   $scope.init = function(index){
-
+    debugger;
     switch(index) {
       case 'admin' :
         $scope.getAllAdmins();
@@ -88,6 +89,19 @@ app.controller('mainCtrl', function($scope, $http) {
     $scope.edBonusAmountBg.$setPristine();
     $scope.edBonusAmountAd.$setPristine();*/
   };
+
+  $scope.getAccountTransactions = function(type) {
+      $http({
+        method: 'GET',
+        url: $baseUrl + 'account/' + type,
+        }).then(function successCallback(response) {
+          debugger;
+          $scope.accountDatas = response.data;
+          $('#AccountDetail').modal('show');
+          
+        }, function errorCallback(response) {
+      });
+  }
 
   $scope.setPassword = function () {
     debugger;

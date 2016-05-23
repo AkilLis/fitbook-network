@@ -221,6 +221,7 @@ class UserController extends Controller
                                        ->with('blockUsers', $blockUsers)
                                        ->with('emptyUsers', $emptyUsers)
                                        ->with('capUser', $capUser)
+                                       ->with('block', $blockId)
                                        ->with('groupName', $groupName);
     }
 

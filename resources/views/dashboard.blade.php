@@ -17,23 +17,23 @@
               <h3>Дансны мэдээлэл</h3>
             </div>
           </div>
-          <div data-toggle="modal" href="#AccountDetail">
+          <div>
             <section>
-              <div class="symbol red">
+              <div class="symbol red" ng-click="getAccountTransactions(3)">
                   <i class="fa fa-money count-icon"></i>
                   <p class="count">Бэлэн мөнгө</p>
                   <h1 class="count single-account">{{$accounts->cashEnd}}₮</h1>
               </div>
             </section>
             <section>
-              <div class="symbol blue">
+              <div class="symbol blue" ng-click="getAccountTransactions(5)">
                   <i class="fa fa-user count-icon"></i>
                   <p class="count">Хэрэглээ</p>
                   <h1 class="count single-account">{{$accounts->usageEnd}}₮</h1>
               </div>
             </section>
             <section>
-              <div class="symbol yellow">
+              <div class="symbol yellow" ng-click="getAccountTransactions(1)">
                   <i class="fa fa-trophy count-icon"></i>
                   <p class="count">Шагнал</p>
                   
@@ -41,7 +41,7 @@
               </div>
             </section>
             <section>
-              <div class="symbol terques">
+              <div class="symbol terques" ng-click="getAccountTransactions(2)">
                   <i class="fa fa-graduation-cap count-icon"></i>
                   <p class="count">Урамшуулал</p>
 
@@ -54,7 +54,7 @@
               </div>
             </section>
             <section>
-              <div class="symbol purple">
+              <div class="symbol purple" ng-click="getAccountTransactions(4)">
                   <i class="fa fa-hourglass-half count-icon"></i>
                   <p class="count">Хуримтлал</p>
                   
@@ -138,11 +138,16 @@
                           @endforeach                        
                           @for($id = 1; $id < $emptyUsers; $id ++)
                           <div class='hexagon-wrapper'>
-                            <div class='hexagon grey' data-toggle="tooltip" data-placement="bottom" title="Зуучлах">
+                            <div class='hexagon grey'>
                               <div class='hexagon-container' style="top: 0;">
                                 <div class='hexagon-vertical-align'>
-                                  <span class="hexagon-text hex-empty fa fa-plus" ng-click="init('sponser')"  data-toggle="modal" data-container="body">
-                                  </span>
+                                  @if($block->groupId == 1)
+                                    <span class="hexagon-text hex-empty fa fa-plus" data-toggle="tooltip" data-placement="bottom" title="Зуучлах" ng-click="init('sponser')" data-toggle="modal" data-container="body">
+                                    </span>
+                                  @else
+                                    <span class="hexagon-text hex-empty">
+                                    </span>
+                                  @endif
                                 </div>
                               </div>
                             </div>
