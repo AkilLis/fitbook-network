@@ -1145,26 +1145,17 @@ div.box {
 
 /* *********  widgets  *************************************** */
 
-ul.msg_list li {
+.msg_list{
   background: #f7f7f7;
   padding: 5px;
-  display: flex;
-  margin: 6px 6px 0;
   width: 96% !important;
 }
-ul.msg_list li:last-child {
+.msg_list:last-child {
   margin-bottom: 6px;
   padding: 10px;
 }
-ul.msg_list li a {
+.msg_list{
   padding: 3px 5px !important;
-}
-ul.msg_list li a .image img {
-  border-radius: 2px 2px 2px 2px;
-  -webkit-border-radius: 2px 2px 2px 2px;
-  float: left;
-  margin-right: 10px;
-  width: 11%;
 }
 ul.msg_list li a .time {
   font-size: 11px;
@@ -4218,6 +4209,10 @@ ul.notifications {
   color: #E9EDEF;
   float: right;
   opacity: 1;
+}
+.list-not{
+  background: #EFEFEF;
+  margin-top: 4px;
 }
 /** /PNotify **/
 

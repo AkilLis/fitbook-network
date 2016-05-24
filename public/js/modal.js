@@ -54,6 +54,15 @@ app.controller('mainCtrl', function($scope, $http) {
         $('#usertranForm').trigger("reset");
         $('#UserTrans').modal('show');
         break;
+      case "giveSalary" :
+        $scope.endAmount = 0;
+        $scope.edAwardAmount = 0;
+        $scope.edBonusAmountAd = 0;
+        $scope.edBonusAmountBg = 0;
+        //$scope.giveSalaryForm.$setPristine();
+        $('#giveSalaryForm').trigger("reset");
+        $('#GiveSalary').modal('show');
+        break;
       case 'sponser' :
         $scope.getAccountInfo();
         $scope.endAmount = 0;

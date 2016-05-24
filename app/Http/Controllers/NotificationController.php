@@ -24,8 +24,17 @@ class NotificationController extends Controller
 
     public function index(Request $request)
     {
-        $notifications = Notification::where('user_id','=',$request->user()->id)->paginate(5);
-        return Response::json($notifications);
+        $notifications = Notification::where('user_id','=',$request->user()->id)->orderBy('created_at','DESC')->paginate(5);
+        $totalCount = DB::table('notification')
+                     ->select(DB::raw('COUNT(1) as totalCount'))
+                     ->where('is_read', '=', 'N')
+                     ->where('user_id','=', $request->user()->id)
+                     ->get();
+
+        return Response::json([
+            'totalCount' => $totalCount,
+            'notifications' => $notifications,
+        ]);
     }
 
     public function store(Request $request)

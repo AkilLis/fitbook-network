@@ -13,6 +13,95 @@
 <script type="text/javascript" src="{{asset('js/loadingoverlay.min.js')}}"></script>
 
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
+ <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Хэрэглэгчийн бүртгэл</h4>
+                          </div>
+                          <div class="modal-body">
+                            @if (count($errors) > 0)
+                              <div class="alert alert-danger" style="margin-top: 0px;">
+                                <strong>Анхаар!</strong> Алдаа гарлаа.<br><br>
+                                <ul>
+                                  @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                                  @endforeach
+                                </ul>
+                              </div>
+                            @endif
+                            <form name="myForm" class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
+                              <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Хэрэглэгчийн код</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="userId" ng-model="userId" id="userId" required class="input-default" type="text" style="width:100%"/>
+                                  <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
+                                </div>
+                                <div class="clearfix"></div>    
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Овог</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
+                                  <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Нэр</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Регистрийн №</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Дансны дугаар</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Гэрийн хаяг</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="address" class="input-default" type="textarea" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Цахим шуудан</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                  <label>Утасны дугаар</label>
+                                </div>
+                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                  <input name="phone" class="input-default" type="tel" style="width:100%"/>
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                          <button type="button" ng-disabled="myForm.$invalid" id="btn-save" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<!--MODAL ENDS HERE-->
+<!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
                           <div class="modal-dialog">
@@ -768,6 +857,94 @@
                             </div>
                           </div>
     </div>
+
+    <!--MODAL STARTS HERE // ADMIN DIALOG-->
+    <div class="modal fade" id="GiveSalary" tabindex="-1" role="dialog" aria-labelledby="GiveSalary" aria-hidden="true" data-target="GiveSalary">
+      <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Урамшуулал олгох</h4>
+                              </div>
+                              <div class="modal-body">
+                                <form name="giveSalaryForm" id="giveSalaryForm" class="reg-modal form-group" >
+                                  <div class="row">
+                                    <div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
+                                      </div>
+                                      <div class="col-md-6 vertical-centered-label">
+                                        <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchTrans" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchTrans', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <div class="content-list" id="list">
+                                          <ul class="drop-list">
+                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                            </li>
+                                            <li ng-repeat="user in top5users">
+                                              <a ng-click="chooseUser(2, user, 'searchTrans')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div class="row">
+                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
+                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </div>
+                                              </a>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>   
+                                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-admin" cellspacing="0" width="100%">
+                                      <thead>
+                                        <tr>
+                                          <th width="40%">Данс</th>
+                                          <th width="30%">Дансан дахь үлдэгдэл</th>
+                                          <th width="30%">Урамшуулал олгох дүн</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td >Шагнал</td>
+                                          <td>@{{shAwardAmount | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edAwardAmount"/>
+                                          </td>
+                                        </tr>
+
+                                        <tr ng-show="isShown(1)">
+                                          <td colspan="3">Анхан</td>
+                                        </tr>
+
+                                        <tr ng-show="isShown(1)">
+                                          <td>Урамшуулал</td>
+                                          <td>@{{shBonusAmountBg | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountBg"/>
+                                          </td>
+                                        </tr>
+                                        
+                                        <tr ng-show="isShown(2)">
+                                          <td colspan="3">Ахисан</td>
+                                        </tr>
+                                        <tr ng-show="isShown(2)">
+                                          <td>Урамшуулал</td>
+                                          <td>@{{shBonusAmountAd | currency : ""}}₮</td>
+                                          <td>
+                                            <input class="borderless-input" type="text" ng-model="edBonusAmountAd"/>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" ng-click="makeTransaction()" class="btn btn-green"><i class="fa fa-envelope-o"></i> Илгээх</button>
+                              </div>
+                            </div>
+                          </div>
+    </div>
+    <!--MODAL ENDS HERE-->
+
     <!--MODAL ENDS HERE-->
     <div id="loader" >
       <img src="{{asset('images/loader.gif')}}"/>
