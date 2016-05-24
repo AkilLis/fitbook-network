@@ -15,6 +15,8 @@ class CreateTransactionTable extends Migration
         //
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('inUserId');
+            $table->bigInteger('outUserId');
             $table->string('invDate', 23);
             $table->string('invType', 30);
             $table->string('invDescription', 100);
@@ -22,8 +24,7 @@ class CreateTransactionTable extends Migration
             $table->integer('outAccountId');
             $table->decimal('inAmt', 24, 6);
             $table->decimal('outAmt', 24, 6);
-            $table->integer('tanCode');
-            $table->char('isActivated', 1);
+            $table->decimal('endAmt', 24, 6);
             $table->timestamps();
         });
     }

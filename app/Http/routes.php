@@ -293,6 +293,9 @@ Route::post('get/account', function(Request $request)
         'cashEndAmount' => !$cash ? 0 : $cash->endAmount, ]
     );
 });
+
+Route::resource('admin/cash', 'CashController');
+
 Route::post('get/users',function(Request $request){
     $searchValue = $request->search;
     try

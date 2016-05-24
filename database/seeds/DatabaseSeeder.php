@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+      
       /*
         $users = array(
                 ['id' => 1, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],

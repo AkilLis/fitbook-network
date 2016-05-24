@@ -18,6 +18,7 @@
 
                     @if ( Auth::user()->hasRole('Ceo') )
                       <li><a data-toggle="modal" ng-click="init('ceomoney')"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
+                      <li><a href="{{url('admin/cash')}}"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
                     @endif
                     
                     @if ( Auth::user()->hasRole('Ceo') )
