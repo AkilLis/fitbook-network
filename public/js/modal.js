@@ -1,6 +1,6 @@
 var app = angular.module("fitwork", []);
 
-app.controller('mainCtrl', function($scope, $http) { 
+app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) { 
 
   $isproduction = false;
   $production = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
@@ -20,6 +20,7 @@ app.controller('mainCtrl', function($scope, $http) {
   $addAmount = 0;
   $endAmount = 0;
   $scope.accountDatas = {};
+  $scope.selected = {};
 
   $scope.displayNotification = function(type, text) {
       $.notify({
@@ -37,6 +38,20 @@ app.controller('mainCtrl', function($scope, $http) {
           type: type
         });
   }
+
+  $scope.open = function () {
+    debugger;
+    var modalInstance = $modal.open({
+        templateUrl: 'giveSalary.html',
+        controller: 'mainCtrl',
+        size: 'lg',
+        resolve: {
+            items: function () {
+                debugger;
+            }
+        }
+    });
+  };
 
   $scope.init = function(index){
     debugger;
@@ -536,7 +551,7 @@ app.controller('mainCtrl', function($scope, $http) {
     }
     else $('.content-list:eq(4)').hide();
   });
-});
+}]);
 
 
 

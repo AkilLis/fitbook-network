@@ -9,7 +9,6 @@ app.controller('userCtrl', ['$scope','$http', function($scope, $http) {
 	    method: 'GET',
 	    url: $baseUrl + 'notification',
 	    }).then(function successCallback(response) {
-	    	debugger;
 	      $scope.notifications = response.data.notifications.data;
 	      $scope.totalCount = response.data.totalCount[0].totalCount;
 	    }, function errorCallback(response) {
@@ -17,7 +16,6 @@ app.controller('userCtrl', ['$scope','$http', function($scope, $http) {
   	}
 
   	$scope.markAsRead = function(id, userId) {
-  		debugger;
   	}
 
   	$scope.getNotification();

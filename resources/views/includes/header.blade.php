@@ -32,7 +32,7 @@
                     @endif
 
                     @if ( Auth::user()->hasRole('Admin') )
-                      <li><a data-toggle="modal" ng-click="init('giveSalary')">Урамшуулал олгох</a></li>
+                      <li><a data-toggle="modal" ng-click="open()">Урамшуулал олгох</a></li>
                     @endif
 
                     @if ( Auth::user()->hasRole('Admin') )
