@@ -31,9 +31,17 @@
                     @if ( Auth::user()->hasRole('Ceo') )
                       <li><a data-toggle="modal" href="#ChangeBonus">Урамшууллын мөнгөн дүн өөрчлөх</a></li>
                     @endif
+
+                    @if ( Auth::user()->hasRole('Admin') )
+                      <li><a data-toggle="modal" ng-click="init('giveSalary')">Урамшуулал олгох</a></li>
+                    @endif
+
                     @if ( Auth::user()->hasRole('Admin') )
                       <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
                       <li><a data-toggle="modal" ng-click="init('ceomoney')">Мөнгө цэнэглэх/Админ/</a></li>
+                    @endif
+                    @if ( Auth::user()->hasRole('Registration') )
+                    <li><a data-toggle="modal" href="#basicModal">Хэрэглэгч нэмэх</a></li>
                     @endif
                     <li><a data-toggle="modal" ng-click="init('changepassword')">Нууц үг солих</a></li>
                     <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i>Гарах</a></li>
@@ -42,29 +50,31 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-not">6</span>
+                    <span class="badge bg-not" ng-bind="totalCount"></span>
                   </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li ng-repeat="notif in notifications">
-                      <a>
-                        <div class="row" >
-                          <div class="col-md-11">
-                            <div class="col-md-12">
-                              <span class="time">@{{notif.created_at}}</span>
-                            </div>
-                            <div class="col-md-12">
-                              <span class="message">
-                                  @{{notif.description}}
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-md-1" style="vertical-align: middle; margin-top: 15px;">
-                            <i data-toggle="tooltip" data-container="body" data-placement="top" title="Уншсан болгох" class="fa fa-check-circle org-terques" style="font-size: 10px !important;"></i>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
+                      <div id="style-3" class="scrolldiv msg_list dropdown-menu" role="menu" style="border-top:1px solid #5A738E; width: 300px !important; ">
+                        <ul class="list-unstyled" >
+                          <li ng-repeat="notif in notifications" class="list-not">
+                            <a>
+                              <div class="row">
+                                <div class="col-md-11">
+                                  <div class="col-md-12">
+                                    <span class="time">@{{notif.created_at}}</span>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <span class="message">
+                                        @{{notif.description}}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-1" style="vertical-align: middle; margin-top: 15px; display: block;margin-top: 2%; margin-left: -4%;">
+                                  <i data-toggle="tooltip" data-container="body" data-placement="top" title="Уншсан болгох" class="fa fa-check-circle org-terques" style="font-size: 10px !important;"></i>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                 </li>
                 <li role="logo" href="#" style="float:left; cursor: pointer;">
                   <a class="logo" href="{{url('/dashboard')}}">
