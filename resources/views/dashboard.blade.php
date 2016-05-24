@@ -6,7 +6,7 @@
               $('[data-toggle="tooltip"]').tooltip();   
           });
       </script>
-        <div main-page>
+  <div main-page>
     <div class="right_col" role="main">
       <!-- top tiles -->
       <div class="main-page">
@@ -230,104 +230,61 @@
                   </ol>
                   <div class="row" style="margin-bottom:10px">
                     <div class="col-md-6"><label style="margin-top:5px">Миний зуучлагч:</label></div>
-                      <div>
+                    <div>
                         <span class="lvl-b user-profile">
                           <div class="col-md-6" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
                         </span>
-                      </div>
-                    </div>
-                    <div><label style="margin-top:5px;">Манай багийн гишүүд:</label></div>
-                    <div class="responsive-content">
-                      <figure class="org-chart cf">
-                        <div class="board ">
-                          <ul class="columnOne ">
-                            <li>
-                              <span class="lvl-b user-profile own-class">
-                                <div class="row">
-                                  <div class="col-md-12" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                </div>
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                        <ul class="departments ">
-                          <li class="department scrolldiv" id="style-3" style="height:265px; padding-bottom:30px;">
-                            <div id="mask" style="border-top:1px solid #5A738E;">
-                            <ul class="sections">
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="2-р шат - Ахлагч" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-blue"><p>2</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="3-р шат - Ахлагч" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-tesquer"><p>3</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="Лидер" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-yellow"><p>Л</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="1-р шат - Ахлагч" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-grey"><p>1</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="1-р шат - Ахлагч" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-grey"><p>1</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                              <li class="section"> 
-                                <span class="user-profile" data-toggle="tooltip" data-placement="left" title="1-р шат - Ахлагч" data-container="body">
-                                  <div class="row">
-                                    <div class="col-md-2 vertical-class">
-                                      <div class="vetical-content org-chart-content org-grey"><p>1</p></div>
-                                    </div>
-                                    <div class="col-md-10" style="float:left; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                                  </div>
-                                </span>
-                              </li>
-                            </ul>
-                            </div>
-                          </li>
-                        </ul>
-                      </figure>
                     </div>
                   </div>
-                </div>
+                  <div><label style="margin-top:5px;">Манай багийн гишүүд:</label></div>
+                  <div class="responsive-content">
+                    <figure class="org-chart cf">
+                      <div class="board ">
+                            <ul class="columnOne">
+                              <li>
+                                <span class="lvl-b">
+                                 <strong>Position Name</strong>
+                                 <br>Name Surname
+                                 <br>AA
+                                </span> 
+                              </li>
+                            </ul>
+                      </div>
+                      <ul class="departments ">
+                        <div class="org-spacing">
+                          <li class="department ">
+                             <span class="lvl-b">
+                             <strong>Position Name</strong>
+                             <br>Name Surname
+                             <br>AB
+                             </span> 
+                          </li>
+                          <li class="department ">
+                             <span class="lvl-b">
+                             <strong>Position Name</strong>
+                             <br>Name Surname
+                             <br>AB
+                             </span> 
+                          </li>
+                          <li class="department ">
+                             <span class="lvl-b">
+                             <strong>Position Name</strong>
+                             <br>Name Surname
+                             <br>AB
+                             </span>
+                          </li>
+                        </div>
+                      </ul>
+                    </figure>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
     </div>
         <!-- /page content --> 
         
