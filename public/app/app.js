@@ -1,6 +1,6 @@
-var app = angular.module("fitwork", []);
+var app = angular.module("fitwork", ['ui.bootstrap']);
 
-app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) { 
+app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
   $isproduction = false;
   $production = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
@@ -38,11 +38,12 @@ app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) {
           type: type
         });
   }
-
+  
   $scope.open = function () {
     debugger;
-    var modalInstance = $modal.open({
-        templateUrl: 'giveSalary.html',
+    var modalInstance = $uibModal.open({
+        templateUrl: '/fitbook/public/admin/giveSalary.html',
+        animation: true,
         controller: 'mainCtrl',
         size: 'lg',
         resolve: {
@@ -99,6 +100,19 @@ app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) {
         $("#changeForm").trigger('reset');
         $('#ChangePass').modal('show');
         break;
+      case "newUser" :
+        $('#myForm').trigger('reset');
+        $http({
+          method: 'GET',
+          url: $baseUrl + 'admin/users/create',
+          }).then(function successCallback(response) {
+            $('#userId').val(response.data.nextId);
+          }, function errorCallback(response) {
+        });
+
+        $('#basicModal').modal('show'); 
+        
+        break;
       default:
         break;
 
@@ -113,6 +127,33 @@ app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) {
     $scope.edBonusAmountBg.$setPristine();
     $scope.edBonusAmountAd.$setPristine();*/
   };
+
+  $scope.newUser = function() 
+  {
+      var formData = {
+        userId: $("#userId").val(),
+        fName: $( "input[name*='nameF']" ).val(),
+        lName: $( "input[name*='nameL']" ).val(),
+        email: $( "input[name*='email']" ).val(),
+        address: $( "input[name*='address']" ).val(),
+        phone: $( "input[name*='phone']" ).val(),
+        registryNo: $( "input[name*='registryNo']" ).val(),
+        accountId: $( "input[name*='accountId']" ).val(),
+      }
+
+      $http({
+        method: 'POST',
+        url: $baseUrl + 'admin/users',
+        data: formData,
+        }).then(function successCallback(response) {
+          debugger;
+          $scope.displayNotification('success' , 'Aмжилттай хадгаллаа.');
+          $('#basicModal').modal('hide');
+          location.reload();
+        }, function errorCallback(response) {
+      });
+  }
+
 
   $scope.getAccountTransactions = function(type) {
       $http({
@@ -551,7 +592,7 @@ app.controller('mainCtrl',['$scope','$http', function($scope, $http, $modal) {
     }
     else $('.content-list:eq(4)').hide();
   });
-}]);
+});
 
 
 

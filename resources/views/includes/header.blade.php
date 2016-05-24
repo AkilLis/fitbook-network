@@ -41,7 +41,7 @@
                       <li><a data-toggle="modal" ng-click="init('ceomoney')">Мөнгө цэнэглэх/Админ/</a></li>
                     @endif
                     @if ( Auth::user()->hasRole('Registration') )
-                    <li><a data-toggle="modal" href="#basicModal">Хэрэглэгч нэмэх</a></li>
+                    <li><a data-toggle="modal" ng-click="init('newUser')">Хэрэглэгч нэмэх</a></li>
                     @endif
                     <li><a data-toggle="modal" ng-click="init('changepassword')">Нууц үг солих</a></li>
                     <li><a href="{{url('auth/logout')}}"><i class="fa fa-sign-out pull-right"></i>Гарах</a></li>
