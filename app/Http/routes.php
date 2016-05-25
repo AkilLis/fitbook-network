@@ -60,7 +60,12 @@ Route::post('auth/activate','UserController@activateUser');
 
 //Хэрэглэгчийн хэсэгтэй холбоотой
 Route::get('dashboard', ['middleware' => 'auth' , 'uses' => 'UserController@dashboard']);
+Route::get('admin/cash', function() {
+    return View::make('admin/cash');
+});
+
 Route::resource('admin/users', 'AdminController');
+Route::resource('api/cash', 'CashController');
 
 Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], function(Request $request, $userId){
     $amount = $request->amount;
@@ -98,6 +103,24 @@ Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], func
 
     $account->endAmount = $account->endAmount + $amount;
     $account->save();
+
+
+    $currentUser = User::where('userId','=',$userId)->first();
+
+    $trans = array(
+                'inUserId' => $currentUser->id,
+                'outUserId' => \Auth::user()->id, 
+                'invType' => 'CashLoad',
+                'invDate' => \Carbon::now(), 
+                'invDescription' => '', 
+                'inAccountId' => $account->id,
+                'outAccountId' => 0, 
+                'inAmt' => $amount,
+                'outAmt' => 0, 
+                'endAmt' => 0,
+    );
+
+    Transactions::create($trans);
 
     return Response::json([
         'status' => 'success'
@@ -293,8 +316,6 @@ Route::post('get/account', function(Request $request)
         'cashEndAmount' => !$cash ? 0 : $cash->endAmount, ]
     );
 });
-
-Route::resource('admin/cash', 'CashController');
 
 Route::post('get/users',function(Request $request){
     $searchValue = $request->search;
