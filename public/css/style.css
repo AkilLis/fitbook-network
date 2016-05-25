@@ -261,11 +261,12 @@ content{
 }
 .org-chart ul li span {
   display: block;
-  border: 1px solid orange;
+  border-radius: 6px;
+  border: 1px solid #73879C;
   text-align: center;
   overflow: hidden;
   text-decoration: none;
-  color: black;
+  color: #73879C;
   font-size: 12px;
   box-shadow: 4px 4px 9px -4px rgba(0, 0, 0, 0.4);
   -webkit-transition: all linear .1s;
@@ -274,7 +275,7 @@ content{
   padding: 4px;
 }
 .org-chart .lvl-b {
-  background: green;
+  background: white;
 }
 .org-chart .board {
   width: 70%;
@@ -288,7 +289,7 @@ content{
   position: absolute;
   height: 50px;
   width: 0px;
-  border-left: 1px solid orange;
+  border-left: 1px solid #73879C;
   margin-left: 50%;
   top: 45%;
 }
@@ -309,20 +310,39 @@ content{
   display: block;
   clear: both;
 }
+/*3 үед*/
 .org-chart .departments:before {
   content: "";
   display: block;
-  width: 57%;
   height: 22px;
-  border-top: 1px solid orange;
+  border-top: 1px solid #73879C;
   margin: 0px auto;
   top: 0px;
 }
-.org-chart .department {
-  border-left: 1px solid orange;
-    width: 20%;
-    float: left;
-    margin: 0px 4px;
+.deps-child3:before{
+  width: 57%;  
+}
+.deps-child2:before{
+  width: 43.3%;  
+}
+.deps-child1:before{
+  width: 0%;
+  height: 0px !important;
+}
+
+.org-chart .department{
+  width: 20%;
+  float: left;
+
+}
+.dep-child3{
+  margin: 0% 5.2%;
+}
+.dep-child2{
+  margin: 0% 15%;
+}
+.dep-child1{
+  margin: 0% 25.1% !important;
 }
 .org-chart .department:first-child {
   margin-left: 0%;
@@ -333,7 +353,7 @@ content{
   display: block;
   width: 10px;
   height: 22px;
-  border-left: 1px solid orange;
+  border-left: 1px solid #73879C;
   left: 50%;
   top: -22px;
 }
@@ -350,11 +370,11 @@ content{
   display: none;
 }
 .org-chart .department span {
-  border-left: 1px solid orange;
+  border-left: 1px solid #73879C;
 }
 .org-chart .department li {
   padding-left: 25px;
-  border-bottom: 1px solid orange;
+  border-bottom: 1px solid #73879C;
   height: 80px;
 }
 .org-chart .department li span {
@@ -366,196 +386,26 @@ content{
   vertical-align: middle;
   right: 0px;
   line-height: 14px;
-  border: 1px solid orange;
+  border: 1px solid #73879C;
 }
 .org-chart .department .sections {
   margin-top: -20px;
 }
 .org-spacing{
-  margin-left: 12%;
   display: block;
   margin-right: -6%;
 }
-/*.org-chart-content{
-  font-weight: bold;
-  font-size: 20px;
+.org-sp-child3{
+  margin-left: 12%;
 }
-.org-grey{
-  color: #A5A9AC;
+.org-sp-child2{
+  margin-left: 19.7%;
 }
-.org-blue{
-  color: #41cac0;
+.org-sp-child1{
+  margin-left: 19.7%;
 }
-.org-red{
-  color: #e74c3c;
-}
-.org-yellow{
-  color: #f1c40f;
-}
-.org-terques{
-  color: #1abc9c;
-}
-.org-purple{
-  color: #9b59b6;
-}
-.family-tree-group{
-position: relative;
-  height: 100%;
-  border: 1px solid;
-}
-.org-chart.cf:before, .org-chart.cf:after {
-  content: " ";
-  display: table;
-}
-.org-chart.cf:after {
-  clear: both;
-}
-.org-chart.cf {
-  *zoom: 1;
-}
-.org-chart ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-.org-chart ul li {
-  position: relative;
-}
-.org-chart ul li span {
-  display: block;
-  border: 1px solid #5A738E;
-  text-align: center;
-  overflow: hidden;
-  text-decoration: none;
-  color: black;
-  font-size: 12px;
-  box-shadow: 4px 4px 9px -4px rgba(0, 0, 0, 0.4);
-  -webkit-transition: all linear .1s;
-  -moz-transition: all linear .1s;
-  transition: all linear .1s;
-  padding: 4px;
-}
-.org-chart .lvl-b {
-    background: #ffffff;
-    border-radius: 6px;
-    color: #73879C;
-    cursor: pointer;
-}
-.org-chart .lvl-b:hover {
-    background: #E6E9ED;
-    border-radius: 6px;
-    color: #73879C;
-}
-.org-chart .board {
-  width: 70%;
-  margin: 0 auto;
-  display: block;
-  position: relative;
-}
-.org-chart .board:before {
-  content: "";
-  display: block;
-  position: absolute;
-  height: 200px;
-  width: 0px;
-  border-left: 1px solid #5A738E;
-  margin-left: 49%;
-  top: 20px;
-}
-.org-chart ul.columnOne {
-  height: 90px;
-  position: relative;
-  width: 100%;
-  display: block;
-  clear: both;
-}
-.org-chart ul.columnOne li {
-  width: 50%;
-  margin: 0px auto;
-  top: 20px;
-}
-.org-chart .departments {
-  width: 100%;
-  display: block;
-  clear: both;
-}
-.org-chart .departments:before {
-  content: "";
-  display: block;
-  width: 85%;
-  height: 22px;
-  border-top: 2px solid orange;
-  border-left: 2px solid orange;
-  border-right: 2px solid orange;
-  margin: 0 auto;
-  top: 0px;
-}
-.org-chart .department {
-  width: 13.2%;
-  float: left;
-  margin: -40px 4px;
-}
-.org-chart .department:after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 10px;
-  height: 22px;
-  border-left: 2px solid orange;
-  left: 50%;
-  top: -22px;
-}
-.org-chart .department:first-child:after {
-  display: none;
-}
-.org-chart .department:last-child:after {
-  display: none;
-}
-.org-chart .department.central {
-  background: #F5EEC9;
-}
-.org-chart .department.central:after {
-  display: none;
-}
-.org-chart .department span {
-  border-left: 1px solid #5A738E;
-  width: 90%;
-  margin-left: 7%;
-  z-index: 1;
-  position: relative;
-}
-.org-chart .department li {
-  padding-left: 28px;
-  border-bottom: 1px solid #5A738E;
-  border-left: 1px solid #5a738e;
-  height: 52px;
-}
-.org-chart .department li span {
-  background: #FFFFFF;
-  top: 30px;
-  position: absolute;
-  z-index: 1;
-  width: 95%;
-  height: auto;
-  vertical-align: middle;
-  right: -20%;
-  line-height: 14px;
-  border-radius: 6px;
-  border: 1px solid #5A738E;
-  color: #5A738E;
-  cursor: pointer;
-}
-.org-chart .department li span:hover{
-  background: #E6E9ED;
-}
-.org-chart .department .sections {
-  width: 200px;
-  margin-top: -25px;
-  margin-right: 40%;
-}*/
-
 /* MEDIA QUERIES */
-/*@media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .org-chart .board {
     margin: 0px;
     width: 100%;

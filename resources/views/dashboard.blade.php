@@ -215,11 +215,11 @@
               </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel tile" style="height:525px">
+              <div class="x_panel tile" style="height:350px">
                 <div class="row x_title">
-                <div class="col-md-12">
-                  <h3>Манай баг</h3>
-                </div>
+                  <div class="col-md-12">
+                    <h3>Манай баг</h3>
+                  </div>
                 </div>
                 <div class="row">
                 <div class="col-md-12 col-sm-12">
@@ -228,54 +228,48 @@
                     <li><a href="#">Түвшинбат</a></li>
                     <li class="active">Пүүжээ</li>
                   </ol>
-                  <div class="row" style="margin-bottom:10px">
-                    <div class="col-md-6"><label style="margin-top:5px">Миний зуучлагч:</label></div>
-                    <div>
-                        <span class="lvl-b user-profile">
-                          <div class="col-md-6" style="vertical-align:middle; font-size:11px;">Түвшинбат Гансүх</br>ID00000001</div>
-                        </span>
-                    </div>
+                  <div style="margin-bottom:10px">
+                    <div style="margin-top:5px; float:left; font-weight: bold;">Миний зуучлагч:</div>
+                    <div style="vertical-align:middle; font-size:11px; float:left; margin-left: 50px;">Түвшинбат Гансүх</br>ID00000001</div>
                   </div>
+                  <div class="clearfix"></div>
                   <div><label style="margin-top:5px;">Манай багийн гишүүд:</label></div>
-                  <div class="responsive-content">
-                    <figure class="org-chart cf">
-                      <div class="board ">
-                            <ul class="columnOne">
-                              <li>
-                                <span class="lvl-b">
-                                 <strong>Position Name</strong>
-                                 <br>Name Surname
-                                 <br>AA
-                                </span> 
-                              </li>
-                            </ul>
-                      </div>
-                      <ul class="departments ">
-                        <div class="org-spacing">
-                          <li class="department ">
-                             <span class="lvl-b">
-                             <strong>Position Name</strong>
-                             <br>Name Surname
-                             <br>AB
-                             </span> 
-                          </li>
-                          <li class="department ">
-                             <span class="lvl-b">
-                             <strong>Position Name</strong>
-                             <br>Name Surname
-                             <br>AB
-                             </span> 
-                          </li>
-                          <li class="department ">
-                             <span class="lvl-b">
-                             <strong>Position Name</strong>
-                             <br>Name Surname
-                             <br>AB
-                             </span>
-                          </li>
+                    <div class="responsive-content">
+                      <figure class="org-chart cf">
+                        <div class="board ">
+                          <ul class="columnOne">
+                            <li>
+                              <span class="lvl-b">
+                               <strong>ID00000001</strong>
+                               <br>Түвшинбат Гансүх
+                              </span>
+                            </li>
+                          </ul>
                         </div>
-                      </ul>
-                    </figure>
+                        <ul class="departments deps-child3">
+                          <div class="org-spacing org-sp-child3">
+                            <li class="department dep-child3">
+                              <span class="lvl-b">
+                                <strong>ID00000001</strong>
+                                <br>Түвшинбат Гансүх
+                              </span>
+                            </li>
+                            <li class="department dep-child3">
+                              <span class="lvl-b">
+                                <strong>ID00000001</strong>
+                                <br>Түвшинбат Гансүх
+                              </span> 
+                            </li>
+                            <li class="department dep-child3">
+                              <span class="lvl-b">
+                                <strong>ID00000001</strong>
+                                <br>Түвшинбат Гансүх
+                              </span>
+                            </li>
+                          </div>
+                        </ul>
+                      </figure>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -285,7 +279,5 @@
       </div>
     </div>
   </div>
-    </div>
-        <!-- /page content --> 
-        
+<!-- /page content -->
 @stop
