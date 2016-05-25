@@ -8,6 +8,8 @@
 <script type="text/javascript" src="{{asset('js/ui-bootstrap-tpls-1.3.3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('app/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('app/controller/usercontroller.js')}}"></script>
+<script type="text/javascript" src="{{asset('app/controller/cashcontroller.js')}}"></script>
+<script type="text/javascript" src="{{asset('app/filter/customType.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
@@ -211,14 +213,14 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
-                                        <input type="text" ng-keydown="findUserKeyDown($event, 0, 'searchMoney', 'N')" class="input-default search-input wrap" ng-model="searchMoney" style="width: 100%" id="searchMoney" autocomplete="off">
+                                        <input type="text" ng-keydown="findUserKeyDown($event, 'N')" class="input-default search-input wrap" ng-model="searchUser" style="width: 100%" id="searchMoney" autocomplete="off">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(0, user, 'searchMoney', 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
                                                 <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
@@ -263,19 +265,15 @@
                                         <label>Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
-                                        <input type="text" id="searchAdmin" ng-keydown="findUserKeyDown($event, 0, 'searchAdmin', 'N')" name="userId" ng-model="searchAdmin" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
-                                        <input type="hidden" id="searchAdminId">
+                                        <input type="text" id="searchAdmin" ng-keydown="findUserKeyDown($event,'N')" name="userId" ng-model="searchUser" autocomplete="off" class="input-search search-input" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(1, user, 'searchAdmin')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
+                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
                                           </ul>
@@ -328,18 +326,15 @@
                                         <label style="padding-left: 10px">Зуучлагч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchSponser" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchSponser', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event, 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(2, user, 'searchSponser')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
+                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
                                           </ul>
@@ -356,19 +351,15 @@
                                         <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchActivated" ng-keydown="findUserKeyDown($event, 0, 'searchActivated', 'N')" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
-                                        <input type="hidden" id="searchActivatedId">
-                                        <div class="content-list" id="list">
+                                        <input type="text" id="searchActivated" ng-keydown="findUserKeyDownSecond($event, 0, 'searchActivated', 'N')" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search search-input-second" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <div class="content-list-second" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(3, user, 'searchActivated')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
+                                              <a ng-click="chooseUserSecond(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
                                           </ul>
@@ -436,32 +427,29 @@
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // TRANSACTION DIALOG-->
     <div class="modal fade" id="UserTrans" tabindex="-1" role="dialog" aria-labelledby="UserTrans" aria-hidden="true" data-target="UserTrans">
-      <div class="modal-dialog" ng-init="getAccountInfo()">
+      <div class="modal-dialog" ng-init="getAccountInfo()"> 
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel">Мөнгө шилжүүлэх</h4>
                               </div>
                               <div class="modal-body">
-                                <form id="usertranForm" class="reg-modal form-group" >
+                                <form id="usertranForm" name="usertranForm" class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchTrans" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchTrans', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event,'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(2, user, 'searchTrans')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
+                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
                                           </ul>
@@ -689,7 +677,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Гүйлгээний түүх</h4>
                               </div>
                               <div class="modal-body">
-                                <form class="reg-modal form-group" >
+                                <form class="reg-modal form-group" name="accDtlForm">
                                   <div class="row">
                                     <div  class="col-md-4">
                                       <div class="container">
@@ -866,18 +854,15 @@
                                         <label style="padding-left: 10px">Хэрэглэгч сонгох</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
-                                        <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchTrans" autocomplete="off" class="input-search" ng-keydown="findUserKeyDown($event, 0, 'searchTrans', 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                        <input type="text" id="searchSalary" name="searchSalary" required ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event, 'Y')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <div class="content-list" id="list">
                                           <ul class="drop-list">
                                             <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
                                               Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
                                             </li>
                                             <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(2, user, 'searchTrans')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div class="row">
-                                                <div class="col-md-2"><img src="{{asset('images/img.jpg')}}" alt=""></div>
-                                                <div class="col-md-10" style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                                </div>
+                                              <a ng-click="chooseUser(user, 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
                                               </a>
                                             </li>
                                           </ul>
@@ -930,7 +915,7 @@
                                 </form>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" ng-click="makeTransaction()" class="btn btn-green"><i class="fa fa-envelope-o"></i> Илгээх</button>
+                                <button type="button" ng-click="takeSalary()" class="btn btn-green"><i class="fa fa-envelope-o"></i> Илгээх</button>
                               </div>
                             </div>
                           </div>

@@ -3,7 +3,7 @@ var app = angular.module("fitwork", ['ui.bootstrap']);
 app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
   $isproduction = false;
-  $production = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
+  $production = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/fitbook/public/';
 
   $userUrl = $production + 'admin/users';
   $adminUrl = $production + 'ceo/admins'; 
@@ -55,7 +55,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   };
 
   $scope.init = function(index){
-    debugger;
     switch(index) {
       case 'admin' :
         $scope.getAllAdmins();
@@ -154,7 +153,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       });
   }
 
-
   $scope.getAccountTransactions = function(type) {
       $http({
         method: 'GET',
@@ -162,6 +160,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         }).then(function successCallback(response) {
           debugger;
           $scope.accountDatas = response.data;
+
           $('#AccountDetail').modal('show');
           
         }, function errorCallback(response) {
@@ -230,6 +229,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
 
   //ХЭРЭГЛЭГЧИЙН БЭЛЭН МӨНГӨНИЙ ДАНСЫГ ЦЭНЭГЛЭХ
   $scope.getAccountInfo = function(){
+    debugger;
     $http({
     method: 'GET',
     url: $loadUserCashUrl,
@@ -258,10 +258,47 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         $scope.edAwardAmount = 0;
         $scope.edBonusAmountBg = 0;
         $scope.edBonusAmountAd = 0;
+        
      }, function errorCallback(response) {
          
      });  
   }
+
+  $scope.takeSalary = function(){
+    if(!$("#searchSalary").val())
+    {
+       $scope.displayNotification('warning' , 'Хэрэглэгч сонгоно уу');
+       return;
+    }
+
+    var formData = {
+      rank : $scope.rank,
+      awardAmount: $scope.edAwardAmount,
+      bonusAmountBg: $scope.edBonusAmountBg,
+      bonusAmountAd: $scope.edBonusAmountAd,
+    }
+
+    $http({
+      method: 'PUT',
+      url: $rootUrl + 'api/salary/' + $("#searchSalary").val(),
+      data: formData,
+    }).then(function successCallback(response) {
+      
+      if(response.data.resultCode != 0)
+      {  
+        $scope.displayNotification('error' , 'Дансны үлдэгдэл хүрэлцэхгүй байна.');
+      }
+      else
+      {
+        $('#GiveSalary').modal('hide');
+        $scope.displayNotification('success' , 'Гүйлгээ амжилттай хийгдлээ.');
+        location.reload();
+      }
+
+     }, function errorCallback(response) {
+        $scope.displayNotification('error' , 'Гүйлгээ хийх явцад алдаа гарлаа.');
+     });   
+  };
 
   $scope.makeTransaction = function(){
     if(!$("#searchTrans").val())
@@ -299,7 +336,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         if(response.data.resultCode == 2)  
           $scope.displayNotification('warning' , 'Тан кодоо зөв оруулна уу!');
         else
-          $scope.displayNotification('error' , 'Гүйлгээ хийх явцад алдаа гарлаа.');
+          $scope.displayNotification('error' , 'Дансны үлдэгдэл хүрэлцэхгүй байна.');
       }
       else
       {
@@ -499,37 +536,67 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   	});
   }
 
-  $scope.findUserKeyDown = function(event, index, id, withAccount){
+  $scope.findUserKeyDown = function(event, withAccount){
     if(event.which == 13 && $scope.top5users.length == 1)
     {
-      $scope.chooseUser(index, null, id, withAccount);
+      $scope.chooseUser(null, withAccount);
     }
   };
 
-  $scope.chooseUser = function(index, currentUser, id, withAccount){
-  	$(".content-list").hide()
-  	$("#"+id+"").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
-  	$("#"+id+"").focus();
+  $scope.findUserKeyDownSecond = function(event, withAccount){
+    if(event.which == 13 && $scope.top5users.length == 1)
+    {
+      $scope.chooseUserSecond(null, withAccount);
+    }
+  };
 
+  $scope.chooseUserSecond = function(currentUser, withAccount){
+    $(".content-list-second").hide();
+    $(".search-input-second").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
+  };
+
+  $scope.chooseUser = function(currentUser, withAccount){
+  	$(".content-list").hide();
+  	$(".search-input").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
+  	
     if(withAccount == 'Y')
     {
-      var formData = {
-        id : currentUser == null ? $scope.top5users[0].id : currentUser.id,
-      }
       $http({
-        method: 'POST',
-        url: $rootUrl + 'get/account',
-        data: formData,
+        method: 'PUT',
+        url: $rootUrl + 'api/account/' + (currentUser == null ? $scope.top5users[0].userId : currentUser.userId),
       }).then(function successCallback(response) {
-          debugger;
-          $scope.endAmount = response.data.cashEndAmount; 
+          $scope.rank = response.data.rankId
+          $scope.endAmount = response.data.cashEndAmount;
+          $scope.shAwardAmount = response.data.awardEndAmount;
+            
+          if($scope.rank != 3)
+          {
+            if($scope.rank == 1)
+            { 
+              $scope.shBonusAmountBg = response.data.bonusEndAmount;
+            }
+            else
+            {
+              $scope.shBonusAmountAd = response.data.bonusEndAmount;
+            }
+          }
+          else
+          {
+            $scope.shBonusAmountBg = response.data.bonusEndAmountBg;
+            $scope.shBonusAmountAd = response.data.bonusEndAmountAd;
+          }
+
+          $scope.edAwardAmount = 0;
+          $scope.edBonusAmountBg = 0;
+          $scope.edBonusAmountAd = 0;
+          $scope.giveSalaryForm.$setPristine();
       }, function errorCallback(response) {
 
       });
     }
   };
 
-  $scope.findUser = function(value, index){
+  $scope.findUser = function(value){
 		var formData = {
 	    	search : value,
 	  }
@@ -539,7 +606,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
 		  data: formData,
 		}).then(function successCallback(response) {
 		  	console.log(response);
-        debugger;
 		  	if(response.data.gotinfo == "failed")
 		  	{
 		  		$(".content-list").hide();
@@ -547,50 +613,49 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
 		  	else
 		  	{
 		  		$scope.top5users = response.data.users;
-          if($scope.top5users.length != 1)
-          {
-            if(!(index < 5))
-              $scope.endAmount = 0;
-          }
-		  		$(".content-list:eq("+index+")").fadeIn("fast");   
+		  		$(".content-list").fadeIn("fast");   
 		  	}
 		}, function errorCallback(response) {
 
 		});
   };
 
-  $scope.$watch('searchMoney', function(newValue) {
-    if (newValue){
-	    $scope.findUser(newValue, 0);
+  $scope.findUserSecond = function(value){
+    var formData = {
+        search : value,
     }
-    else $('.content-list:eq(0)').hide();
-  });
+    $http({
+      method: 'POST',
+      url: $rootUrl + 'get/users',
+      data: formData,
+    }).then(function successCallback(response) {
+        console.log(response);
+        if(response.data.gotinfo == "failed")
+        {
+          $(".content-list-second").hide();
+        }
+        else
+        {
+          $scope.top5users = response.data.users;
+          $(".content-list-second").fadeIn("fast");   
+        }
+    }, function errorCallback(response) {
 
-  $scope.$watch('searchAdmin', function(newValue) {
-    if (newValue){
-	    $scope.findUser(newValue, 1);
-    }
-    else $('.content-list:eq(1)').hide();
-  });
+    });
+  };
 
-  $scope.$watch('searchSponser', function(newValue) {
+  $scope.$watch('searchUser', function(newValue){
     if (newValue){
-	    $scope.findUser(newValue, 2);
+      $scope.findUser(newValue);
     }
-    else $('.content-list:eq(2)').hide();
+    else $('.content-list').hide();  
   });
 
   $scope.$watch('searchActivated', function(newValue) {
     if (newValue){
-	    $scope.findUser(newValue, 3);
+	    $scope.findUserSecond(newValue);
     }
-    else $('.content-list:eq(3)').hide();
-  });
-  $scope.$watch('searchTrans', function(newValue) {
-    if (newValue){
-      $scope.findUser(newValue, 4);
-    }
-    else $('.content-list:eq(4)').hide();
+    else $('.content-list-second').hide();
   });
 });
 

@@ -50,11 +50,11 @@
                           <td align="center">
                             @if ($user->isNetwork == 'Y')
                               <a>
-                                <img id="img{{$user->id}}" src="{{asset('images/check.png')}}">
+                                <img src="{{asset('images/check.png')}}">
                               </a>
                             @else
                               <a>
-                                <img id="img{{$user->id}}" src="{{asset('images/close.png')}}">
+                                <img src="{{asset('images/close.png')}}">
                               </a>
                             @endif
                           </td>

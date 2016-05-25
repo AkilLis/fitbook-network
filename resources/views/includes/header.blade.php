@@ -17,7 +17,6 @@
                     </a></li>   
 
                     @if ( Auth::user()->hasRole('Ceo') )
-                      <li><a data-toggle="modal" ng-click="init('ceomoney')"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
                       <li><a href="{{url('admin/cash')}}"><!--<span class="badge bg-red pull-right">50%</span>--><span>Мөнгө цэнэглэх/CEO/</span></a></li>
                     @endif
                     
@@ -38,7 +37,7 @@
 
                     @if ( Auth::user()->hasRole('Admin') )
                       <li><a data-toggle="modal" href="{{url('admin/users')}}">Хэрэглэгчийн жагсаалт</a></li>
-                      <li><a data-toggle="modal" ng-click="init('ceomoney')">Мөнгө цэнэглэх/Админ/</a></li>
+                      <li><a href="{{url('admin/cash')}}">Мөнгө цэнэглэх/Админ/</a></li>
                     @endif
                     @if ( Auth::user()->hasRole('Registration') )
                     <li><a data-toggle="modal" ng-click="init('newUser')">Хэрэглэгч нэмэх</a></li>

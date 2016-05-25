@@ -1,6 +1,6 @@
 app.controller('userCtrl', ['$scope','$http', function($scope, $http) {
   	$isproduction = false;
-    $baseUrl = $isproduction ? 'http://103.17.108.49/' : 'http://localhost/fitbook/public/';
+    $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/fitbook/public/';
     $scope.notifications = {};
     $scope.totalCount = 0;
 

@@ -132,15 +132,14 @@ class AdminController extends Controller
         		return Response::json(array('errors' => $validator->errors()->toArray()));
         	}
 
-            \Log::info('userId = '.$request->userId);
-        	$planPassword = substr($request->userId, 8, 10);
-            \Log::info('plantext = '.$planPassword);
-        	$tranToken = substr($request->userId, 6, 10);
+        	$planPassword = substr($request->userId, 10, 12);
+        	$tranToken = substr($request->userId, 8, 12);
+            \Log::info('trantoken = '.$tranToken);
 			$password = \Hash::make($planPassword);
 
         	$newUser = array(
                 ['userId' => $request->userId,'fName' => $request->fName, 'lName' => $request->lName, 'email' => $request->email, 'address' => $request->address
-                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'N', 'tranToken', $tranToken]
+                , 'password' => $password, 'phone' => $request->phone,'registryNo' => $request->registryNo, 'accountId' => $request->accountId, 'isNetwork' => 'N', 'tranToken' => $tranToken]
         	);
 
             foreach ($newUser as $user)
