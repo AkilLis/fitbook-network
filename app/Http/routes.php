@@ -64,6 +64,10 @@ Route::get('admin/cash', function() {
     return View::make('admin/cash');
 });
 
+Route::get('history', function(){
+    return View::make('/blockhistory');
+});
+
 Route::resource('admin/users', 'AdminController');
 Route::resource('api/cash', 'CashController');
 
