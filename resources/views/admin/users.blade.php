@@ -11,7 +11,7 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="row text-center">
-                      <a href="" id="btn-add" class="btn btn-green" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus"></i> Нэмэх</a>
+                      <a ng-click="init('newUser')" id="btn-add" class="btn btn-green"><i class="fa fa-plus"></i> Нэмэх</a>
                     </div>
                   </div>
                   <div class="row">
@@ -98,95 +98,14 @@
           content:  function() {
             return $('#pass_popover_content').html();}
         });
+
         $("#tan_change_popover").popover({
           html: true,
           content:  function() {
             return $('#pass_popover_content').html();
             }
         });
-        //var url = "http://103.17.108.49/admin/users";
-        var url = "http://localhost/fitbook/public/admin/users";
-
-        $('#btn-add').click(function (e)
-        {
-            $('#btn-save').val("add");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            })
-
-            e.preventDefault(); 
-
-            var my_url = url + "/create";
-            
-            $.ajax({
-                  type: "GET",
-                  url: my_url,
-                  data: null,
-                  dataType: 'json',
-                  success: function (data) {
-                      
-                  },
-                  error: function (data) {
-                     
-                  }
-              });
-          });
-
-        //create new task / update existing task
-        $("#btn-save").click(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            })
-
-            e.preventDefault(); 
-
-            debugger;
-
-            var formData = {
-                  userId: $("#userId").val(),
-                  fName: $( "input[name*='nameF']" ).val(),
-                  lName: $( "input[name*='nameL']" ).val(),
-                  email: $( "input[name*='email']" ).val(),
-                  address: $( "input[name*='address']" ).val(),
-                  phone: $( "input[name*='phone']" ).val(),
-                  registryNo: $( "input[name*='registryNo']" ).val(),
-                  accountId: $( "input[name*='accountId']" ).val(),
-            }
-
-            //used to determine the http verb to use [add=POST], [update=PUT]
-            var state = $('#btn-save').val();
-
-            var type = "POST"; //for creating new resource
-            console.log(formData);
-            console.log(my_url);
-            var my_url = url;
-
-            $.ajax({
-
-                type: type,
-                url: my_url,
-                data: formData,
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    debugger;
-                    if (data.errors != null) {
-
-                    }
-                    else{
-                      location.reload();  
-                    }
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-          });
-      });
+    });
     </script>
 @stop
 

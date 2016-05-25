@@ -5,104 +5,96 @@
 <script type="text/javascript" src="{{asset('js/ligro.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/angular-route.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/modal.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/ui-bootstrap-tpls-1.3.3.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('app/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('app/controller/usercontroller.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/loadingoverlay.min.js')}}"></script>
 
-<!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
- <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Хэрэглэгчийн бүртгэл</h4>
-                          </div>
-                          <div class="modal-body">
-                            @if (count($errors) > 0)
-                              <div class="alert alert-danger" style="margin-top: 0px;">
-                                <strong>Анхаар!</strong> Алдаа гарлаа.<br><br>
-                                <ul>
-                                  @foreach ($errors->all() as $error)
-                                  <li>{{ $error }}</li>
-                                  @endforeach
-                                </ul>
-                              </div>
-                            @endif
-                            <form name="myForm" class="reg-modal form-group" method="post" action="{{url('admin/users')}}">
-                              <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Хэрэглэгчийн код</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="userId" ng-model="userId" id="userId" required class="input-default" type="text" style="width:100%"/>
-                                  <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
-                                </div>
-                                <div class="clearfix"></div>    
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Овог</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
-                                  <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Нэр</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Регистрийн №</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Дансны дугаар</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Гэрийн хаяг</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="address" class="input-default" type="textarea" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Цахим шуудан</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
-                                  <label>Утасны дугаар</label>
-                                </div>
-                                <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
-                                  <input name="phone" class="input-default" type="tel" style="width:100%"/>
-                                </div>
-                                <div class="clearfix"></div>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                          <button type="button" ng-disabled="myForm.$invalid" id="btn-save" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 <!--MODAL ENDS HERE-->
 <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
 <div ng-controller="mainCtrl">
+    <!--MODAL STARTS HERE // USER DETAIL INFORMATION DIALOG-->
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modal-title" id="myModalLabel">Хэрэглэгчийн бүртгэл</h4>
+                            </div>
+                            <div class="modal-body">
+                              <form name="myForm" id="myForm" class="reg-modal form-group">
+                                <div class="row">
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Хэрэглэгчийн код</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="userId" disabled="true" ng-model="userId" id="userId" class="input-default" type="text" style="width:100%"/>
+                                    <span ng-show="myForm.userId.$touched && myForm.userId.$invalid">Хэрэглэгчийн код заавал оруулах хэрэгтэй!.</span>
+                                  </div>
+                                  <div class="clearfix"></div>    
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Овог</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="nameL" required ng-model="nameL" class="input-default" type="text" style="width:100%"/>
+                                    <span ng-show="myForm.nameL.$touched && myForm.nameL.$invalid">Овог оруулна уу.</span>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Нэр</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="nameF" required ng-model="nameF" class="input-default" type="text" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Регистрийн №</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="registryNo" required ng-model="registryNo" class="input-default" type="text" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Дансны дугаар</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="accountId" ng-model="accountId" class="input-default" type="text" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Гэрийн хаяг</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="address" class="input-default" type="textarea" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Цахим шуудан</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="email" ng-model="email" class="input-default" type="text" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 vertical-centered-label">
+                                    <label>Утасны дугаар</label>
+                                  </div>
+                                  <div class="col-md-8 col-md-8 col-sm-12 col-xs-12">
+                                    <input name="phone" class="input-default" type="tel" style="width:100%"/>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" ng-disabled="myForm.$invalid" ng-click="newUser()" class="btn btn-green"><i class="fa fa-save"></i> Хадгалах</button>
+                            </div>
+                          </div>
+                        </div>
+    </div>
+
     <div class="modal fade" id="userDetailInformation" tabindex="-1" role="dialog" aria-labelledby="userDetailInformation" aria-hidden="true" data-target="userDetailInformation">
                           <div class="modal-dialog">
                             <div class="modal-content">

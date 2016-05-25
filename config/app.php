@@ -207,6 +207,7 @@ return [
         'JWTAuth'   => Tymon\JWTAuthFacades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
         'Entrust'    => Zizaco\Entrust\EntrustFacade::class,
+        'Carbon' => Carbon\Carbon::class,
     ],
 
 ];

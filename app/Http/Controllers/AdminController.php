@@ -13,11 +13,37 @@ use Response;
 use Session;
 use Mail;
 use DB;
+use Carbon;
 
 class AdminController extends Controller
 {
 	public function create(Request $request)
 	{
+        $now = Carbon::now();
+        $nextId = "FG";
+        $nextId .= substr($now->year, 2 , 4);
+        $nextId .= $now->month < 10 ? ('0'.$now->month) : $now->month;
+        $nextId .= $now->day;
+        $nextId .= \Auth::user()->regId;
+
+        $maxId = User::where('userId','like', "$nextId%")
+              ->orderBy('userId', 'DESC')
+              ->first();
+        
+        if($maxId){
+            $maxId = substr($maxId->userId, strlen($maxId->userId) - 2, strlen($maxId->userId)) + 1;
+            $nextId .= $maxId < 10 ? ('0'.$maxId) : $maxId;
+        }
+        else{
+            $nextId .= "01";
+        }
+
+        \Log::info('maxId = '. $maxId);
+
+        return Response::json([
+                'status' => 'success',
+                'nextId' => $nextId,
+            ]);
 		/*if($request->search)
 		{
             \Log::info('Request = '. $request);
