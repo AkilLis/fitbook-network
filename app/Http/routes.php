@@ -81,77 +81,83 @@ Route::get('account/{type}', function(Request $request, $type){
 });
 
 Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], function(Request $request, $userId){
+    
+
     $amount = $request->amount;
 
-    /** Admin үед дансний үлдэгдэл шалгаад хасна */
-    if(\Auth::user()->hasRole('Admin'))
-    {
- 
-        $adminAccount = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 3)
-            ->select('useraccountmap.accountId')
-            ->first();
-
-        $adminCash = CashAccount::find($adminAccount->accountId);
-        if($adminCash->endAmount < $amount)
+    DB::beginTransaction();
+    try {
+        /** Admin үед дансний үлдэгдэл шалгаад хасна */
+        if(\Auth::user()->hasRole('Admin'))
         {
-            return Response::json([
-                'status' => '_cashNotEnought',
-            ]);
+            
+            $adminAccount = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 3)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+            $adminCash = CashAccount::find($adminAccount->accountId);
+            if($adminCash->endAmount < $amount)
+            {
+                return Response::json([
+                    'status' => '_cashNotEnought',
+                ]);
+            }
+
+            $adminCash->endAmount = $adminCash->endAmount - $amount;
+            $adminCash->save();
         }
 
-        $adminCash->endAmount = $adminCash->endAmount - $amount;
-        $adminCash->save();
+        $accountId = DB::table('useraccountmap')
+         ->join('users','useraccountmap.userId','=','users.id')
+         ->where('users.userId','=', $userId)
+         ->where('useraccountmap.type','=', 3)
+         ->select('useraccountmap.accountId')
+         ->first();
+
+        $account = CashAccount::find($accountId->accountId);
+        $account->endAmount = $account->endAmount + $amount;
+        $account->save();
+
+        $currentUser = User::where('userId','=',$userId)->first();
+
+        //Админы гүйлгээ
+        $trans = array(
+                    'inUserId' => $currentUser->id,
+                    'outUserId' => \Auth::user()->id, 
+                    'invType' => 'CashLoad',
+                    'invDate' => \Carbon::now(), 
+                    'invDescription' => '', 
+                    'inAccountId' => $account->id,
+                    'outAccountId' => 0, 
+                    'inAmt' => 0,
+                    'outAmt' => $amount, 
+                    'endAmt' => 0,
+        );
+
+        Transactions::create($trans);
+
+        //Хэрэглэгчийн
+
+        $trans = array(
+                    'inUserId' => \Auth::user()->id,
+                    'outUserId' => $currentUser->id, 
+                    'invType' => 'Cash',
+                    'invDate' => \Carbon::now(), 
+                    'invDescription' => '', 
+                    'inAccountId' => $account->id,
+                    'outAccountId' => 0, 
+                    'inAmt' => $amount,
+                    'outAmt' => 0, 
+                    'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
+        DB::commit();
+    } catch (\Exception $e) {
+        DB::rollback();
     }
-
-    $accountId = DB::table('useraccountmap')
-     ->join('users','useraccountmap.userId','=','users.id')
-     ->where('users.userId','=', $userId)
-     ->where('useraccountmap.type','=', 3)
-     ->select('useraccountmap.accountId')
-     ->first();
-
-    $account = CashAccount::find($accountId->accountId);
-
-    $account->endAmount = $account->endAmount + $amount;
-    $account->save();
-
-
-    $currentUser = User::where('userId','=',$userId)->first();
-
-    //Админы гүйлгээ
-    $trans = array(
-                'inUserId' => $currentUser->id,
-                'outUserId' => \Auth::user()->id, 
-                'invType' => 'CashLoad',
-                'invDate' => \Carbon::now(), 
-                'invDescription' => '', 
-                'inAccountId' => $account->id,
-                'outAccountId' => 0, 
-                'inAmt' => 0,
-                'outAmt' => $amount, 
-                'endAmt' => 0,
-    );
-
-    Transactions::create($trans);
-
-    //Хэрэглэгчийн
-
-    $trans = array(
-                'inUserId' => \Auth::user()->id,
-                'outUserId' => $currentUser->id, 
-                'invType' => 'Cash',
-                'invDate' => \Carbon::now(), 
-                'invDescription' => '', 
-                'inAccountId' => $account->id,
-                'outAccountId' => 0, 
-                'inAmt' => $amount,
-                'outAmt' => 0, 
-                'endAmt' => $account->endAmount,
-    );
-
-    Transactions::create($trans);
 
     return Response::json([
         'status' => 'success'
@@ -747,6 +753,9 @@ Route::delete('ceo/admins/{id?}',function($id){
     $user->detachRole($adminRole);
     return Response::json(null);
 });
+
+Route::get('/myteam/{id?}', 'UserController@myTeam');
+
 
 
 

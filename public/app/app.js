@@ -2,7 +2,7 @@ var app = angular.module("fitwork", ['ui.bootstrap']);
 
 app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
-  $isproduction = true;
+  $isproduction = false;
   $production = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/fitbook/public/';
 
   $userUrl = $production + 'admin/users';
@@ -127,6 +127,21 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     $scope.edBonusAmountAd.$setPristine();*/
   };
 
+  $scope.myTeam = function(id){
+    debugger;
+    $http({
+        method: 'GET',
+        url: $rootUrl + 'myteam/' + id,
+        }).then(function successCallback(response) {
+          $scope.parentInfo = response.data.parent;
+          $scope.userInfo = response.data.user;
+          $scope.childsInfo = response.data.childs;
+          $scope.breadcrumb = response.data.breadcrumb;
+          debugger;
+        }, function errorCallback(response) {
+    });
+  };
+
   $scope.newUser = function() 
   {
       var formData = {
@@ -224,12 +239,9 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       $scope.users = data;
     });
   }
-  
-  $scope.getAllAdmins();
 
   //ХЭРЭГЛЭГЧИЙН БЭЛЭН МӨНГӨНИЙ ДАНСЫГ ЦЭНЭГЛЭХ
   $scope.getAccountInfo = function(){
-    debugger;
     $http({
     method: 'GET',
     url: $loadUserCashUrl,
@@ -657,6 +669,10 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     }
     else $('.content-list-second').hide();
   });
+
+  //DIRECT CAL
+  $scope.getAllAdmins();
+  $scope.myTeam(0);
 });
 
 

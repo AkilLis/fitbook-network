@@ -19,138 +19,146 @@ class UserController extends Controller
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
     {
-        $cashAmount = $request->cashAmount;
-        $awardAmount = $request->awardAmount;
-        $bonusAmountBg = $request->bonusAmountBg;
-        $bonusAmountAd = $request->bonusAmountAd; 
-        $rankId = $request->rank ? 1 : 2;
+        DB::beginTransaction();
 
-        \Log::info('userbonusBg = '. $bonusAmountBg);
-        \Log::info('userbonusAd = '. $bonusAmountAd);
+        try {
+            $cashAmount = $request->cashAmount;
+            $awardAmount = $request->awardAmount;
+            $bonusAmountBg = $request->bonusAmountBg;
+            $bonusAmountAd = $request->bonusAmountAd; 
+            $rankId = $request->rank ? 1 : 2;
+
+            \Log::info('userbonusBg = '. $bonusAmountBg);
+            \Log::info('userbonusAd = '. $bonusAmountAd);
+                
+            $bonusId = DB::table('useraccountmap')
+            ->where('useraccountmap.userId','=', \Auth::user()->id)
+            ->where('useraccountmap.type','=', 3)
+            ->select('useraccountmap.accountId')
+            ->first();
+
+            $account = CashAccount::find($bonusId->accountId);
+
+            if($account->endAmount < $cashAmount)
+            {
+                return Response::json(['status' => '_amount']);
+            }
+
+            $bonusId = DB::table('useraccountmap')
+            ->where('useraccountmap.userId','=', \Auth::user()->id)
+            ->where('useraccountmap.type','=', 1)
+            ->select('useraccountmap.accountId')
+            ->first();
+
+
+            $account = AwardAccount::find($bonusId->accountId);
+
+            if($account->endAmount < $awardAmount)
+            {
+                return Response::json(['status' => '_amount']);
+            }
+
+            if($bonusAmountBg != 0)
+            {
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId','=', 1)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+
+                $account = BonusAccount::find($bonusId->accountId);
+
+                \Log::info('BonusBeginnerEnd = '. $account->endAmount);
+
+                if($account->endAmount < $bonusAmountBg)
+                {
+                    return Response::json(['status' => '_amount']);
+                }
+            }
             
-        $bonusId = DB::table('useraccountmap')
-        ->where('useraccountmap.userId','=', \Auth::user()->id)
-        ->where('useraccountmap.type','=', 3)
-        ->select('useraccountmap.accountId')
-        ->first();
-
-        $account = CashAccount::find($bonusId->accountId);
-
-        if($account->endAmount < $cashAmount)
-        {
-            return Response::json(['status' => '_amount']);
-        }
-
-        $bonusId = DB::table('useraccountmap')
-        ->where('useraccountmap.userId','=', \Auth::user()->id)
-        ->where('useraccountmap.type','=', 1)
-        ->select('useraccountmap.accountId')
-        ->first();
-
-
-        $account = AwardAccount::find($bonusId->accountId);
-
-        if($account->endAmount < $awardAmount)
-        {
-            return Response::json(['status' => '_amount']);
-        }
-
-        if($bonusAmountBg != 0)
-        {
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId','=', 1)
-            ->select('useraccountmap.accountId')
-            ->first();
-
-
-            $account = BonusAccount::find($bonusId->accountId);
-
-            \Log::info('BonusBeginnerEnd = '. $account->endAmount);
-
-            if($account->endAmount < $bonusAmountBg)
+            if($bonusAmountAd != 0)
             {
-                return Response::json(['status' => '_amount']);
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId', '=', 2)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+                $account = BonusAccount::find($bonusId->accountId);
+
+                \Log::info('BonusAdvancedEnd = '. $account->endAmount);
+
+                if($account->endAmount < $bonusAmountAd)
+                {
+                    return Response::json(['status' => '_amount']);
+                }
             }
-        }
-        
-        if($bonusAmountAd != 0)
-        {
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId', '=', 2)
-            ->select('useraccountmap.accountId')
-            ->first();
 
-            $account = BonusAccount::find($bonusId->accountId);
+            $parentId = User::where('userId', '=', $request->parentId)->first()->id;
+            $userId = User::where('userId', '=', $request->id)->first()->id;
 
-            \Log::info('BonusAdvancedEnd = '. $account->endAmount);
+            $currentBlock = DB::table('userblockmap')
+                ->join('block', 'userblockmap.blockId', '=', 'block.id')
+                ->where('userblockmap.userId','=', $parentId)
+                ->where('userblockmap.rankId', '=', $rankId)
+                ->where('block.isActive', '=', 'Y')
+                ->select('userblockmap.blockId')
+                ->first()->blockId;
 
-            if($account->endAmount < $bonusAmountAd)
-            {
-                return Response::json(['status' => '_amount']);
+            $isDevide = 'Y';
+
+            while ($isDevide == 'Y') {
+
+                \Log::info('id = '.$userId);
+                \Log::info('blockId = '.$currentBlock);
+                \Log::info('parent = '.$parentId);
+
+                DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId);',
+                    array(
+                        $userId,
+                        $currentBlock,
+                        $parentId,
+                        $rankId == 1 ? 600000 : 1200000,
+                        $rankId
+                    )
+                );
+
+                $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId');
+                $userId = $results[0]->userId;
+                $isDevide = $results[0]->isDevide;
+
+
+                if($isDevide == 'N') break;
+
+                $currentBlock = $results[0]->blockId;
+                $parentId = DB::table('userblockmap')
+                        ->where('userblockmap.userId','=', $results[0]->userId)
+                        ->select('userblockmap.parentId')
+                        ->first()->parentId;
             }
+
+            $currentUser = User::where('userId', '=', $request->id)->first();
+            $currentUser->isNetwork = 'Y';
+            $currentUser->save();
+            $currentUser[1] = 123;
+            //ДАНСНААС НЬ МӨНГӨ ХЭСЭХ
+            if($cashAmount != 0)
+                $this->subractCashAccount(\Auth::user()->id, $cashAmount);
+            if($awardAmount != 0)
+                $this->subractAwardAccount(\Auth::user()->id, $awardAmount);
+            
+            if($bonusAmountBg != 0)
+                $this->subractBonusAccount(\Auth::user()->id, $bonusAmountBg, 1);
+            if($bonusAmountAd != 0)
+                $this->subractBonusAccount(\Auth::user()->id, $bonusAmountAd, 2);
+            DB::commit();
+        } 
+        catch (\Exception $e) {
+            DB::rollback();
         }
-
-        $parentId = User::where('userId', '=', $request->parentId)->first()->id;
-        $userId = User::where('userId', '=', $request->id)->first()->id;
-
-        $currentBlock = DB::table('userblockmap')
-            ->join('block', 'userblockmap.blockId', '=', 'block.id')
-            ->where('userblockmap.userId','=', $parentId)
-            ->where('userblockmap.rankId', '=', $rankId)
-            ->where('block.isActive', '=', 'Y')
-            ->select('userblockmap.blockId')
-            ->first()->blockId;
-
-        $isDevide = 'Y';
-
-        while ($isDevide == 'Y') {
-
-            \Log::info('id = '.$userId);
-            \Log::info('blockId = '.$currentBlock);
-            \Log::info('parent = '.$parentId);
-
-            DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId);',
-                array(
-                    $userId,
-                    $currentBlock,
-                    $parentId,
-                    $rankId == 1 ? 600000 : 1200000,
-                    $rankId
-                )
-            );
-
-            $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId');
-            $userId = $results[0]->userId;
-            $isDevide = $results[0]->isDevide;
-
-
-            if($isDevide == 'N') break;
-
-            $currentBlock = $results[0]->blockId;
-            $parentId = DB::table('userblockmap')
-                    ->where('userblockmap.userId','=', $results[0]->userId)
-                    ->select('userblockmap.parentId')
-                    ->first()->parentId;
-        }
-
-        $currentUser = User::where('userId', '=', $request->id)->first();
-        $currentUser->isNetwork = 'Y';
-        $currentUser->save();
-       
-        //ДАНСНААС НЬ МӨНГӨ ХЭСЭХ
-        if($cashAmount != 0)
-            $this->subractCashAccount(\Auth::user()->id, $cashAmount);
-        if($awardAmount != 0)
-            $this->subractAwardAccount(\Auth::user()->id, $awardAmount);
-        
-        if($bonusAmountBg != 0)
-            $this->subractBonusAccount(\Auth::user()->id, $bonusAmountBg, 1);
-        if($bonusAmountAd != 0)
-            $this->subractBonusAccount(\Auth::user()->id, $bonusAmountAd, 2);
 
         return Response::json(['status' => 'success']);
     }
@@ -293,5 +301,82 @@ class UserController extends Controller
         $account = SavingAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+    }
+
+    public function myTeam(Request $request, $id)
+    {
+        if($id == 0)
+        $id = \Auth::user()->id;
+        \Log::info('id = '. $id);
+
+        $rank = 1;
+
+        $childs = DB::table('userblockmap')
+        ->join('users','userblockmap.userId','=','users.id')
+        ->join('block','userblockmap.blockId','=','block.id')
+        ->where('userblockmap.parentId','=', $id)
+        ->where('block.groupId','=', $rank)
+        ->groupBy('users.id','users.fName','users.lName', 'users.userId')
+        ->select('users.id','users.fName','users.lName', 'users.userId')
+        ->get();
+        
+        $user = User::find($id);
+
+        $parent = DB::table('userblockmap')
+        ->join('users','userblockmap.userId','=','users.id')
+        ->join('block','userblockmap.blockId','=','block.id')
+        ->where('userblockmap.userId','=', $id)
+        ->where('block.groupId','=', $rank)
+        ->select('userblockmap.parentId')->first();
+
+        if($parent->parentId == 0)
+        {
+            $parent = array('id' => 0,
+                            'fName' => 'Flexgym',
+                            'lName' => 'Flexgym',
+                            'userId' => '0');
+        }
+        else
+            $parent = User::find($parent->parentId);
+
+        //BreadCrumb list
+        $breadCrumb = $this->findMyTeam($id, \Auth::user()->id, $rank);
+        \Log::info('test = ', $breadCrumb);
+
+        return Response::json(['user' => $user,
+                              'childs' => $childs,
+                              'parent' => $parent,
+                              'breadcrumb' => $breadCrumb]);
+    }
+
+    public function findMyTeam($id, $parentId, $rank)
+    {
+        $response = [];    
+        $tempId = $id;
+        
+        while($tempId != $parentId)
+        {
+            $pId = DB::table('userblockmap')
+                ->join('users','userblockmap.userId','=','users.id')
+                ->join('block', 'userblockmap.blockId','=', 'block.id')
+                ->where('userblockmap.userId','=', $tempId)
+                ->where('block.groupId','=', $rank)
+                ->select('userblockmap.parentId')->first();
+
+            $tempId = $pId->parentId;    
+            $parent = DB::table('users')
+                ->where('users.id','=', $tempId)
+                ->select('users.id','users.fName')
+                ->first();
+            array_push($response, $parent);
+        }
+         
+        $response = array_reverse($response);    
+        $selfUser = array('id' => $id, 
+                           'fName' => User::find($id)->fName,
+                           'parentId' => 0,
+                           'class' => 'active');
+        array_push($response, $selfUser);
+        return $response;
     }
 }

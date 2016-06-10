@@ -277,6 +277,13 @@ content{
 .org-chart .lvl-b {
   background: white;
 }
+
+.lvl-b:hover {
+  background: #9B59B6;
+  color: white;
+  cursor: pointer;
+}
+
 .org-chart .board {
   width: 70%;
   margin: 0 auto;

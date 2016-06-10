@@ -224,13 +224,13 @@
                 <div class="row">
                 <div class="col-md-12 col-sm-12">
                   <ol class="breadcrumb">
-                    <li><a href="#">Хулангоо</a></li>
-                    <li><a href="#">Түвшинбат</a></li>
-                    <li class="active">Пүүжээ</li>
+                    <li ng-class="bread.class" ng-repeat="bread in breadcrumb" ng-click="myTeam(bread.id)">
+                      @{{bread.fName}}
+                    </li>
                   </ol>
                   <div style="margin-bottom:10px">
                     <div style="margin-top:5px; float:left; font-weight: bold;">Миний зуучлагч:</div>
-                    <div style="vertical-align:middle; font-size:11px; float:left; margin-left: 50px;">Түвшинбат Гансүх</br>ID00000001</div>
+                    <div style="vertical-align:middle; font-size:11px; float:left; margin-left: 50px;">@{{parentInfo.fName}} @{{parentInfo.lName}}</br>@{{parentInfo.userId}}</div>
                   </div>
                   <div class="clearfix"></div>
                   <div><label style="margin-top:5px;">Манай багийн гишүүд:</label></div>
@@ -240,30 +240,18 @@
                           <ul class="columnOne">
                             <li>
                               <span class="lvl-b">
-                               <strong>ID00000001</strong>
-                               <br>Түвшинбат Гансүх
+                               <strong>@{{userInfo.userId}}</strong>
+                               <br>@{{userInfo.fName}} @{{userInfo.lName}}
                               </span>
                             </li>
                           </ul>
                         </div>
                         <ul class="departments deps-child3">
                           <div class="org-spacing org-sp-child3">
-                            <li class="department dep-child3">
-                              <span class="lvl-b">
-                                <strong>ID00000001</strong>
-                                <br>Түвшинбат Гансүх
-                              </span>
-                            </li>
-                            <li class="department dep-child3">
-                              <span class="lvl-b">
-                                <strong>ID00000001</strong>
-                                <br>Түвшинбат Гансүх
-                              </span> 
-                            </li>
-                            <li class="department dep-child3">
-                              <span class="lvl-b">
-                                <strong>ID00000001</strong>
-                                <br>Түвшинбат Гансүх
+                            <li ng-repeat="child in childsInfo" class="department dep-child3">
+                              <span class="lvl-b" ng-click="myTeam(child.id)">
+                                <strong>@{{child.userId}}</strong>
+                                <br>@{{child.lName}} @{{child.lName}}
                               </span>
                             </li>
                           </div>
