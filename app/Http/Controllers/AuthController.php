@@ -44,7 +44,7 @@ class AuthController extends Controller {
      * Log in with Email and Password.
      */
     public function login(Request $request)
-    {
+    {   
         $email = $request->input('email');
         $password = $request->input('password');
         $user = User::where('email', '=', $email)

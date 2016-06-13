@@ -158,7 +158,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12" style="display:none">
                   <div class="x_panel tile fixed_height_250">
                     <div class="row x_title">
                         <h3>Одоогийн авах урамшуулал</h3>  
@@ -187,7 +187,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12" style="display:none">
                   <div class="x_panel tile fixed_height_250">
                     <div class="row x_title">
                       <h3>Хэрэв ахлагч болвол</h3>  
