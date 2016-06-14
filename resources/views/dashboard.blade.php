@@ -91,8 +91,9 @@
                     <LABEL style="float:left">{{$groupName}}</LABEL>
                     <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                   </div>
-                  <div class="col-md-12 col-xs-12 col-sm-12" style="margin-left: -10px; margin-bottom: 50px">
-                    <div>
+                  <div class="col-md-12 col-xs-12 col-sm-12">
+                  <div class="hexagon-panel" id="style-3">
+                    <div style="min-width:957px">
                       <div class='hexagon-wrapper'>
                         <div class='hexagon captain'>
                           <div class='hexagon-container'>
@@ -154,6 +155,7 @@
                           </div>
                           @endfor
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>

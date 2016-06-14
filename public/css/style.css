@@ -725,7 +725,7 @@ table.editable {
 
 .hexagon-wrapper {
   margin: 2% auto;
-  width: 11%;
+  width: 103px;
   display: block;
   position: relative;
   float: left;
@@ -783,7 +783,7 @@ table.editable {
   font-size: 2em;
 }
 .hexagon:before, .hexagon:after {
-  margin-left: -3%;
+  margin-left: -4px;
   content: "";
   display: block;
   width: inherit;
@@ -805,6 +805,14 @@ table.editable {
   -ms-transform: rotate(-60deg);
   -webkit-transform: rotate(-60deg);
   transform: rotate(-60deg);
+}
+.hexagon-panel{
+  margin-left: 0px;
+  margin-bottom: 14px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-top: 15px;
+  padding-bottom: 44px;
 }
 .hexagon.captain{
   background-color: transparent;
@@ -902,7 +910,7 @@ color: white;
 .hexagon-wrapper:nth-child(15){
   margin-right: 0px;
 }
-/*}*/
+/*}
 @media only screen and (max-width: 499px) and (min-width: 400px){
   .hexagon:before, .hexagon:after {
     margin-left: -10% !important;
@@ -1058,6 +1066,7 @@ color: white;
 
 #style-3::-webkit-scrollbar
 {
+  width: 6px;
   width: 6px;
   background-color: #F5F5F5;
 }

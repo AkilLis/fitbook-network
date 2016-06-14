@@ -1,8 +1,8 @@
-var app = angular.module("fitwork", ['ui.bootstrap']);
+var app = angular.module("fitwork", ['ui.bootstrap', 'ngRoute']);
 
 app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
-  $isproduction = true;
+  $isproduction = false;
   $production = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
 
   $userUrl = $production + 'admin/users';
@@ -19,8 +19,28 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   $scope.form = {};
   $addAmount = 0;
   $endAmount = 0;
-  $scope.accountDatas = {};
   $scope.selected = {};
+
+  app.config(function($routeProvider) {
+        $routeProvider
+            // route for the home page
+            .when('/', {
+                templateUrl : 'pages/home.html',
+                controller  : 'mainController'
+            })
+
+            // route for the about page
+            .when('/about', {
+                templateUrl : 'app/view/admin/giveSalary.html',
+                controller  : 'aboutController'
+            })
+
+            // route for the contact page
+            .when('/contact', {
+                templateUrl : 'pages/contact.html',
+                controller  : 'contactController'
+            });
+  });
 
   $scope.displayNotification = function(type, text) {
       $.notify({
@@ -42,13 +62,13 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   $scope.open = function () {
     debugger;
     var modalInstance = $uibModal.open({
-        templateUrl: '/fitbook/public/admin/giveSalary.html',
+        templateUrl: 'giveSalary.html',
         animation: true,
         controller: 'mainCtrl',
         size: 'lg',
         resolve: {
-            items: function () {
-                debugger;
+            breadcrumb: function () {
+                return $scope.breadcrumb;
             }
         }
     });
@@ -128,7 +148,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   };
 
   $scope.myTeam = function(id){
-    debugger;
     $http({
         method: 'GET',
         url: $rootUrl + 'myteam/' + id,
@@ -137,7 +156,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
           $scope.userInfo = response.data.user;
           $scope.childsInfo = response.data.childs;
           $scope.breadcrumb = response.data.breadcrumb;
-          debugger;
         }, function errorCallback(response) {
     });
   };
@@ -176,10 +194,19 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
           debugger;
           $scope.accountDatas = response.data;
 
-          $('#AccountDetail').modal('show');
+          var modalInstance = $uibModal.open({
+              templateUrl: 'accountdetail.html',
+              animation: true,
+              controller: 'mainCtrl',
+              size: 'lg',
+              scope: $scope
+          });
+          //$('#AccountDetail').modal('show');
+
           
         }, function errorCallback(response) {
-      });
+          debugger;
+        });
   }
 
   $scope.setPassword = function () {

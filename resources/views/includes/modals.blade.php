@@ -669,8 +669,7 @@
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ACCOUNT DETAIL-->
-    <div class="modal fade" id="AccountDetail" tabindex="-1" role="dialog" aria-labelledby="AccountDetail" aria-hidden="true" data-target="AccountDetail">
-      <div class="modal-dialog modal-lg">
+    <script type="text/ng-template" id="accountdetail.html">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -718,8 +717,8 @@
                                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-admin" cellspacing="0" width="100%">
                                       <thead>
                                         <tr>
-                                          <th width="5%">Гүйлгээний огноо</th>
-                                          <th width="15%">Дансны нэр</th>
+                                          <th width="10%">Гүйлгээний огноо</th>
+                                          <th width="10%">Дансны нэр</th>
                                           <th width="35%">Гүйлгээний утга</th>
                                           <th width="15%">Орлого</th>
                                           <th width="15%">Зарлага</th>
@@ -731,9 +730,9 @@
                                           <td>@{{data.invDate}}</td>
                                           <td>@{{data.invType}}</td>
                                           <td>@{{data.invDescription}}</td>
-                                          <td>@{{data.inAmt}}</td>
-                                          <td>@{{data.outAmt}}</td>
-                                          <td>@{{data.endAmt}}</td>
+                                          <td>@{{data.inAmt | currency : ""}}₮</td>
+                                          <td>@{{data.outAmt | currency : ""}}₮</td>
+                                          <td>@{{data.endAmt | currency : ""}}₮</td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -741,8 +740,7 @@
                                 </form>
                               </div>
                             </div>
-                          </div>
-    </div>
+    </script>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // ADD MONEY FROM ADMIN-->
     <div class="modal fade" id="ChangePass" tabindex="-1" role="dialog" aria-labelledby="ChangePass" aria-hidden="true" data-target="ChangePass">
@@ -926,6 +924,44 @@
     <div id="loader" >
       <img src="{{asset('images/loader.gif')}}"/>
     </div>
+
+    <script type="text/ng-template" id="giveSalary.html">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">123</h4>
+            </div>
+            <div class="modal-body">
+              <p>Here's a more complex modal, it contains a form, data is passed to the controller 
+               and data is returned from the modal.</p>
+              
+              <ul>
+                <li ng-class="bread.class" ng-repeat="bread in accountDatas">
+                        @{{bread.invDate}}
+                </li>
+              </ul>
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" placeholder="Your Name" ng-model="name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="age" class="col-sm-2 control-label">Age</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" id="inputPassword3" placeholder="Age" ng-model="age">
+                  </div>
+                </div>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" ng-click="open()" class="btn btn-primary" data-dismiss="modal">OK</button>
+              <button type="button" ng-click="cancel()" class="btn">Cancel</button>
+            </div>
+          </div>
+</script>
 </div>
 
 

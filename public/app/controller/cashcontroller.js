@@ -1,5 +1,5 @@
 app.controller('cashCtrl', ['$scope','$http', function($scope, $http) {
-  	$isproduction = true;
+  	$isproduction = false;
     $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
     $scope.transactions = {};
     $scope.cashType = "All";
