@@ -163,6 +163,9 @@ Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], func
         'status' => 'success'
     ]);
 }]);
+/* 
+    GET USER ALL TRANSACTIONS
+*/
 Route::post('transaction', function(Request $request){
     $userId = $request->id;
     $deliveryUser = User::where('userId','=', $request->id)->first();

@@ -18,18 +18,12 @@ use Carbon;
 class AdminController extends Controller
 {
 	public function create(Request $request)
-	{
-        $now = Carbon::now();
-        $nextId = "FG";
-        $nextId .= substr($now->year, 2 , 4);
-        $nextId .= $now->month < 10 ? ('0'.$now->month) : $now->month;
-        $nextId .= $now->day;
-        $nextId .= \Auth::user()->regId;
-
+	{        
+        $nextId = $this->generateId();
         $maxId = User::where('userId','like', "$nextId%")
               ->orderBy('userId', 'DESC')
               ->first();
-        
+
         if($maxId){
             $maxId = substr($maxId->userId, strlen($maxId->userId) - 2, strlen($maxId->userId)) + 1;
             $nextId .= $maxId < 10 ? ('0'.$maxId) : $maxId;
@@ -38,42 +32,11 @@ class AdminController extends Controller
             $nextId .= "01";
         }
 
-        \Log::info('maxId = '. $maxId);
-
         return Response::json([
-                'status' => 'success',
-                'nextId' => $nextId,
-            ]);
-		/*if($request->search)
-		{
-            \Log::info('Request = '. $request);
-			$searchValue = $request->search;  
-			try
-			{
-                \Log::info('SeachText = '.$searchValue);
-				$filteredUsers = User::where('userId', 'like', "%$searchValue%")
-					->orWhere('fName', 'like', "%$searchValue%")
-                    ->orWhere('lName', 'like', '%$searchValue%')  
-                    ->take(5)
-                    ->get();
-                \Log::info('Datas = '. $filteredUsers);
-			}
-			catch(ModelNotFoundException $ex)
-			{
-				return Response::json([
-        			'gotinfo' => 'failed',
-    			]);	
-			}
-
-   			return Response::json([
-   	    		'gotinfo' => 'success',
-                'users' => $filteredUsers,
-    		]);
-		//}
-
-		return Response::json([
-        		'gotinfo' => 'failed',
-    	]);*/
+            'status' => 'success',
+            'nextId' => $nextId,
+        ]);
+		
 	}
 
     public function index(Request $request)
@@ -147,12 +110,17 @@ class AdminController extends Controller
 	            User::create($user);
 	        }
 
-	       /* Mail::send('emails.test', ['name' => 'Tuvshinbat'], function($message) {
-			    $message->to('g.tuvshinbat@yahoo.com', 'Fitbook Team')->from('fitbooknetwork@gmail.com')->subject('Email Testing from Fitbook Team');
-			});*/
-
-            // redirect
-           // Session::flash('message', 'Амжилттай бүртгэлээ!');
             return Response::json($newUser);
+    }
+
+    private function generateId()
+    {
+        $now = Carbon::now;
+        $nextId = "FG";
+        $nextId .= substr($now->year, 2 , 4);
+        $nextId .= $now->month < 10 ? ('0'.$now->month) : $now->month;
+        $nextId .= $now->day < 10 ? ('0'.$now->day) : $now->day;
+        $nextId .= \Auth::user()->regId; 
+        return $nextId;
     }
 }

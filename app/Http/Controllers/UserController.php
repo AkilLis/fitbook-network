@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\User;
 use App\AwardAccount;
 use App\BonusAccount;
 use App\CashAccount;
-use App\UsageAccount;
+use App\Http\Requests;
 use App\SavingAccount;
+use App\UsageAccount;
+use App\User;
 use DB;
+use Illuminate\Http\Request;
 use Response;
 
 class UserController extends Controller
@@ -27,10 +26,7 @@ class UserController extends Controller
             $bonusAmountBg = $request->bonusAmountBg;
             $bonusAmountAd = $request->bonusAmountAd; 
             $rankId = $request->rank ? 1 : 2;
-
-            \Log::info('userbonusBg = '. $bonusAmountBg);
-            \Log::info('userbonusAd = '. $bonusAmountAd);
-                
+            
             $bonusId = DB::table('useraccountmap')
             ->where('useraccountmap.userId','=', \Auth::user()->id)
             ->where('useraccountmap.type','=', 3)
@@ -49,7 +45,6 @@ class UserController extends Controller
             ->where('useraccountmap.type','=', 1)
             ->select('useraccountmap.accountId')
             ->first();
-
 
             $account = AwardAccount::find($bonusId->accountId);
 
@@ -112,10 +107,6 @@ class UserController extends Controller
 
             while ($isDevide == 'Y') {
 
-                \Log::info('id = '.$userId);
-                \Log::info('blockId = '.$currentBlock);
-                \Log::info('parent = '.$parentId);
-
                 DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId);',
                     array(
                         $userId,
@@ -144,7 +135,8 @@ class UserController extends Controller
             $currentUser->isNetwork = 'Y';
             $currentUser->save();
             $currentUser[1] = 123;
-            //ДАНСНААС НЬ МӨНГӨ ХЭСЭХ
+
+            //ДАНСНААС НЬ МӨНГӨ ХAСAХ
             if($cashAmount != 0)
                 $this->subractCashAccount(\Auth::user()->id, $cashAmount);
             if($awardAmount != 0)
