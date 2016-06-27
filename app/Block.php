@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Block extends BaseModel
@@ -22,5 +23,10 @@ class Block extends BaseModel
 			 ->where('userblockmap.blockId','=', $this->pivot->blockId)
 			 ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'userblockmap.fCount', 'userblockmap.created_at', 'userblockmap.viewOrder')
 			 ->get();
+
+		foreach ($this->members as $member) 
+		{
+			$member->parent = User::find($member->id)->parents->all()[0];
+		}
 	}
 }
