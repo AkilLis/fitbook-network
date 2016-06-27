@@ -15,6 +15,12 @@ use Response;
 
 class UserController extends Controller
 {
+    public function history(Request $request)
+    {
+        $blocks = User::activeBlocks(\Auth::user()->id)->get()->all();
+        return \View::make('blockhistory')->with('blocks', $blocks);
+    }
+
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
     {
@@ -175,33 +181,12 @@ class UserController extends Controller
             ->get();
 
         //Яг одоо идвэхтэй блок, ахисан шат сүүлд шалгана     
-        $condition = ['userblockmap.userId' => $id, 'block.isActive' => 'Y'];
+        $block = User::activeBlocks($id)->get()->first();
 
-        $blockId = \DB::table('userblockmap')
-            ->join('block','block.id','=','userblockmap.blockId')
-            ->where($condition)
-            ->first();
-
-        //Блокын ахлагчыг тусд нь олно 
-        $capUser = \DB::table('userblockmap')
-        ->join('users', 'userblockmap.userId','=','users.id')
-        ->where('userblockmap.viewOrder','=', 1)
-        ->where('userblockmap.blockId', '=', $blockId->blockId)
-        ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount', 'userblockmap.created_at')
-        ->first();          
-
-        $blockUsers = \DB::table('userblockmap')
-            ->join('users','userblockmap.userId','=','users.id')
-            ->where('userblockmap.viewOrder','<>', 1)
-            ->where('userblockmap.blockId','=',$blockId->blockId)
-            ->orderBy('userblockmap.viewOrder', 'ASC')
-            ->select('users.id','users.userId','users.fName','users.lName', 'userblockmap.fCount','userblockmap.created_at')
-            ->get();
-
-        $emptyUsers = 15 - count($blockUsers);
-
+        $emptyUsers = 16 - count($block->members);
         $groupName = "1-р шат - Хамтрах шат";
-        switch ($blockId->groupId) {
+
+        switch ($block->groupId) {
             case 1:
                 break;
             case 2:
@@ -216,12 +201,9 @@ class UserController extends Controller
             default:
                 break;
         }
-
         return \View::make('dashboard')->with('accounts', $accountsEndAmount[0])
-                                       ->with('blockUsers', $blockUsers)
                                        ->with('emptyUsers', $emptyUsers)
-                                       ->with('capUser', $capUser)
-                                       ->with('block', $blockId)
+                                       ->with('block', $block)
                                        ->with('groupName', $groupName);
     }
 

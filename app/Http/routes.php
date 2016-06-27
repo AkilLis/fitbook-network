@@ -21,6 +21,8 @@ use App\Transactions;
 //Нэвтрэх хэсэгтэй холбоотой 
 
 Route::get('/', function () {
+    if(Auth::user())    
+    \Log::info('AUth = '. Auth::user()->userId);
 
 	if(Auth::check())
 	{
@@ -38,7 +40,7 @@ Route::post('auth/password', 'AuthController@password');
 //Хэрэглэгч идвэхжүүлэх
 Route::put('auth/attachrole/{userId?}', function(Request $request, $id){
     $roleName = $request->roleName;
-    $user = User::find($id);
+    $user = User::findOrFail($id);
 
     if(!$user->hasRole($roleName))
     {
@@ -53,7 +55,7 @@ Route::put('auth/attachrole/{userId?}', function(Request $request, $id){
 });
 Route::put('auth/detachrole/{userId?}', function(Request $request, $id){
     $roleName = $request->roleName;
-    $user = User::find($id);
+    $user = User::findOrFail($id);
 
     if($user->hasRole($roleName))
     {
@@ -69,18 +71,21 @@ Route::get('admin/cash', function() {
     return View::make('admin/cash');
 });
 
-Route::get('history', function(){
-    return View::make('/blockhistory');
+Route::get('history', 'UserController@history');
+
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::resource('admin/users', 'AdminController');
+    Route::resource('api/cash', 'CashController');
+    Route::get('account/{type}', function(Request $request, $type){
+        $accountInfo = Transactions::all();
+        return Response::json($accountInfo);
+    });
 });
 
-Route::resource('admin/users', 'AdminController');
-Route::resource('api/cash', 'CashController');
-Route::get('account/{type}', function(Request $request, $type){
-     $accountInfo = Transactions::all();
-     return Response::json($accountInfo);
-});
 
-Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], function(Request $request, $userId){
+
+Route::put('get/account/{userId?}', function(Request $request, $userId){
     
 
     $amount = $request->amount;
@@ -88,6 +93,9 @@ Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], func
     DB::beginTransaction();
     try {
         /** Admin үед дансний үлдэгдэл шалгаад хасна */
+        if(!\Auth::user())
+            return;
+
         if(\Auth::user()->hasRole('Admin'))
         {
             
@@ -162,7 +170,7 @@ Route::put('get/account/{userId?}',['middleware' => ['auth', 'role:Admin'], func
     return Response::json([
         'status' => 'success'
     ]);
-}]);
+});
 /* 
     GET USER ALL TRANSACTIONS
 */

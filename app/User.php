@@ -35,6 +35,25 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function parents()
+    {
+        return $this->belongsToMany('App\User', 'userblockmap', 'userId', 'parentId');
+    }
+
+    public static function deactiveBlocks($id, $rankId = null)
+    {
+        $user = User::findOrFail($id);
+        return $user->belongsToMany('App\Block', 'userblockmap', 'userId', 'blockId')
+                    ->where('isActive', '=', 'N');
+    }
+
+    public static function activeBlocks($id, $rankId = null)
+    {
+        $user = User::findOrFail($id);
+        return $user->belongsToMany('App\Block', 'userblockmap', 'userId', 'blockId')
+                        ->where('isActive', '=' , 'Y');
+    }
+
     public function hasRank($rankId)
     {
         $rank = DB::table('userblockmap')
@@ -51,24 +70,4 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
                 ->get();
         return count($ranks) > 1 ? true : false;
     }
-        
-/*    public function isBeginner() {
-        \Log::info('Maps = ', $this->blockMaps()[0]);
-        foreach ($this->blockMaps() as $block) {
-                if ($block->rankId == 1) {
-
-                    return true;
-                }
-        }
-    }
-
-    public function isAdvanced() {
-        foreach ($this->blockMaps() as $block) {
-                if ($block->rankId == 2) {
-                    return true;
-                }
-        }
-    }
-
-    */
 }
