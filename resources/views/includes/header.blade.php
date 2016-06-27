@@ -25,6 +25,8 @@
                     @endif
                     
                     <li><a data-toggle="modal" ng-click="init('sponser')">Зуучлах</a></li>
+
+                    <li><a href="{{url('history')}}"><span>Архив</span></a></li>
                     
                     <li><a data-toggle="modal" ng-click="init('moneyTrans')">Мөнгө шилжүүлэх</a></li>
                     @if ( Auth::user()->hasRole('Ceo') )

@@ -89,52 +89,57 @@
                 <div class="row">
                   <div class="col-md-12 col-xs-12 col-sm-12" style="margin-bottom:10px;">
                     <LABEL style="float:left">{{$groupName}}</LABEL>
-                    <label style="float:right" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
+                    <label style="float:right; display:none" data-toggle="tooltip" data-placement="left" title="10 блок болсон тохиолдолд сүлжээний системийн эрх хасагдах болно">6 дахь блок</label>
                   </div>
                   <div class="col-md-12 col-xs-12 col-sm-12">
                   <div class="hexagon-panel" id="style-3">
                     <div style="min-width:957px">
-                      <div class='hexagon-wrapper'>
-                        <div class='hexagon captain'>
-                          <div class='hexagon-container'>
-                            <div class='hexagon-vertical-align'>
-                              <span class='hexagon-text'><h2>{{$capUser->fCount}}</h2>{{$capUser->userId}}</br>{{$capUser->created_at}}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                       <?php $counter = 0 ?>
-                          @foreach ($blockUsers as $blockUser)
-                            <?php $counter++ ?>
-                            @if($counter < 7)
+                          @foreach ($block->members as $blockUser)
+                            @if($blockUser->pivot->viewOrder == 1)
                               <div class='hexagon-wrapper'>
-                                @if(Auth::user()->id == $blockUser->id)
-                                <div class='hexagon hex-own'>  
-                                @else
-                                <div class='hexagon first-level'>
-                                @endif
+                                <div class='hexagon captain'>
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
+                                      <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}">
+                                        <h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}
+                                        </br>{{$blockUser->pivot->created_at}}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             @else
-                              <div class='hexagon-wrapper'>
-                                
-                                @if(Auth::user()->id == $blockUser->id)
-                                <div class='hexagon hex-own'>  
-                                @else
-                                <div class='hexagon first-down-level'>
-                                @endif
-                                  <div class='hexagon-container'>
-                                    <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text'><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
+                              <?php $counter++ ?>
+                              @if($counter < 8)
+                                <div class='hexagon-wrapper'>
+                                  @if(Auth::user()->id == $blockUser->id)
+                                  <div class='hexagon hex-own'>  
+                                  @else
+                                  <div class='hexagon first-level'>
+                                  @endif
+                                    <div class='hexagon-container'>
+                                      <div class='hexagon-vertical-align'>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}"><h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->pivot->created_at}}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              @else
+                                <div class='hexagon-wrapper'>
+                                  @if(Auth::user()->id == $blockUser->id)
+                                  <div class='hexagon hex-own'>  
+                                  @else
+                                  <div class='hexagon first-down-level'>
+                                  @endif
+                                    <div class='hexagon-container'>
+                                      <div class='hexagon-vertical-align'>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}"><h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->pivot->created_at}}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              @endif
                             @endif
                           @endforeach                        
                           @for($id = 1; $id < $emptyUsers; $id ++)
@@ -217,7 +222,7 @@
               </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel tile" style="height:350px">
+              <div class="x_panel tile" style="height:auto;">
                 <div class="row x_title">
                   <div class="col-md-12">
                     <h3>Манай баг</h3>

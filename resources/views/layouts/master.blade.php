@@ -7,12 +7,12 @@
 <body class="nav-md" id="style-3">
 <div class="container body" ng-controller="mainCtrl">
 
-	@include('includes.flash')
+    @include('includes.flash')
 
     <div class="main_container">
         @include('includes.header')
         @yield('content')
-	</div>
+    </div>
     <footer class="row">
         @include('includes.footer')
     </footer>

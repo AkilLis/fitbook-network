@@ -23,6 +23,7 @@
   </div> <!-- end .flash-message -->
   <div class="demo" ng-controller="basicDemoCtrl">
     <form class="login" method="POST" action="{{url('auth/login')}}">
+      {{ csrf_field() }}
       <div class="login__form">
         <div class="logo">
             <img height="90" src="images/logo.png"/>
@@ -38,7 +39,6 @@
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
           <input type="password" name="password" class="login__input pass" placeholder="Нууц үг"/>
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
         </div>
         <button type="submit" class="login__submit">НЭВТРЭХ</button>
         <p class="login__signup" ng-click="basicUsage('error')"><a>Нууц үг сэргээх</a></p>
