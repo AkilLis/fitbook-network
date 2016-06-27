@@ -18,6 +18,11 @@ class UserController extends Controller
     public function history(Request $request)
     {
         $blocks = User::deactiveBlocks(\Auth::user()->id)->get()->all();
+
+        foreach ($blocks as $block) {
+            $block->setMembers();
+        }
+
         return \View::make('blockhistory')->with('blocks', $blocks);
     }
 
@@ -161,8 +166,6 @@ class UserController extends Controller
         return Response::json(['status' => 'success']);
     }
 
-    
-
     public function dashboard(Request $request)
     {
 		$id = \Auth::user()->id;
@@ -182,6 +185,9 @@ class UserController extends Controller
 
         //Яг одоо идвэхтэй блок, ахисан шат сүүлд шалгана     
         $block = User::activeBlocks($id)->get()->first();
+        $block->setMembers();
+
+        \Log::info('members = '. count($block->members));
 
         $emptyUsers = 16 - count($block->members);
         $groupName = "1-р шат - Хамтрах шат";
