@@ -19,7 +19,7 @@ class Block extends BaseModel
 	public function setMembers()
 	{
 		$this->members = \DB::table('users')->join('userblockmap', 'userblockmap.userId','=','users.id')
-			 ->where('userblockmap.blockId','=', $this->id)
+			 ->where('userblockmap.blockId','=', $this->pivot->blockId)
 			 ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'userblockmap.fCount', 'userblockmap.created_at', 'userblockmap.viewOrder')
 			 ->get();
 	}
