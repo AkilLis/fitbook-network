@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function history(Request $request)
     {
-        $blocks = User::activeBlocks(\Auth::user()->id)->get()->all();
+        $blocks = User::deactiveBlocks(\Auth::user()->id)->get()->all();
         return \View::make('blockhistory')->with('blocks', $blocks);
     }
 
