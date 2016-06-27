@@ -96,14 +96,14 @@
                     <div style="min-width:957px">
                       <?php $counter = 0 ?>
                           @foreach ($block->members as $blockUser)
-                            @if($blockUser->pivot->viewOrder == 1)
+                            @if($blockUser->viewOrder == 1)
                               <div class='hexagon-wrapper'>
                                 <div class='hexagon captain'>
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}">
-                                        <h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}
-                                        </br>{{$blockUser->pivot->created_at}}
+                                      <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="">
+                                        <h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}
+                                        </br>{{$blockUser->created_at}}
                                       </span>
                                     </div>
                                   </div>
@@ -120,7 +120,7 @@
                                   @endif
                                     <div class='hexagon-container'>
                                       <div class='hexagon-vertical-align'>
-                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}"><h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->pivot->created_at}}</span>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title=""><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                       </div>
                                     </div>
                                   </div>
@@ -134,7 +134,7 @@
                                   @endif
                                     <div class='hexagon-container'>
                                       <div class='hexagon-vertical-align'>
-                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parents->first()->userId}}"><h2>{{$blockUser->pivot->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->pivot->created_at}}</span>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title=""><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                       </div>
                                     </div>
                                   </div>

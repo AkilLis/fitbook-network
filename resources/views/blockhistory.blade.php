@@ -36,11 +36,11 @@
                                   <div class='hexagon first-level'>
                                       <div class='hexagon-container'>
                                         <div class='hexagon-vertical-align'>
-                                          <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$member->parents->first()->userId}}">
-                                            <h2>{{$member->pivot->fCount}}</h2>
+                                          <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom">
+                                            <h2>{{$member->fCount}}</h2>
                                             {{$member->userId}}
                                             </br>
-                                            {{$member->pivot->created_at}}
+                                            {{$member->created_at}}
                                           </span>
                                         </div>
                                       </div>
