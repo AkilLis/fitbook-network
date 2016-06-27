@@ -65,11 +65,9 @@ class AuthController extends Controller {
                 $request->session()->flash('alert-danger', 'Хэрэглэгчийн эрх идэвхжээгүй байна.', 200);
                 return redirect()->back();
             }
-            
+
         	Auth::login($user);
-            unset($user->password);
             return redirect()->intended('dashboard');
-            //return response()->json(['token' => $this->createToken($user)]);
         }
         else
         {

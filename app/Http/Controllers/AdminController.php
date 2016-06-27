@@ -115,11 +115,11 @@ class AdminController extends Controller
 
     private function generateId()
     {
-        $now = Carbon::now;
         $nextId = "FG";
-        $nextId .= substr($now->year, 2 , 4);
-        $nextId .= $now->month < 10 ? ('0'.$now->month) : $now->month;
-        $nextId .= $now->day < 10 ? ('0'.$now->day) : $now->day;
+        $nextId .= substr(date('Y'), 2 , 4);
+        $nextId .= date('m');
+        \Log::info('day = '.date('m'));
+        $nextId .= date('d');
         $nextId .= \Auth::user()->regId; 
         return $nextId;
     }
