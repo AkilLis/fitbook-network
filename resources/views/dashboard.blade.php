@@ -101,7 +101,7 @@
                                 <div class='hexagon captain'>
                                   <div class='hexagon-container'>
                                     <div class='hexagon-vertical-align'>
-                                      <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="">
+                                      <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parent->userId}}">
                                         <h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}
                                         </br>{{$blockUser->created_at}}
                                       </span>
@@ -120,7 +120,7 @@
                                   @endif
                                     <div class='hexagon-container'>
                                       <div class='hexagon-vertical-align'>
-                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title=""><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parent->userId}}"><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                       </div>
                                     </div>
                                   </div>
@@ -134,7 +134,7 @@
                                   @endif
                                     <div class='hexagon-container'>
                                       <div class='hexagon-vertical-align'>
-                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title=""><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
+                                        <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$blockUser->parent->userId}}"><h2>{{$blockUser->fCount}}</h2>{{$blockUser->userId}}</br>{{$blockUser->created_at}}</span>
                                       </div>
                                     </div>
                                   </div>

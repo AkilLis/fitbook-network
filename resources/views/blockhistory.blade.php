@@ -23,9 +23,15 @@
             <div class="col-md-12 col-xs-12 col-sm-12">
               <!--Блокийн мэдээлэл-->
               <ul class="timeline">
+                <?php $counter = 0 ?>
                 @foreach ($blocks as $block)
+                  @if($counter % 2 == 0)
+                  <li>
+                  @else
                   <li class="timeline-inverted">
-                    <div class="timeline-badge success" data-toggle="tooltip" data-placement="bottom" title="{{$block->created_at->diffForHumans()}}">
+                  @endif
+                  <?php $counter ++ ?>
+                    <div class="timeline-badge success" data-toggle="tooltip" data-placement="bottom" title="{{$block->created_at}}">
                       <i class="glyphicon glyphicon-thumbs-up"></i>
                     </div>
                     <div class="timeline-panel">
@@ -36,7 +42,7 @@
                                   <div class='hexagon first-level'>
                                       <div class='hexagon-container'>
                                         <div class='hexagon-vertical-align'>
-                                          <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom">
+                                          <span class='hexagon-text' data-toggle="tooltip" data-placement="bottom" title="{{$member->parent->userId}}">
                                             <h2>{{$member->fCount}}</h2>
                                             {{$member->userId}}
                                             </br>
