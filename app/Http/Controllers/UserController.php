@@ -29,9 +29,6 @@ class UserController extends Controller
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
     {
-        DB::beginTransaction();
-
-        try {
             $cashAmount = $request->cashAmount;
             $awardAmount = $request->awardAmount;
             $bonusAmountBg = $request->bonusAmountBg;
@@ -118,6 +115,12 @@ class UserController extends Controller
 
             while ($isDevide == 'Y') {
 
+                \Log::info('STARTED----------------->'. $rankId);
+                \Log::info('userId = '. $userId);
+                \Log::info('currentBlock = '. $currentBlock);
+                \Log::info('parentId = '. $parentId);
+                \Log::info('rankId = '. $rankId);
+                \Log::info('------------------------>');
                 DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId);',
                     array(
                         $userId,
@@ -127,8 +130,12 @@ class UserController extends Controller
                         $rankId
                     )
                 );
+                \Log::info('MIDDLE');
 
                 $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId');
+
+                \Log::info('tested = '.$results[0]->isDevide);
+
                 $userId = $results[0]->userId;
                 $isDevide = $results[0]->isDevide;
 
@@ -145,7 +152,6 @@ class UserController extends Controller
             $currentUser = User::where('userId', '=', $request->id)->first();
             $currentUser->isNetwork = 'Y';
             $currentUser->save();
-            $currentUser[1] = 123;
 
             //ДАНСНААС НЬ МӨНГӨ ХAСAХ
             if($cashAmount != 0)
@@ -157,11 +163,7 @@ class UserController extends Controller
                 $this->subractBonusAccount(\Auth::user()->id, $bonusAmountBg, 1);
             if($bonusAmountAd != 0)
                 $this->subractBonusAccount(\Auth::user()->id, $bonusAmountAd, 2);
-            DB::commit();
-        } 
-        catch (\Exception $e) {
-            DB::rollback();
-        }
+            
 
         return Response::json(['status' => 'success']);
     }
@@ -171,14 +173,14 @@ class UserController extends Controller
 		$id = \Auth::user()->id;
         //Дансны мэдээлэл
     	$accountsEndAmount = \DB::table('users')
-            ->join('UserAccountMap', 'users.id', '=', 'UserAccountMap.userId')
-            ->leftJoin('AwardAccount', 'UserAccountMap.accountId', '=', 'AwardAccount.id')
-            ->leftJoin('BonusAccount', 'UserAccountMap.accountId', '=', 'BonusAccount.id')
-            ->leftJoin('CashAccount', 'UserAccountMap.accountId', '=', 'CashAccount.id')
-            ->leftJoin('UsageAccount', 'UserAccountMap.accountId', '=', 'UsageAccount.id')
-            ->leftJoin('SavingAccount', 'UserAccountMap.accountId', '=', 'SavingAccount.id')
-            ->select(\DB::raw('round(sum(AwardAccount.endAmount), 0) as awardEnd, round(sum(BonusAccount.endAmount), 0) as bonusEnd, round(sum(CashAccount.endAmount), 0) as cashEnd, round(sum(UsageAccount.endAmount), 0) as usageEnd,
-            	round(sum(SavingAccount.endAmount), 0) as savingEnd'))
+            ->join('useraccountmap', 'users.id', '=', 'useraccountmap.userId')
+            ->leftJoin('awardaccount', 'useraccountmap.accountId', '=', 'awardaccount.id')
+            ->leftJoin('bonusaccount', 'useraccountmap.accountId', '=', 'bonusaccount.id')
+            ->leftJoin('cashaccount', 'useraccountmap.accountId', '=', 'cashaccount.id')
+            ->leftJoin('usageaccount', 'useraccountmap.accountId', '=', 'usageaccount.id')
+            ->leftJoin('savingaccount', 'useraccountmap.accountId', '=', 'savingaccount.id')
+            ->select(\DB::raw('round(sum(awardaccount.endAmount), 0) as awardEnd, round(sum(bonusaccount.endAmount), 0) as bonusEnd, round(sum(cashaccount.endAmount), 0) as cashEnd, round(sum(usageaccount.endAmount), 0) as usageEnd,
+            	round(sum(savingaccount.endAmount), 0) as savingEnd'))
             ->where('users.id', '=', $id)
             ->groupBy('users.id')
             ->get();
@@ -186,8 +188,6 @@ class UserController extends Controller
         //Яг одоо идвэхтэй блок, ахисан шат сүүлд шалгана     
         $block = User::activeBlocks($id)->get()->first();
         $block->setMembers();
-
-        \Log::info('members = '. count($block->members));
 
         $emptyUsers = 16 - count($block->members);
         $groupName = "1-р шат - Хамтрах шат";
