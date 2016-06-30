@@ -4,9 +4,7 @@ app.filter('customType', function(){
     {
       case 'CashLoad':
         return 'Цэнэглэсэн'; 
-      case 'Salary':
-        return 'Олгосон'; 
-      case 'Award':
+      default:
         return 'Олгосон';
     }
     return input;
