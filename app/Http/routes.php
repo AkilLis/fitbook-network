@@ -27,10 +27,16 @@ Route::group(['middleware' => ['web']], function () {
 
     	if(Auth::check())
     	{
+            if(Auth::user()->hasRole('Ceo'))
+                return redirect('/ceo/dashboard');
        		return redirect('dashboard');
     	}
         
         return view('auth.login',[]);
+    });
+
+    Route::get('ceo/dashboard', function(){
+        return view('ceo.dashboard');
     });
 
     /* Notification */
@@ -78,10 +84,6 @@ Route::group(['middleware' => ['web']], function () {
     {
         Route::resource('admin/users', 'AdminController');
         Route::resource('api/cash', 'CashController');
-        Route::get('account/{type}', function(Request $request, $type){
-            $accountInfo = Transactions::all();
-            return Response::json($accountInfo);
-        });
     });
 
 

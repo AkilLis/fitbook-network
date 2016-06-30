@@ -70,4 +70,17 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
                 ->get();
         return count($ranks) > 1 ? true : false;
     }
-}
+
+    //USER TRANSACTIONS
+    public function transactions()
+    {
+        return $this->hasMany('App\Transactions', 'outUserId');
+    }
+    /*public function transactions($type)
+    {
+        if($type == "All")
+            return $this->hasMany('App\Transactions', 'outUserId')->orWhere('inUserId', '=', $this->id)->orderBy('created_at','DESC');
+        
+        return $this->hasMany('App\Transactions', 'outUserId')->orWhere('inUserId', '=', $this->id)->orderBy('created_at','DESC');
+    }
+*/}

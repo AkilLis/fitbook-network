@@ -287,8 +287,6 @@ class UserController extends Controller
     {
         if($id == 0)
         $id = \Auth::user()->id;
-        \Log::info('id = '. $id);
-
         $rank = 1;
 
         $childs = DB::table('userblockmap')
@@ -321,8 +319,6 @@ class UserController extends Controller
 
         //BreadCrumb list
         $breadCrumb = $this->findMyTeam($id, \Auth::user()->id, $rank);
-        \Log::info('test = ', $breadCrumb);
-
         return Response::json(['user' => $user,
                               'childs' => $childs,
                               'parent' => $parent,

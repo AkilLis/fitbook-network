@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Str;
 use App\Http\Requests;
+use App\Transactions;
 use App\User;
-use View;
+use DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Mail;
 use Response;
 use Session;
-use Mail;
-use DB;
-use App\Transactions;
+use View;
 
 class CashController extends Controller
 {
@@ -22,36 +23,23 @@ class CashController extends Controller
 		
 	}
 
-    public function show(Request $request, $cashType)
+    public function index(Request $request)
     {
-        $query = DB::table('transactions')
-            ->join('users','transactions.inUserId','=','users.id')
-            ->where('transactions.outUserId', '=', \Auth::user()->id);
+        /*$transactions = Auth::user()->transactions($request->type);*/
+        $query = Auth::user()->transactions();
+        if($request->type != "All")
+            $query->where('invType', '=', $request->type);
+                                    /*->orWhere('inUserId', Auth::user()->id)*/
+        $query->orderBy('created_at', 'DESC');
+        $transactions = $query->paginate(5);
+        /*$transactions = Auth::user()->with('transactions')->where('invType', '=', $request->type);*/
+        return Response::json($transactions);
+    }
 
-        if($cashType != "All")
-        {
-            $query->where('transactions.invType','=',$cashType);
-        }
-
-        if($request->get('search'))
-        {
-            $search = $request->get('search'); 
-            $query->orWhere('users.fName', 'like', "%$search%")
-                    ->orWhere('users.lName', 'like', "%$search%")
-                    ->orWhere('users.userId', 'like', "%$search%")
-                    ->orderBy('transactions.invDate', 'DESC')
-                    ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'transactions.outAmt', 'transactions.invDate', 'transactions.invType');      
-        }
-        else
-        {
-                $query->orderBy('transactions.invDate', 'DESC')
-                    ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'transactions.outAmt', 'transactions.invDate', 'transactions.invType')
-                    ->paginate(10);
-        }
-
-        $users = $query->get();
-
-        return Response::json($users);
+    public function show(Request $request)
+    {
+        $transactions = Auth::user()->with('transactions')->where('invType', '=', $request->type);
+        return Response::json($transactions);
     }
 
     public function store(Request $request)

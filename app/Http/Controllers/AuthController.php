@@ -67,6 +67,8 @@ class AuthController extends Controller {
             }
 
         	Auth::login($user);
+            if($user->hasRole('Ceo'))
+                    return redirect()->intended('ceo/dashboard');
             return redirect()->intended('dashboard');
         }
         else
