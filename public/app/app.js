@@ -186,28 +186,45 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       });
   }
 
-  $scope.getAccountTransactions = function(type) {
+  $scope.getAccountByType = function(pageNumber = null) {
+      if(!pageNumber){
+          pageNumber = '1';
+      }
+
       $http({
         method: 'GET',
-        url: $baseUrl + 'account/' + type,
+        url: $baseUrl + 'api/cash/?type=' + $scope.accountType + '&page=' + pageNumber,
         }).then(function successCallback(response) {
-          debugger;
-          $scope.accountDatas = response.data;
+            debugger;
 
-          var modalInstance = $uibModal.open({
+            $scope.totalPages   = response.data.last_page;
+            $scope.currentPage  = response.data.current_page;
+
+            // Pagination Range
+            var pages = [];
+
+            for(var i = 1;i <= response.data.last_page; i++) {          
+              pages.push(i);
+            }
+
+            $scope.range = pages; 
+            $scope.accountDatas = response.data.data;
+
+        }, function errorCallback(response) {
+      });
+  }
+  $scope.getAccountTransactions = function(type = null) {
+      if(type) $scope.accountType = type;
+      $scope.getAccountByType();
+      var modalInstance = $uibModal.open({
               templateUrl: 'accountdetail.html',
               animation: true,
               controller: 'mainCtrl',
               size: 'lg',
               scope: $scope
-          });
-          //$('#AccountDetail').modal('show');
-
-          
-        }, function errorCallback(response) {
-          debugger;
-        });
+      });
   }
+
 
   $scope.setPassword = function () {
     debugger;
