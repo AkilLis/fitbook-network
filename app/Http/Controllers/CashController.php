@@ -25,20 +25,39 @@ class CashController extends Controller
 
     public function index(Request $request)
     {
-        /*$transactions = Auth::user()->transactions($request->type);*/
         $query = Auth::user()->transactions();
         if($request->type != "All")
             $query->where('invType', '=', $request->type);
-                                    /*->orWhere('inUserId', Auth::user()->id)*/
+
         $query->orderBy('created_at', 'DESC');
         $transactions = $query->paginate(5);
         /*$transactions = Auth::user()->with('transactions')->where('invType', '=', $request->type);*/
         return Response::json($transactions);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $cashType)
     {
-        $transactions = Auth::user()->with('transactions')->where('invType', '=', $request->type);
+        $query = Auth::user()->inTransactions();
+        if($cashType != "All")
+        {
+            if($cashType == "CashLoad")
+                $query->where('invType', '=', "CashLoad");
+            else
+            {
+                $query->where('invType', '<>', "CashLoad");
+                $query->where('outAmt', '<>', 0);
+            }
+        }
+        else
+            $query->where('outAmt', '<>', 0);
+
+        $query->orderBy('created_at', 'DESC');
+        $transactions = $query->get();
+
+        foreach ($transactions as $tran) {
+            $tran->outUser;
+        }
+
         return Response::json($transactions);
     }
 
