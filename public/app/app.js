@@ -219,12 +219,11 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       var modalInstance = $uibModal.open({
               templateUrl: 'accountdetail.html',
               animation: true,
-              controller: 'mainCtrl',
+              controller: 'mainCtrl', 
               size: 'lg',
               scope: $scope
       });
   }
-
 
   $scope.setPassword = function () {
     debugger;
