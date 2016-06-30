@@ -1,4 +1,4 @@
-<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
+a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{{asset('app/controller/usercontroller.js')}}"></script>
 <script type="text/javascript" src="{{asset('app/controller/cashcontroller.js')}}"></script>
 <script type="text/javascript" src="{{asset('app/filter/customType.js')}}"></script>
+<script type="text/javascript" src="{{asset('app/directive/custom-directive.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/enscroll-0.6.0.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap2-toggle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-notify.min.js')}}"></script>
@@ -680,7 +681,7 @@
                                   <div class="row">
                                     <div  class="col-md-4">
                                       <div class="container">
-                                        <div class="row" style="margin-top: -10px;">
+                                        <div class="row" style="margin-top: -10px; display:none;">
                                             <div class='col-md-6'>
                                                 <div class="form-group">
                                                     <div class='input-group date' id='datetimepicker6'>
@@ -703,13 +704,13 @@
                                     </div>
                                     <div  class="col-md-3">
                                     <form>
-                                      <select class="ChooseCombo">
-                                        <option>Бүх данс</option>
-                                        <option>Бэлэн мөнгөний данс</option>
-                                        <option>Урамшуулалын данс</option>
-                                        <option>Шагналын данс</option>
-                                        <option>Хэрэглээний данс</option>
-                                        <option>Хуримтлалын данс</option>
+                                      <select ng-model="accountType" class="ChooseCombo" ng-change="getAccountByType()">
+                                        <option value="All">Бүх данс</option>
+                                        <option value="Cash">Бэлэн мөнгөний данс</option>
+                                        <option value="Bonus">Урамшуулалын данс</option>
+                                        <option value="Award">Шагналын данс</option>
+                                        <option value="Usage">Хэрэглээний данс</option>
+                                        <option value="Saving">Хуримтлалын данс</option>
                                       </select>
                                     </form>
                                     </div>
@@ -718,8 +719,8 @@
                                       <thead>
                                         <tr>
                                           <th width="10%">Гүйлгээний огноо</th>
-                                          <th width="10%">Дансны нэр</th>
-                                          <th width="35%">Гүйлгээний утга</th>
+                                          <th width="15%">Дансны нэр</th>
+                                          <th width="30%">Гүйлгээний утга</th>
                                           <th width="15%">Орлого</th>
                                           <th width="15%">Зарлага</th>
                                           <th width="15%">Үлдэгдэл</th>
@@ -728,14 +729,17 @@
                                       <tbody>
                                         <tr ng-repeat="data in accountDatas">
                                           <td>@{{data.invDate}}</td>
-                                          <td>@{{data.invType}}</td>
+                                          <td>@{{data.invType | accountType}}</td>
                                           <td>@{{data.invDescription}}</td>
-                                          <td>@{{data.inAmt | currency : ""}}₮</td>
-                                          <td>@{{data.outAmt | currency : ""}}₮</td>
+                                          <td ng-style="data.inAmt != 0 && {'color' : 'green'}">@{{data.inAmt | currency : ""}}₮</td>
+                                          <td ng-style="data.outAmt != 0 && {'color' : 'red'}">@{{data.outAmt | currency : ""}}₮</td>
                                           <td>@{{data.endAmt | currency : ""}}₮</td>
                                         </tr>
                                       </tbody>
                                     </table>
+                                    <div style="text-align: center;">
+                                      <posts-pagination></posts-pagination>
+                                    </div>
                                   </div>
                                 </form>
                               </div>
