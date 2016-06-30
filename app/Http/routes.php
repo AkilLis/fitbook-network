@@ -135,8 +135,8 @@ Route::group(['middleware' => ['web']], function () {
 
             //Админы гүйлгээ
             $trans = array(
-                        'inUserId' => $currentUser->id,
-                        'outUserId' => \Auth::user()->id, 
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $currentUser->id, 
                         'invType' => 'CashLoad',
                         'invDate' => \Carbon::now(), 
                         'invDescription' => '', 
@@ -239,8 +239,8 @@ Route::group(['middleware' => ['web']], function () {
                 $bonus->save();
 
                 $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
+                    'inUserId' => $deliveryUser->id,
+                    'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -277,8 +277,8 @@ Route::group(['middleware' => ['web']], function () {
                 $bonus->save();
 
                 $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
+                    'inUserId' => $deliveryUser->id,
+                    'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -316,8 +316,8 @@ Route::group(['middleware' => ['web']], function () {
                 $bonus->save();
 
                 $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
+                    'inUserId' => $deliveryUser->id,
+                    'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -352,8 +352,8 @@ Route::group(['middleware' => ['web']], function () {
                 $bonus->save();
 
                 $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
+                    'inUserId' => $deliveryUser->id,
+                    'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -374,8 +374,8 @@ Route::group(['middleware' => ['web']], function () {
         {
             $account->save();
             $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
+                    'inUserId' => $deliveryUser->id,
+                    'outUserId' => \Auth::user()->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -394,8 +394,8 @@ Route::group(['middleware' => ['web']], function () {
         $deliveryAccount->save();
 
         $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
+                    'inUserId' => \Auth::user()->id,
+                    'outUserId' => $deliveryUser->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 
@@ -445,8 +445,8 @@ Route::group(['middleware' => ['web']], function () {
                     $bonus->save();
 
                     $trans = array(
-                        'inUserId' => $deliveryUser->id,
-                        'outUserId' => \Auth::user()->id, 
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
                         'invDescription' => '', 
@@ -481,8 +481,8 @@ Route::group(['middleware' => ['web']], function () {
                     $bonus->save();
 
                     $trans = array(
-                        'inUserId' => $deliveryUser->id,
-                        'outUserId' => \Auth::user()->id, 
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
                         'invDescription' => '', 
@@ -518,8 +518,8 @@ Route::group(['middleware' => ['web']], function () {
                     $bonus->save();
 
                     $trans = array(
-                        'inUserId' => $deliveryUser->id,
-                        'outUserId' => \Auth::user()->id, 
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
                         'invDescription' => '', 
@@ -554,8 +554,8 @@ Route::group(['middleware' => ['web']], function () {
                     $bonus->save();
 
                     $trans = array(
-                        'inUserId' => $deliveryUser->id,
-                        'outUserId' => \Auth::user()->id, 
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
                         'invDescription' => '', 
@@ -586,8 +586,8 @@ Route::group(['middleware' => ['web']], function () {
         {
             $account->save();
             $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
+                    'inUserId' => \Auth::user()->id,
+                    'outUserId' => $deliveryUser->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
                     'invDescription' => '', 

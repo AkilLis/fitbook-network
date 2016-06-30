@@ -7,6 +7,7 @@ use App\BonusAccount;
 use App\CashAccount;
 use App\Http\Requests;
 use App\SavingAccount;
+use App\Transactions;
 use App\UsageAccount;
 use App\User;
 use DB;
@@ -214,8 +215,6 @@ class UserController extends Controller
     }
 
     public function subractAwardAccount($id, $amount){
-        \Log::info('id = '. $id);
-        \Log::info('amount = '. $amount);
 
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
@@ -226,6 +225,21 @@ class UserController extends Controller
         $account = AwardAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+
+        $trans = array(
+            'inUserId' => 0,
+            'outUserId' => $id, 
+            'invType' => 'Award',
+            'invDate' => \Carbon::now(), 
+            'invDescription' => 'Хэрэглэгч идэвхжүүлэх', 
+            'inAccountId' => 0,
+            'outAccountId' => $account->id, 
+            'inAmt' => 0,
+            'outAmt' => $amount, 
+            'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
     }
 
     public function subractBonusAccount($id, $amount, $rank){
@@ -240,12 +254,24 @@ class UserController extends Controller
         $account = BonusAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+
+        $trans = array(
+            'inUserId' => 0,
+            'outUserId' => $id, 
+            'invType' => 'Bonus',
+            'invDate' => \Carbon::now(), 
+            'invDescription' => 'Хэрэглэгч идэвхжүүлэх', 
+            'inAccountId' => 0,
+            'outAccountId' => $account->id, 
+            'inAmt' => 0,
+            'outAmt' => $amount, 
+            'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
     }
 
     public function subractCashAccount($id, $amount){
-        \Log::info('id = '. $id);
-        \Log::info('amount = '. $amount);
-
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
         ->where('useraccountmap.type','=', 3)
@@ -255,6 +281,21 @@ class UserController extends Controller
         $account = CashAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+
+        $trans = array(
+            'inUserId' => 0,
+            'outUserId' => $id, 
+            'invType' => 'Cash',
+            'invDate' => \Carbon::now(), 
+            'invDescription' => 'Хэрэглэгч идэвхжүүлэх', 
+            'inAccountId' => 0,
+            'outAccountId' => $account->id, 
+            'inAmt' => 0,
+            'outAmt' => $amount, 
+            'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
     }
 
     public function subractUsageAccount($id, $amount){
@@ -268,6 +309,21 @@ class UserController extends Controller
         $account = UsageAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+
+        $trans = array(
+            'inUserId' => 0,
+            'outUserId' => $id, 
+            'invType' => 'Usage',
+            'invDate' => \Carbon::now(), 
+            'invDescription' => 'Хэрэглэгч идэвхжүүлэх', 
+            'inAccountId' => 0,
+            'outAccountId' => $account->id, 
+            'inAmt' => 0,
+            'outAmt' => $amount, 
+            'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
     }
 
     public function subractSavingAccount($id, $amount){
@@ -281,6 +337,21 @@ class UserController extends Controller
         $account = SavingAccount::find($bonusId->accountId);
         $account->endAmount = $account->endAmount - $amount;
         $account->save();
+
+        $trans = array(
+            'inUserId' => 0,
+            'outUserId' => $id, 
+            'invType' => 'Saving',
+            'invDate' => \Carbon::now(), 
+            'invDescription' => 'Хэрэглэгч идэвхжүүлэх', 
+            'inAccountId' => 0,
+            'outAccountId' => $account->id, 
+            'inAmt' => 0,
+            'outAmt' => $amount, 
+            'endAmt' => $account->endAmount,
+        );
+
+        Transactions::create($trans);
     }
 
     public function myTeam(Request $request, $id)
