@@ -43,7 +43,7 @@
                       <tbody id="tasks-list" name="tasks-list">
                         <tr ng-repeat="tran in transactions">
                           <td><span>@{{tran.invDate}}</span></td>
-                          <td>@{{tran.userId}} @{{tran.fName}} @{{tran.lName}}</td>
+                          <td>@{{tran.out_user.userId}} @{{tran.out_user.fName}} @{{tran.out_user.lName}}</td>
                           <td>@{{tran.invType | customType}}</td>
                           <td align="center">
                             @{{tran.outAmt | number}}₮
