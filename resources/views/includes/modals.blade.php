@@ -500,7 +500,14 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                         </tr>
                                       </tbody>
                                     </table>
-
+                                    <div class="clearfix"></div>
+                                    <div style="margin-left: auto; margin-right: auto; width:90%;">
+                                      <div class="form-group">
+                                        <label for="comment">Тайлбар :</label>
+                                        <textarea class="form-control" rows="2" ng-model="description"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div> 
                                     <div class="clearfix"></div> 
                                     <div>
                                       <div class="col-md-6 vertical-centered-label">
@@ -719,8 +726,9 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       <thead>
                                         <tr>
                                           <th width="10%">Гүйлгээний огноо</th>
-                                          <th width="15%">Дансны нэр</th>
-                                          <th width="30%">Гүйлгээний утга</th>
+                                          <th width="10%">Дансны нэр</th>
+                                          <th width="10%">Шилжүүлсэн</th>
+                                          <th width="25%">Гүйлгээний утга</th>
                                           <th width="15%">Орлого</th>
                                           <th width="15%">Зарлага</th>
                                           <th width="15%">Үлдэгдэл</th>
@@ -730,6 +738,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                         <tr ng-repeat="data in accountDatas">
                                           <td>@{{data.invDate}}</td>
                                           <td>@{{data.invType | accountType}}</td>
+                                          <td>@{{data.in_user.userId}}</td>
                                           <td>@{{data.invDescription}}</td>
                                           <td ng-style="data.inAmt != 0 && {'color' : 'green'}">@{{data.inAmt | currency : ""}}₮</td>
                                           <td ng-style="data.outAmt != 0 && {'color' : 'red'}">@{{data.outAmt | currency : ""}}₮</td>
