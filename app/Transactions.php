@@ -17,6 +17,11 @@ class Transactions extends BaseModel
 		return $this->belongsTo('App\User', 'outUserId');
 	}
 
+	public function inUser()
+	{
+		return $this->belongsTo('App\User', 'inUserId');
+	}
+
 	
 	/*
 	-Salary

@@ -31,6 +31,10 @@ class CashController extends Controller
 
         $query->orderBy('created_at', 'DESC');
         $transactions = $query->paginate(5);
+
+        foreach ($transactions as $tran) {
+            $tran->inUser;
+        }
         /*$transactions = Auth::user()->with('transactions')->where('invType', '=', $request->type);*/
         return Response::json($transactions);
     }

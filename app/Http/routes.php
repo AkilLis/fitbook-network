@@ -185,6 +185,7 @@ Route::group(['middleware' => ['web']], function () {
         $bonusAmountBg = $request->bonusAmountBg;
         $bonusAmountAd = $request->bonusAmountAd;
         $tranToken = $request->tranToken;
+        $description = $request->description;
 
         if(\Auth::user()->tranToken != $tranToken)
         {
@@ -243,7 +244,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $bonus->id,
                     'outAccountId' => $deliveryAccount->id, 
                     'inAmt' => 0,
@@ -281,7 +282,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $bonus->id,
                     'outAccountId' => $deliveryAccount->id, 
                     'inAmt' => 0,
@@ -320,7 +321,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $bonus->id,
                     'outAccountId' => $deliveryAccount->id, 
                     'inAmt' => 0,
@@ -356,7 +357,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => \Auth::user()->id, 
                     'invType' => 'Bonus',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $bonus->id,
                     'outAccountId' => $deliveryAccount->id, 
                     'inAmt' => 0,
@@ -378,7 +379,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => \Auth::user()->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $account->id,
                     'outAccountId' => $deliveryAccount->id, 
                     'inAmt' => 0,
@@ -398,7 +399,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => $deliveryUser->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => $description, 
                     'inAccountId' => $deliveryAccount->id,
                     'outAccountId' => 0, 
                     'inAmt' => $awardAmount + $bonusAmountBg + $bonusAmountAd,
@@ -764,7 +765,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::delete('ceo/admins/{id?}',function($id){
         $user = User::find($id);
         $adminRole = Role::find('1');
-        $user->detachRole($adminRole);
+        $user->roles()->dettach(1);
         return Response::json(null);
     });
 
