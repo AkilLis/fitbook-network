@@ -450,7 +450,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       return;
     }
 
-    if(!$scope.edEndAmount || $scope.edEndAmount < ($('#rank').prop('checked') ? 120000 : 240000))
+    if(!$scope.edEndAmount || $scope.edEndAmount < ($('#rank').prop('checked') ? 60000 : 120000))
     {
       $scope.displayNotification('warning', 'Бэлэн мөнгөний хэмжээ нийт мөнгөний 20% байх шаардлагатай.');
       $('#activate_endcash').focus();
@@ -475,7 +475,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       }
     }
 
-    if(sum != ($('#rank').prop('checked') ? 600000 : 1200000))
+    if(sum != ($('#rank').prop('checked') ? 300000 : 600000))
     {
       $scope.displayNotification('error', 'Идэхжүүлэх мөнгө зөрж байна.');
       $('#activate_endcash').focus();
