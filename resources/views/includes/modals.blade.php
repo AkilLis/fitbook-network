@@ -829,7 +829,7 @@
                                           </li>
                                           <li ng-repeat="user in top5users">
                                             <a ng-click="chooseUser(user, 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                            <div style="vertical-align:middle; font-size:11px;">{{user.lName + " " + user.fName}}</br>{{user.userId}}</div>
+                                            <div style="vertical-align:middle; font-size:11px;">@{{user.lName + " " + user.fName}}</br>@{{user.userId}}</div>
                                             </a> 
                                           </li>
                                         </ul>
