@@ -40,6 +40,11 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
         return $this->belongsToMany('App\User', 'userblockmap', 'userId', 'parentId');
     }
 
+    public function isActivator()
+    {
+    
+    }
+    
     public static function deactiveBlocks($id, $rankId = null)
     {
         $user = User::findOrFail($id);

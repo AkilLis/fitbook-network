@@ -720,11 +720,14 @@ Route::group(['middleware' => ['web']], function () {
         $searchValue = $request->search;
         try
         {
-            $filteredUsers = User::where('userId', 'like', "%$searchValue%")
-                ->orWhere('fName', 'like', "%$searchValue%")
-                ->orWhere('lName', 'like', '%$searchValue%')  
-                 ->take(5)
-                ->get();
+            $filteredUsers = User::where('isNetwork','=', $request->isNotActivated ? 'N' : 'Y');
+            $filteredUsers = $filteredUsers->where(function ($query) use ($searchValue) {
+                $query->where('userId', 'like', '%'.$searchValue.'%')
+                      ->orWhere('fName', 'like', '%'.$searchValue.'%')
+                      ->orWhere('lName', 'like', '%'.$searchValue.'%');
+            })->take(5);
+            
+            $filteredUsers = $filteredUsers->get();            
         }
         catch(ModelNotFoundException $ex)
         {
