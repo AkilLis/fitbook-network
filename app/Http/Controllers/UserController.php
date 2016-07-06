@@ -39,7 +39,7 @@ class UserController extends Controller
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
     {   
-
+            $isRedirect = !$request->isRedirect;
             $cashAmount = $request->cashAmount;
             $awardAmount = $request->awardAmount;
             $bonusAmountBg = $request->bonusAmountBg;
@@ -51,6 +51,9 @@ class UserController extends Controller
 
             if(!User::where('userId','=',$request->parentId)->first())
                 return Response::json(['status' => '_parentNotFound']);
+
+            if($isRedirect && !User::where('userId','=', $request->redirectUser)->first())
+                return Response::json(['status' => '_directNotFound']);
             
             $bonusId = DB::table('useraccountmap')
             ->where('useraccountmap.userId','=', \Auth::user()->id)
@@ -90,8 +93,6 @@ class UserController extends Controller
 
                 $account = BonusAccount::find($bonusId->accountId);
 
-                \Log::info('BonusBeginnerEnd = '. $account->endAmount);
-
                 if($account->endAmount < $bonusAmountBg)
                 {
                     return Response::json(['status' => '_amount']);
@@ -109,8 +110,6 @@ class UserController extends Controller
 
                 $account = BonusAccount::find($bonusId->accountId);
 
-                \Log::info('BonusAdvancedEnd = '. $account->endAmount);
-
                 if($account->endAmount < $bonusAmountAd)
                 {
                     return Response::json(['status' => '_amount']);
@@ -119,6 +118,7 @@ class UserController extends Controller
 
             $parentId = User::where('userId', '=', $request->parentId)->first()->id;
             $userId = User::where('userId', '=', $request->id)->first()->id;
+            $directId = $isRedirect ? User::where('userId', '=', $request->redirectUser)->first()->id : null;
 
             $currentBlock = DB::table('userblockmap')
                 ->join('block', 'userblockmap.blockId', '=', 'block.id')
@@ -131,31 +131,22 @@ class UserController extends Controller
             $isDevide = 'Y';
 
             while ($isDevide == 'Y') {
-
-                \Log::info('STARTED----------------->'. $rankId);
-                \Log::info('userId = '. $userId);
-                \Log::info('currentBlock = '. $currentBlock);
-                \Log::info('parentId = '. $parentId);
-                \Log::info('rankId = '. $rankId);
-                \Log::info('------------------------>');
-                DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, @isDevide, @outUserId, @outBlockId);',
+                DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, :isRedirect, :directId, @isDevide, @outUserId, @outBlockId);',
                     array(
                         $userId,
                         $currentBlock,
                         $parentId,
                         $rankId == 1 ? self::BEGINNER_START : self::ADVANCED_START,
-                        $rankId
+                        $rankId,
+                        $isRedirect ? 1 : 0,
+                        $directId,
                     )
                 );
-                \Log::info('MIDDLE');
 
+                $isRedirect = 0;
                 $results = DB::select('select @isDevide as isDevide, @outUserId as userId, @outBlockId as blockId');
-
-                \Log::info('tested = '.$results[0]->isDevide);
-
                 $userId = $results[0]->userId;
                 $isDevide = $results[0]->isDevide;
-
 
                 if($isDevide == 'N') break;
 
