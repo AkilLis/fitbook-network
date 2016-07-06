@@ -10,7 +10,6 @@ app.controller('cashCtrl', ['$scope','$http', function($scope, $http) {
 	    method: 'GET',
 	    url: $baseUrl + 'api/cash/' + $scope.cashType + '?search=' + $scope.search,
 	    }).then(function successCallback(response) {
-        debugger;
 	       $scope.transactions = response.data;
 	    }, function errorCallback(response) {
 	       
