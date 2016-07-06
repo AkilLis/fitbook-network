@@ -113,34 +113,26 @@ class DatabaseSeeder extends Seeder
         User::create($newUser);
       }*/
 
-      /*$users = array(
-                ['id' => 200, 'userId' => 'AA00001', 'fName' => 'Хулангоо','lName' => 'Амарсанаа','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 201, 'userId' => 'AA00002', 'fName' => 'Tuvshoo','lName' => 'Амарсанаа','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 202, 'userId' => 'AA00003', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 203, 'userId' => 'AA00004', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo2.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 204, 'userId' => 'AA00005', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo3.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 205, 'userId' => 'AA00006', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo4.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 206, 'userId' => 'AA00007', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-
-                ['id' => 207, 'userId' => 'AA00008', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 208, 'userId' => 'AA00009', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 209, 'userId' => 'AA00010', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 210, 'userId' => 'AA00011', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 211, 'userId' => 'AA00012', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 212, 'userId' => 'AA00013', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 213, 'userId' => 'AA00014', 'fName' => 'Puujee','lName' => 'Амарсанаа','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+      $users = array(
+                ['id' => 100, 'userId' => 'flexgym14', 'fName' => 'flexgym14','lName' => 'flexgym14','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 101, 'userId' => 'flexgym15', 'fName' => 'flexgym15','lName' => 'flexgym15','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 102, 'userId' => 'flexgym16', 'fName' => 'flexgym16','lName' => 'flexgym16','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 103, 'userId' => 'flexgym17', 'fName' => 'flexgym17','lName' => 'flexgym17','email' => 'puujee@yahoo2.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 104, 'userId' => 'flexgym18', 'fName' => 'flexgym18','lName' => 'flexgym18','email' => 'puujee@yahoo3.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 105, 'userId' => 'flexgym19', 'fName' => 'flexgym19','lName' => 'flexgym19','email' => 'puujee@yahoo4.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 106, 'userId' => 'flexgym20', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
         );
 
        foreach($users as $user){
                 User::create($user); 
-           }*/
+           }
 
       $blockA = array(
-                'id' => 1, 'parentId' => 0, 'groupId' => 1, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 200, 'U2' => 201, 'U3' => 202, 'U4' => 203, 'U5' => 204, 'U6' => 205 , 'U7' => 206
+                'id' => 3, 'parentId' => 0, 'groupId' => 3, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 100, 'U2' => 101, 'U3' => 102, 'U4' => 103, 'U5' => 104, 'U6' => 105 , 'U7' => 106
       ); 
       Block::create($blockA);     
 
-      for($i = 200; $i < 207; $i ++)
+      for($i = 100; $i < 107; $i ++)
       {
           $awardAccount = array(
                 'id' => $i * 5 + 1, 'accountId' => '976', 'nameL' => 'Шагнал', 'nameF' => 'Шагнал', 'endAmount' => 0, 'created_at' => '2016-05-07 00:00:12'
@@ -181,13 +173,13 @@ class DatabaseSeeder extends Seeder
            }
       }
 
-      $blockMaps = array(['userId' => 200, 'parentId' => 0, 'sortedOrder' => '100','blockId' => 1, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 1],
-            ['userId' => 201, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '101', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 2],
-            ['userId' => 202, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '102', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 3],
-            ['userId' => 203, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '103', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 4],
-            ['userId' => 204, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '104','fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 5],
-            ['userId' => 205, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '105', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 6],
-            ['userId' => 206, 'parentId' => 0, 'blockId' => 1, 'sortedOrder' => '106', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 7],
+      $blockMaps = array(['userId' => 100, 'parentId' => 200, 'sortedOrder' => '100','blockId' => 3, 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 1],
+            ['userId' => 101, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '101', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 2],
+            ['userId' => 102, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '102', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 3],
+            ['userId' => 103, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '103', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 4],
+            ['userId' => 104, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '104','fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 5],
+            ['userId' => 105, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '105', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 6],
+            ['userId' => 106, 'parentId' => 200, 'blockId' => 3, 'sortedOrder' => '106', 'fCount' => 0, 'mCount' => 0, 'rankId' => 1, 'viewOrder' => 7],
         );
 
        foreach($blockMaps as $map){
@@ -195,7 +187,7 @@ class DatabaseSeeder extends Seeder
         }
 
 
-    $blockA = array(
+    /*$blockA = array(
                 'id' => 2, 'parentId' => 0, 'groupId' => 2, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 207, 'U2' => 208, 'U3' => 209, 'U4' => 210, 'U5' => 211, 'U6' => 212 , 'U7' => 213
       );  
 
@@ -254,7 +246,7 @@ class DatabaseSeeder extends Seeder
 
        foreach($blockMaps as $map){
                 UserBlockMap::create($map); 
-        }
+        }*/
 
 
 
