@@ -97,4 +97,6 @@ $(document).click(function(event) {
   $('.content-list').hide();
 });
 
+
+
 //SCROLL бүдүүрдэг

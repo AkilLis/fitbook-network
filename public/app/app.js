@@ -483,6 +483,8 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     }
 
     $.LoadingOverlay("show");
+  
+    debugger;
 
   	var formData = {
     	id : $( "#searchActivated" ).val(),
@@ -492,6 +494,8 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       awardAmount : $scope.edAwardAmount,
       bonusAmountBg : $scope.edBonusAmountBg,
       bonusAmountAd : $scope.edBonusAmountAd, 
+      isRedirect : $('#redirect').prop('checked'),
+      redirectUser : $( "#searchDirect" ).val(),  
     }
 
   	$http({
@@ -517,6 +521,9 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
           break;  
         case "_parentNotFound":
           $scope.displayNotification('error', 'Зуучлагч олдсонгүй.');
+          break;
+        case "_directNotFound":
+          $scope.displayNotification('error', 'Дам Зуучлагч олдсонгүй.');
           break;
         default:
           break;
@@ -601,9 +608,21 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     }
   };
 
+  $scope.findUserKeyDownThird = function(event, withAccount){
+    if(event.which == 13 && $scope.top5users.length == 1)
+    {
+      $scope.chooseUserThird(null, withAccount);
+    }
+  };
+
   $scope.chooseUserSecond = function(currentUser, withAccount){
     $(".content-list-second").hide();
     $(".search-input-second").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
+  };
+
+  $scope.chooseUserThird = function(currentUser, withAccount){
+    $(".content-list-third").hide();
+    $(".search-input-third").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
   };
 
   $scope.chooseUser = function(currentUser, withAccount){
@@ -685,12 +704,36 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         console.log(response);
         if(response.data.gotinfo == "failed")
         {
-          $(".content-list-second").hide();
+          $('.content-list-second').hide();
         }
         else
         {
           $scope.top5users = response.data.users;
           $(".content-list-second").fadeIn("fast");   
+        }
+    }, function errorCallback(response) {
+
+    });
+  };
+
+  $scope.findUserThird = function(value){
+    var formData = {
+        search : value,
+    }
+    $http({
+      method: 'POST',
+      url: $rootUrl + 'get/users',
+      data: formData,
+    }).then(function successCallback(response) {
+        console.log(response);
+        if(response.data.gotinfo == "failed")
+        {
+          $('.content-list-third').hide();
+        }
+        else
+        {
+          $scope.top5users = response.data.users;
+          $(".content-list-third").fadeIn("fast");   
         }
     }, function errorCallback(response) {
 
@@ -711,7 +754,14 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     else $('.content-list-second').hide();
   });
 
-  //DIRECT CAL
+  $scope.$watch('searchDirect', function(newValue) {
+    if (newValue){
+      $scope.findUserThird(newValue);
+    }
+    else $('.content-list-third').hide();
+  });
+
+    //DIRECT CAL
   $scope.getAllAdmins();
   $scope.myTeam(0);
 });
