@@ -78,7 +78,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       case 'admin' :
         $scope.getAllAdmins();
         $('#AddAdmin').modal('show');
-        debugger;
         break;
       case 'moneyTrans' :
         $scope.endAmount = 0;
@@ -111,10 +110,8 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         $scope.addAmount = 0;
         $('#addMoneyForm').trigger("reset");
         $('#addMoneyfromCEO').modal('show');
-        debugger;
         break;
       case 'changepassword' :
-        debugger;
         $("#changeForm").trigger('reset');
         $('#ChangePass').modal('show');
         break;
@@ -177,7 +174,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         url: $baseUrl + 'admin/users',
         data: formData,
         }).then(function successCallback(response) {
-          debugger;
           $scope.displayNotification('success' , 'Aмжилттай хадгаллаа.');
           $('#basicModal').modal('hide');
           location.reload();
@@ -194,7 +190,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         method: 'GET',
         url: $baseUrl + 'api/cash/?type=' + $scope.accountType + '&page=' + pageNumber,
         }).then(function successCallback(response) {
-            debugger;
 
             $scope.totalPages   = response.data.last_page;
             $scope.currentPage  = response.data.current_page;
@@ -225,7 +220,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   }
 
   $scope.setPassword = function () {
-    debugger;
+
     if(!$('#oldPassword').val())
     {
       $('#oldPassword').focus();
@@ -412,7 +407,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
 
   $scope.loadUserCash = function () {
 
-    debugger;
     if(!$('#searchMoney').val())
     {
        $scope.displayNotification('warning' , 'Хэрэглэгч сонгоно уу');
@@ -464,8 +458,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     }
 
     var sum = 0;
-
-    debugger;
 
     if($scope.rank > 2)
     {
@@ -545,7 +537,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       data : formData,
     }).then(function successCallback(response) {
       $scope.displayNotification('success' , 'Шивэгч эрх нэмлээ');
-      debugger;
       $('#img'+ id).attr("src", $rootUrl + 'images/check.png'); 
     }, function errorCallback(response) {
         
@@ -616,7 +607,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   };
 
   $scope.chooseUser = function(currentUser, withAccount){
-    debugger;
   	$(".content-list").hide();
   	$(".search-input").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
   	
