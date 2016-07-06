@@ -16,6 +16,9 @@ use Response;
 
 class UserController extends Controller
 {
+    const BEGINNER_START = 600000;
+    const ADVANCED_START = 1200000;
+
     public function history(Request $request)
     {
         $blocks = User::deactiveBlocks(\Auth::user()->id)->get()->all();
@@ -27,14 +30,27 @@ class UserController extends Controller
         return \View::make('blockhistory')->with('blocks', $blocks);
     }
 
+    public static function isActivator()
+    {
+        $instance = new static;
+        return true;
+    }
+
     //ХЭРЭГЛЭГЧ ИДЭВХЖҮҮЛЭХ
     public function activateUser(Request $request)
-    {
+    {   
+
             $cashAmount = $request->cashAmount;
             $awardAmount = $request->awardAmount;
             $bonusAmountBg = $request->bonusAmountBg;
             $bonusAmountAd = $request->bonusAmountAd; 
             $rankId = $request->rank ? 1 : 2;
+
+            if(!User::where('userId','=',$request->id)->first() || User::where('userId','=',$request->id)->first()->isNetwork == 'Y')
+                return Response::json(['status' => '_userNotFound']);
+
+            if(!User::where('userId','=',$request->parentId)->first())
+                return Response::json(['status' => '_parentNotFound']);
             
             $bonusId = DB::table('useraccountmap')
             ->where('useraccountmap.userId','=', \Auth::user()->id)
@@ -127,7 +143,7 @@ class UserController extends Controller
                         $userId,
                         $currentBlock,
                         $parentId,
-                        $rankId == 1 ? 600000 : 1200000,
+                        $rankId == 1 ? self::BEGINNER_START : self::ADVANCED_START,
                         $rankId
                     )
                 );
