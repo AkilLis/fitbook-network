@@ -1,4 +1,4 @@
-a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -215,18 +215,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       </div>
                                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 vertical-centered-label">
                                         <input type="text" ng-keydown="findUserKeyDown($event, 'N')" class="input-default search-input wrap" ng-model="searchUser" style="width: 100%" id="searchMoney" autocomplete="off">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
+                                        <top-users></top-users>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>    
@@ -267,18 +256,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       </div>
                                       <div class="col-md-5 vertical-centered-label">
                                         <input type="text" id="searchAdmin" ng-keydown="findUserKeyDown($event,'N')" name="userId" ng-model="searchUser" autocomplete="off" class="input-search search-input" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 80%;">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
+                                        <top-users></top-users>
                                       </div>
                                       <div class="col-md-4 vertical-centered-label">
                                         <button type="button" ng-click="attachAdmin()" class="btn btn-green"><i class="fa fa-plus"> Нэмэх</i></button>
@@ -328,18 +306,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event, 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
+                                        <top-users></top-users>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div> 
@@ -443,18 +410,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" id="searchTrans" name="searchTrans" required ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event,'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
+                                        <top-users></top-users>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>   
@@ -866,18 +822,7 @@ a<script type="text/javascript" src="{{asset('js/moment.min.js')}}"></script>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" id="searchSalary" name="searchSalary" required ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event, 'Y')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
-                                        <div class="content-list" id="list">
-                                          <ul class="drop-list">
-                                            <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
-                                              Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
-                                            </li>
-                                            <li ng-repeat="user in top5users">
-                                              <a ng-click="chooseUser(user, 'Y')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
-                                                <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
+                                        <top-users></top-users>
                                       </div>
                                     </div>
                                     <div class="clearfix"></div>   
