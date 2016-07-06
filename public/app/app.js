@@ -60,7 +60,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   }
   
   $scope.open = function () {
-    debugger;
     var modalInstance = $uibModal.open({
         templateUrl: 'giveSalary.html',
         animation: true,
@@ -512,20 +511,25 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
 
       $.LoadingOverlay("hide");
       
-      if(response.data.status == "success")
+      switch(response.data.status)
       {
-        $('#MakeSponsor1').modal('hide');
-        location.reload();
-      }
-      else
-      {
-        if(response.data.status == "_amount")
-        {
+        case "success":
+          $('#MakeSponsor1').modal('hide');
+          location.reload();
+          break;
+        case "_amount":
           $scope.displayNotification('error', 'Дансны үлдэгдэл хүрэлцэхгүй байна.');
-        }
+          break;
+        case "_userNotFound":
+          $scope.displayNotification('error', 'Идэвхжүүлэх хэрэглэгч олдсонгүй.');
+          break;  
+        case "_parentNotFound":
+          $scope.displayNotification('error', 'Зуучлагч олдсонгүй.');
+          break;
+        default:
+          break;
       }
-
-	   }, function errorCallback(response) {
+	    }, function errorCallback(response) {
 	       $.LoadingOverlay("hide");
 	   });	
   }
@@ -612,6 +616,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   };
 
   $scope.chooseUser = function(currentUser, withAccount){
+    debugger;
   	$(".content-list").hide();
   	$(".search-input").val(currentUser == null ? $scope.top5users[0].userId : currentUser.userId);
   	
@@ -652,9 +657,10 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
     }
   };
 
-  $scope.findUser = function(value){
+  $scope.findUser = function(value, isGroupA = null){
 		var formData = {
 	    	search : value,
+        isGroupA : isGroupA,
 	  }
 	  $http({
 		  method: 'POST',
@@ -679,6 +685,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   $scope.findUserSecond = function(value){
     var formData = {
         search : value,
+        isNotActivated : 'Y',
     }
     $http({
       method: 'POST',

@@ -12,3 +12,32 @@ app.directive('postsPagination', function(){
       '</ul>'
    };
 });
+
+app.directive('topUsers', function(){  
+   return{
+      restrict: 'E',
+      template: '<div class="content-list" id="list">'+
+        '<ul class="drop-list">'+
+        '<li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">'+
+        'Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>'+
+        '</li>'+
+        '<li ng-repeat="user in top5users">'+
+        '<a ng-click="chooseUser(user, \''+'N'+'\')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">'+
+        '<div style="vertical-align:middle; font-size:11px;">{{user.lName + " " + user.fName}}</br>{{user.userId}}</div>'+
+      '</a>' + 
+      '</li></ul></div>'
+   };
+});
+
+
+                                          
+                                            
+                                              
+                                            
+                                            
+                                              
+                                                
+                                              
+                                            
+                                          
+                                        
