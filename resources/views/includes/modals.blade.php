@@ -301,22 +301,22 @@
                                 <form id="sponserForm" class="reg-modal form-group" >
                                   <div class="row">
                                     <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Зуучлагч сонгох</label>
+                                      <div class="col-sm-12 col-md-2" style="margin-top: 10px;"></div>
+                                      <div class="col-md-4 vertical-centered-label">
+                                        <label style="padding-left: 10px">Зуучлагч</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" value="{{Auth::user()->userId}}" id="searchSponser" name="searchSponser" ng-model="searchUser" autocomplete="off" class="input-search search-input" ng-keydown="findUserKeyDown($event, 'N')" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
                                         <top-users></top-users>
                                       </div>
                                     </div>
-                                    <div class="clearfix"></div> 
-                                  
-                                    <input type="checkbox" checked="true" id="rank" data-toggle="toggle" data-on="Анхан шат" data-off="Ахисан шат" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
-                                    
                                     <div class="clearfix"></div>   
                                     <div>
-                                      <div class="col-md-6 vertical-centered-label">
-                                        <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч сонгох</label>
+                                      <div class="col-sm-12 col-md-2" style="margin-top: 10px;">
+                                        <input type="checkbox" checked="true" id="rank" data-toggle="toggle" data-on="Анхан" data-off="Ахисан" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
+                                      </div>
+                                      <div class="col-md-4 vertical-centered-label">
+                                        <label style="padding-left: 10px">Идэвхижүүлэх хэрэглэгч</label>
                                       </div>
                                       <div class="col-md-6 vertical-centered-label">
                                         <input type="text" id="searchActivated" ng-keydown="findUserKeyDownSecond($event, 0, 'searchActivated', 'N')" name="searchActivated" ng-model="searchActivated" autocomplete="off" class="input-search search-input-second" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
@@ -331,6 +331,32 @@
                                               </a>
                                             </li>
                                           </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>   
+                                    <div>
+                                      <div class="col-sm-12 col-md-2" style="margin-top: 10px;"> 
+                                        <input type="checkbox" checked="true" id="redirect" data-toggle="toggle" data-on="Энгийн" data-off="Дам" data-onstyle="changebonus-beginner" data-offstyle="changebonus-advanced">
+                                      </div>
+                                      <div id="redirectPanel" style="display:none">
+                                        <div class="col-md-4 vertical-centered-label">
+                                          <label style="padding-left: 10px">Дам зуучлагч</label>
+                                        </div>
+                                        <div class="col-md-6 vertical-centered-label">
+                                          <input type="text" id="searchDirect" ng-keydown="findUserKeyDownThird($event, 0, 'searchDirect', 'N')" name="searchDirect" ng-model="searchDirect" autocomplete="off" class="input-search search-input-third" placeholder="Хэрэглэгчийн код, Овог, Нэр ..." style="width: 100%;">
+                                          <div class="content-list-third" id="list">
+                                            <ul class="drop-list">
+                                              <li style="padding:5px; background: #F1F1F1; color:#9197A3" class="user-profile dropdown-toggle">
+                                                Хайлтын илэрц <i class="fa fa-search" style="float: right; padding: 2px;"></i>
+                                              </li>
+                                              <li ng-repeat="user in top5users">
+                                                <a ng-click="chooseUserThird(user, 'N')" style="padding:5px" class="user-profile dropdown-toggle " data-toggle="dropdown">
+                                                  <div style="vertical-align:middle; font-size:11px;">@{{user.fName + ' ' + user.lName}}</br>@{{user.userId}}</div>
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
@@ -391,6 +417,16 @@
                               </div>
                             </div>
                           </div>
+                    <script type="text/javascript">
+                        $(function() {
+                        $('#redirect').change(function() {
+                          if($(this).prop('checked'))
+                            $('#redirectPanel').fadeOut();
+                          else
+                            $('#redirectPanel').fadeIn();
+                        })
+                      })
+                    </script>          
     </div>
     <!--MODAL ENDS HERE-->
     <!--MODAL STARTS HERE // TRANSACTION DIALOG-->
