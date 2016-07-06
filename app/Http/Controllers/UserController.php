@@ -16,8 +16,8 @@ use Response;
 
 class UserController extends Controller
 {
-    const BEGINNER_START = 600000;
-    const ADVANCED_START = 1200000;
+    const BEGINNER_START = 300000;
+    const ADVANCED_START = 600000;
 
     public function history(Request $request)
     {
