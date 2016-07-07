@@ -21,6 +21,7 @@ class Block extends BaseModel
 	{
 		$this->members = \DB::table('users')->join('userblockmap', 'userblockmap.userId','=','users.id')
 			 ->where('userblockmap.blockId','=', $this->pivot->blockId)
+			 ->orderBy('userblockmap.viewOrder', 'ASC')
 			 ->select('users.id', 'users.userId', 'users.fName', 'users.lName', 'userblockmap.fCount', 'userblockmap.created_at', 'userblockmap.viewOrder')
 			 ->get();
 
