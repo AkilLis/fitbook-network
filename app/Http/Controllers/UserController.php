@@ -129,6 +129,7 @@ class UserController extends Controller
                 ->first()->blockId;
 
             $isDevide = 'Y';
+            \Log::info('FIRST TIME ==============>');
 
             while ($isDevide == 'Y') {
                 DB::statement('CALL network_calculation(:userId, :blockId, :parentId, :amount, :rankId, :isRedirect, :directId, @isDevide, @outUserId, @outBlockId);',
@@ -150,11 +151,42 @@ class UserController extends Controller
 
                 if($isDevide == 'N') break;
 
-                $currentBlock = $results[0]->blockId;
                 $parentId = DB::table('userblockmap')
                         ->where('userblockmap.userId','=', $results[0]->userId)
+                        ->where('userblockmap.rankId','=', $rankId)
                         ->select('userblockmap.parentId')
                         ->first()->parentId;
+
+                $_groupId = DB::table('block')
+                ->join('userblockmap', 'userblockmap.blockId', '=', 'block.id')
+                ->where('userblockmap.userId','=', $userId)
+                ->where('userblockmap.rankId', '=', $rankId)
+                ->orderBy('block.groupId', 'DESC')
+                ->select('block.groupId')
+                ->first()->groupId;
+
+                $parentBlock = User::activeBlocks($parentId)->get()->first();
+                if($parentBlock->groupId == $_groupId + 1)
+                {
+                    $currentBlock = $parentBlock->id;
+                }
+                else
+                {
+                    $currentBlock = DB::table('block')
+                    ->join('userblockmap', 'userblockmap.blockId', '=', 'block.id')
+                    ->where('block.groupId','=', $_groupId + 1)
+                    ->where('userblockmap.rankId', '=', $rankId)
+                    ->where('block.isActive', '=', 'Y')
+                    ->orderBy('block.userCount', 'DESC')
+                    ->select('block.id')
+                    ->first()->id;
+                }       
+
+                \Log::info('user => '. $userId);
+                \Log::info('parent => '. $parentId);
+                \Log::info('block =>'. $currentBlock);
+                \Log::info('devide ==============>'. $isDevide);
+                \Log::info('---------------------------------');
             }
 
             $currentUser = User::where('userId', '=', $request->id)->first();
