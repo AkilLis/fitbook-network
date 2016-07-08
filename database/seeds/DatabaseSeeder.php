@@ -114,20 +114,23 @@ class DatabaseSeeder extends Seeder
       }*/
 
       $users = array(
-                ['id' => 100, 'userId' => 'flexgym14', 'fName' => 'flexgym14','lName' => 'flexgym14','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 101, 'userId' => 'flexgym15', 'fName' => 'flexgym15','lName' => 'flexgym15','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 102, 'userId' => 'flexgym16', 'fName' => 'flexgym16','lName' => 'flexgym16','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 103, 'userId' => 'flexgym17', 'fName' => 'flexgym17','lName' => 'flexgym17','email' => 'puujee@yahoo2.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 104, 'userId' => 'flexgym18', 'fName' => 'flexgym18','lName' => 'flexgym18','email' => 'puujee@yahoo3.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 105, 'userId' => 'flexgym19', 'fName' => 'flexgym19','lName' => 'flexgym19','email' => 'puujee@yahoo4.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
-                ['id' => 106, 'userId' => 'flexgym20', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'Y'],
+                ['id' => 70, 'userId' => 'lag1', 'fName' => 'flexgym14','lName' => 'flexgym14','email' => 'hulangoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 71, 'userId' => 'lag2', 'fName' => 'flexgym15','lName' => 'flexgym15','email' => 'tuvshoo@yahoo.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 72, 'userId' => 'lag3', 'fName' => 'flexgym16','lName' => 'flexgym16','email' => 'puujee@yahoo1.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 73, 'userId' => 'lag4', 'fName' => 'flexgym17','lName' => 'flexgym17','email' => 'puujee@yahoo2.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 74, 'userId' => 'lag5', 'fName' => 'flexgym18','lName' => 'flexgym18','email' => 'puujee@yahoo3.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 75, 'userId' => 'lag6', 'fName' => 'flexgym19','lName' => 'flexgym19','email' => 'puujee@yahoo4.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 76, 'userId' => 'lag7', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 77, 'userId' => 'la8', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 78, 'userId' => 'lag9', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
+                ['id' => 79, 'userId' => 'lag0', 'fName' => 'flexgym20','lName' => 'flexgym20','email' => 'puujee@yahoo5.com','password' => \Hash::make('123'),'isNetwork' => 'N'],
         );
 
        foreach($users as $user){
                 User::create($user); 
            }
 
-      $blockA = array(
+      /*$blockA = array(
                 'id' => 3, 'parentId' => 0, 'groupId' => 3, 'userCount' => 0, 'isActive' => 'Y', 'U1' => 100, 'U2' => 101, 'U3' => 102, 'U4' => 103, 'U5' => 104, 'U6' => 105 , 'U7' => 106
       ); 
       Block::create($blockA);     
@@ -184,7 +187,7 @@ class DatabaseSeeder extends Seeder
 
        foreach($blockMaps as $map){
                 UserBlockMap::create($map); 
-        }
+        }*/
 
 
     /*$blockA = array(

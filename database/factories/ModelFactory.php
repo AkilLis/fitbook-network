@@ -13,6 +13,7 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
+    	'id' => $faker->unique->randomDigit,
         'userId' => $faker->unique->randomDigit,
         'fName' => $faker->name,
         'lName' => $faker->name,
