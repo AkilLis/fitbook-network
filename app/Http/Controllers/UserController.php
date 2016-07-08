@@ -168,10 +168,12 @@ class UserController extends Controller
                 $parentBlock = User::activeBlocks($parentId)->get()->first();
                 if($parentBlock->groupId == $_groupId + 1)
                 {
-                    $currentBlock = $parentBlock->id;
+                    \Log::info('PARENT'. $parentBlock->pivot->blockId);
+                    $currentBlock = $parentBlock->pivot->blockId;
                 }
                 else
                 {
+                    \Log::info('NEARIST');
                     $currentBlock = DB::table('block')
                     ->join('userblockmap', 'userblockmap.blockId', '=', 'block.id')
                     ->where('block.groupId','=', $_groupId + 1)
