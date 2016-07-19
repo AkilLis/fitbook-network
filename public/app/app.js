@@ -371,8 +371,10 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       bonusAmountBg: $scope.edBonusAmountBg,
       bonusAmountAd: $scope.edBonusAmountAd,
       tranToken : $scope.tokenPassword,
-      description : $scope.description,
+      description :  $scope.description ? $scope.description : "",
     }
+
+debugger;
 
     $http({
     method: 'POST',
