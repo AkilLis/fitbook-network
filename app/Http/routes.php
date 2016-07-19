@@ -187,6 +187,8 @@ Route::group(['middleware' => ['web']], function () {
         $tranToken = $request->tranToken;
         $description = $request->description;
 
+        \Log::info('test'. $description);
+
         if(\Auth::user()->tranToken != $tranToken)
         {
             return Response::json([
@@ -218,200 +220,213 @@ Route::group(['middleware' => ['web']], function () {
                 ]); 
         }
 
-        if($rank == 1)
-        {
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId','=',1)
-            ->select('useraccountmap.accountId')
-            ->first();
+        DB::beginTransaction();
 
-            $bonus = BonusAccount::find($bonusId->accountId);
-            if($bonusAmountBg != 0)
+        try {
+
+            if($rank == 1)
             {
-                if($bonus->endAmount < $bonusAmountBg)
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId','=',1)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+                $bonus = BonusAccount::find($bonusId->accountId);
+                if($bonusAmountBg != 0)
                 {
-                    return Response::json([
-                        'resultCode' => 3,
-                    ]); 
-                }
-                $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
-                $bonus->save();
-
-                $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
-                    'invType' => 'Bonus',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $bonus->id,
-                    'outAccountId' => $deliveryAccount->id, 
-                    'inAmt' => 0,
-                    'outAmt' => $bonusAmountBg, 
-                    'endAmt' => $bonus->endAmount,
-                );
-
-                Transactions::create($trans);
-            }
-        }
-
-        if($rank == 2)
-        {
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId','=', 2)
-            ->select('useraccountmap.accountId')
-            ->first();
-
-            $bonus = BonusAccount::find($bonusId->accountId);
-            if($bonusAmountAd != 0)
-            {
-                if($bonus->endAmount < $bonusAmountAd)
-                {
-                    return Response::json([
-                        'resultCode' => 3,
-                    ]); 
-                }
-                $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
-                $bonus->save();
-
-                $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
-                    'invType' => 'Bonus',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $bonus->id,
-                    'outAccountId' => $deliveryAccount->id, 
-                    'inAmt' => 0,
-                    'outAmt' => $bonusAmountAd, 
-                    'endAmt' => $bonus->endAmount,
-                );
-
-                Transactions::create($trans);
-            }
-        }
-
-        if($rank == 3)
-        {
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId','=',1)
-            ->select('useraccountmap.accountId')
-            ->first();
-
-            $bonus = BonusAccount::find($bonusId->accountId);
-            if($bonusAmountBg != 0)
-            {
-                if($bonus->endAmount < $bonusAmountBg)
-                {
-                   return Response::json([
+                    if($bonus->endAmount < $bonusAmountBg)
+                    {
+                        return Response::json([
                             'resultCode' => 3,
                         ]); 
+                    }
+                    $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
+                    $bonus->save();
+
+                    $trans = array(
+                        'inUserId' => $deliveryUser->id,
+                        'outUserId' => \Auth::user()->id, 
+                        'invType' => 'Bonus',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $bonus->id,
+                        'outAccountId' => $deliveryAccount->id, 
+                        'inAmt' => 0,
+                        'outAmt' => $bonusAmountBg, 
+                        'endAmt' => $bonus->endAmount,
+                    );
+
+                    Transactions::create($trans);
                 }
-
-                $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
-                $bonus->save();
-
-                $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
-                    'invType' => 'Bonus',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $bonus->id,
-                    'outAccountId' => $deliveryAccount->id, 
-                    'inAmt' => 0,
-                    'outAmt' => $bonusAmountBg, 
-                    'endAmt' => $bonus->endAmount,
-                );
-
-                Transactions::create($trans);
             }
 
-            $bonusId = DB::table('useraccountmap')
-            ->where('useraccountmap.userId','=', \Auth::user()->id)
-            ->where('useraccountmap.type','=', 2)
-            ->where('useraccountmap.groupId','=', 2)
-            ->select('useraccountmap.accountId')
-            ->first();
-
-            $bonus = BonusAccount::find($bonusId->accountId);
-            if($bonusAmountAd != 0)
+            if($rank == 2)
             {
-                if($bonus->endAmount < $bonusAmountAd)
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId','=', 2)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+                $bonus = BonusAccount::find($bonusId->accountId);
+                if($bonusAmountAd != 0)
                 {
-                   return Response::json([
+                    if($bonus->endAmount < $bonusAmountAd)
+                    {
+                        return Response::json([
                             'resultCode' => 3,
                         ]); 
+                    }
+                    $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
+                    $bonus->save();
+
+                    $trans = array(
+                        'inUserId' => $deliveryUser->id,
+                        'outUserId' => \Auth::user()->id, 
+                        'invType' => 'Bonus',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $bonus->id,
+                        'outAccountId' => $deliveryAccount->id, 
+                        'inAmt' => 0,
+                        'outAmt' => $bonusAmountAd, 
+                        'endAmt' => $bonus->endAmount,
+                    );
+
+                    Transactions::create($trans);
+                }
+            }
+
+            if($rank == 3)
+            {
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId','=',1)
+                ->select('useraccountmap.accountId')
+                ->first();
+
+                $bonus = BonusAccount::find($bonusId->accountId);
+                if($bonusAmountBg != 0)
+                {
+                    if($bonus->endAmount < $bonusAmountBg)
+                    {
+                       return Response::json([
+                                'resultCode' => 3,
+                            ]); 
+                    }
+
+                    $bonus->endAmount = $bonus->endAmount - $bonusAmountBg;
+                    $bonus->save();
+
+                    $trans = array(
+                        'inUserId' => $deliveryUser->id,
+                        'outUserId' => \Auth::user()->id, 
+                        'invType' => 'Bonus',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $bonus->id,
+                        'outAccountId' => $deliveryAccount->id, 
+                        'inAmt' => 0,
+                        'outAmt' => $bonusAmountBg, 
+                        'endAmt' => $bonus->endAmount,
+                    );
+
+                    Transactions::create($trans);
                 }
 
-                $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
-                $bonus->save();
+                $bonusId = DB::table('useraccountmap')
+                ->where('useraccountmap.userId','=', \Auth::user()->id)
+                ->where('useraccountmap.type','=', 2)
+                ->where('useraccountmap.groupId','=', 2)
+                ->select('useraccountmap.accountId')
+                ->first();
 
+                $bonus = BonusAccount::find($bonusId->accountId);
+                if($bonusAmountAd != 0)
+                {
+                    if($bonus->endAmount < $bonusAmountAd)
+                    {
+                       return Response::json([
+                                'resultCode' => 3,
+                            ]); 
+                    }
+
+                    $bonus->endAmount = $bonus->endAmount - $bonusAmountAd;
+                    $bonus->save();
+
+                    $trans = array(
+                        'inUserId' => $deliveryUser->id,
+                        'outUserId' => \Auth::user()->id, 
+                        'invType' => 'Bonus',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $bonus->id,
+                        'outAccountId' => $deliveryAccount->id, 
+                        'inAmt' => 0,
+                        'outAmt' => $bonusAmountAd, 
+                        'endAmt' => $bonus->endAmount,
+                    );
+
+                    Transactions::create($trans);
+                }
+            }
+
+            $account->endAmount = $account->endAmount - $awardAmount;
+
+            if($awardAmount != 0)
+            {
+                $account->save();
                 $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
-                    'invType' => 'Bonus',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $bonus->id,
-                    'outAccountId' => $deliveryAccount->id, 
-                    'inAmt' => 0,
-                    'outAmt' => $bonusAmountAd, 
-                    'endAmt' => $bonus->endAmount,
+                        'inUserId' => $deliveryUser->id,
+                        'outUserId' => \Auth::user()->id, 
+                        'invType' => 'Award',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $account->id,
+                        'outAccountId' => $deliveryAccount->id, 
+                        'inAmt' => 0,
+                        'outAmt' => $awardAmount, 
+                        'endAmt' => $account->endAmount,
                 );
 
                 Transactions::create($trans);
             }
-        }
 
-        $account->endAmount = $account->endAmount - $awardAmount;
+            
+            $deliveryAccount->endAmount = $deliveryAccount->endAmount + $awardAmount + $bonusAmountBg + $bonusAmountAd;
+            $deliveryAccount->save();
 
-        if($awardAmount != 0)
-        {
-            $account->save();
             $trans = array(
-                    'inUserId' => $deliveryUser->id,
-                    'outUserId' => \Auth::user()->id, 
-                    'invType' => 'Award',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $account->id,
-                    'outAccountId' => $deliveryAccount->id, 
-                    'inAmt' => 0,
-                    'outAmt' => $awardAmount, 
-                    'endAmt' => $account->endAmount,
+                        'inUserId' => \Auth::user()->id,
+                        'outUserId' => $deliveryUser->id, 
+                        'invType' => 'Award',
+                        'invDate' => \Carbon::now(), 
+                        'invDescription' => $description, 
+                        'inAccountId' => $deliveryAccount->id,
+                        'outAccountId' => 0, 
+                        'inAmt' => $awardAmount + $bonusAmountBg + $bonusAmountAd,
+                        'outAmt' => 0, 
+                        'endAmt' => $deliveryAccount->endAmount,
             );
 
             Transactions::create($trans);
-        }
 
+            DB::commit();
         
-        $deliveryAccount->endAmount = $deliveryAccount->endAmount + $awardAmount + $bonusAmountBg + $bonusAmountAd;
-        $deliveryAccount->save();
-
-        $trans = array(
-                    'inUserId' => \Auth::user()->id,
-                    'outUserId' => $deliveryUser->id, 
-                    'invType' => 'Award',
-                    'invDate' => \Carbon::now(), 
-                    'invDescription' => $description, 
-                    'inAccountId' => $deliveryAccount->id,
-                    'outAccountId' => 0, 
-                    'inAmt' => $awardAmount + $bonusAmountBg + $bonusAmountAd,
-                    'outAmt' => 0, 
-                    'endAmt' => $deliveryAccount->endAmount,
-        );
-
-        Transactions::create($trans);
+        } 
+        
+        catch (\Exception $e) 
+        {
+            DB::rollback();
+        }
 
         return Response::json([
                 'resultCode' => 0,
-            ]);
+        ]);
     });
 
     Route::put('api/salary/{userId}', function(Request $request, $userId){
