@@ -955,7 +955,7 @@
               <button type="button" ng-click="cancel()" class="btn">Cancel</button>
             </div>
           </div>
-</script>
+    </script>
 </div>
 
 
