@@ -76,6 +76,12 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
         return count($ranks) > 1 ? true : false;
     }
 
+    //ALL Manager user count
+    static public function managers()
+    {
+        return count(static::where('isManager','=','Y'));
+    }
+
     //USER TRANSACTIONS
     public function transactions()
     {

@@ -38,6 +38,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('ceo/dashboard', function(){
         return view('ceo.dashboard');
     });
+    
+    Route::get('api/ceo-activity', 'CeoController@activity')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-user', 'CeoController@user')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-profit', 'CeoController@profit')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-salary', 'CeoController@salary')->middleware(['ceo:ceo']);
 
     /* Notification */
     Route::resource('notification', 'NotificationController');
@@ -465,7 +470,7 @@ Route::group(['middleware' => ['web']], function () {
                         'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
-                        'invDescription' => '', 
+                        'invDescription' => 'Flexgym-Цалин', 
                         'inAccountId' => $bonus->id,
                         'outAccountId' => 0, 
                         'inAmt' => 0,
@@ -501,7 +506,7 @@ Route::group(['middleware' => ['web']], function () {
                         'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
-                        'invDescription' => '', 
+                        'invDescription' => 'Flexgym-Цалин', 
                         'inAccountId' => $bonus->id,
                         'outAccountId' => 0, 
                         'inAmt' => 0,
@@ -538,7 +543,7 @@ Route::group(['middleware' => ['web']], function () {
                         'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
-                        'invDescription' => '', 
+                        'invDescription' => 'Flexgym-Цалин',  
                         'inAccountId' => $bonus->id,
                         'outAccountId' => 0, 
                         'inAmt' => 0,
@@ -574,7 +579,7 @@ Route::group(['middleware' => ['web']], function () {
                         'outUserId' => $deliveryUser->id, 
                         'invType' => 'Bonus',
                         'invDate' => \Carbon::now(), 
-                        'invDescription' => '', 
+                        'invDescription' => 'Flexgym-Цалин', 
                         'inAccountId' => $bonus->id,
                         'outAccountId' => 0, 
                         'inAmt' => 0,
@@ -606,7 +611,7 @@ Route::group(['middleware' => ['web']], function () {
                     'outUserId' => $deliveryUser->id, 
                     'invType' => 'Award',
                     'invDate' => \Carbon::now(), 
-                    'invDescription' => '', 
+                    'invDescription' => 'Flexgym-Цалин',  
                     'inAccountId' => $account->id,
                     'outAccountId' => 0, 
                     'inAmt' => 0,

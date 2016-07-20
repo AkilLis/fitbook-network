@@ -22,6 +22,36 @@ class Transactions extends BaseModel
 		return $this->belongsTo('App\User', 'inUserId');
 	}
 
+	static public function salaryInfo()
+	{
+		$salaries = static::where('invDescription','=','Flexgym-Цалин')
+			  ->where('outAmt', '<>', '0')
+			  ->orderBy('invDate','DESC')
+			  ->paginate(20);
+
+		foreach ($salaries as $salary) {
+        	$salary->inUser;
+        	$salary->outUser;
+        	$salary->outAmt = number_format($salary->outAmt, 2);
+        }
+
+        return $salaries;
+	}
+
+	static public function activityInfo()
+	{
+		$activitys = static::where('invDescription', '=', 'Хэрэглэгч идэвхжүүлэх')
+            ->orderBy('invDate','DESC')
+            ->paginate(20);
+
+        foreach ($activitys as $activity) {
+        	$activity->inUser;
+        	$activity->outUser;
+        	$activity->outAmt = number_format($activity->outAmt, 2);
+        }
+
+        return $activitys;
+	}
 	
 	/*
 	-Salary

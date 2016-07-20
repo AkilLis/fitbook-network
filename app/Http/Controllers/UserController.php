@@ -118,6 +118,7 @@ class UserController extends Controller
 
             $parentId = User::where('userId', '=', $request->parentId)->first()->id;
             $userId = User::where('userId', '=', $request->id)->first()->id;
+            $notActivatedUser = $userId;
             $directId = $isRedirect ? User::where('userId', '=', $request->redirectUser)->first()->id : null;
 
             $currentBlock = DB::table('userblockmap')
@@ -197,14 +198,14 @@ class UserController extends Controller
 
             //ДАНСНААС НЬ МӨНГӨ ХAСAХ
             if($cashAmount != 0)
-                $this->subractCashAccount(\Auth::user()->id, $cashAmount);
+                $this->subractCashAccount(\Auth::user()->id, $notActivatedUser, $cashAmount);
             if($awardAmount != 0)
-                $this->subractAwardAccount(\Auth::user()->id, $awardAmount);
+                $this->subractAwardAccount(\Auth::user()->id, $notActivatedUser, $awardAmount);
             
             if($bonusAmountBg != 0)
-                $this->subractBonusAccount(\Auth::user()->id, $bonusAmountBg, 1);
+                $this->subractBonusAccount(\Auth::user()->id, $notActivatedUser, $bonusAmountBg, 1);
             if($bonusAmountAd != 0)
-                $this->subractBonusAccount(\Auth::user()->id, $bonusAmountAd, 2);
+                $this->subractBonusAccount(\Auth::user()->id, $notActivatedUser, $bonusAmountAd, 2);
             
 
         return Response::json(['status' => 'success']);
@@ -255,7 +256,7 @@ class UserController extends Controller
                                        ->with('groupName', $groupName);
     }
 
-    public function subractAwardAccount($id, $amount){
+    public function subractAwardAccount($id, $userId, $amount){
 
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
@@ -268,7 +269,7 @@ class UserController extends Controller
         $account->save();
 
         $trans = array(
-            'inUserId' => 0,
+            'inUserId' =>  $userId,
             'outUserId' => $id, 
             'invType' => 'Award',
             'invDate' => \Carbon::now(), 
@@ -283,7 +284,7 @@ class UserController extends Controller
         Transactions::create($trans);
     }
 
-    public function subractBonusAccount($id, $amount, $rank){
+    public function subractBonusAccount($id, $userId, $amount, $rank){
 
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
@@ -297,7 +298,7 @@ class UserController extends Controller
         $account->save();
 
         $trans = array(
-            'inUserId' => 0,
+            'inUserId' => $userId,
             'outUserId' => $id, 
             'invType' => 'Bonus',
             'invDate' => \Carbon::now(), 
@@ -312,7 +313,7 @@ class UserController extends Controller
         Transactions::create($trans);
     }
 
-    public function subractCashAccount($id, $amount){
+    public function subractCashAccount($id, $userId, $amount){
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
         ->where('useraccountmap.type','=', 3)
@@ -324,7 +325,7 @@ class UserController extends Controller
         $account->save();
 
         $trans = array(
-            'inUserId' => 0,
+            'inUserId' => $userId,
             'outUserId' => $id, 
             'invType' => 'Cash',
             'invDate' => \Carbon::now(), 
@@ -339,7 +340,7 @@ class UserController extends Controller
         Transactions::create($trans);
     }
 
-    public function subractUsageAccount($id, $amount){
+    public function subractUsageAccount($id, $userId,$amount){
 
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
@@ -352,7 +353,7 @@ class UserController extends Controller
         $account->save();
 
         $trans = array(
-            'inUserId' => 0,
+            'inUserId' => $userId,
             'outUserId' => $id, 
             'invType' => 'Usage',
             'invDate' => \Carbon::now(), 
@@ -367,7 +368,7 @@ class UserController extends Controller
         Transactions::create($trans);
     }
 
-    public function subractSavingAccount($id, $amount){
+    public function subractSavingAccount($id, $userId, $amount){
 
         $bonusId = DB::table('useraccountmap')
         ->where('useraccountmap.userId','=', $id)
@@ -380,7 +381,7 @@ class UserController extends Controller
         $account->save();
 
         $trans = array(
-            'inUserId' => 0,
+            'inUserId' => $userId,
             'outUserId' => $id, 
             'invType' => 'Saving',
             'invDate' => \Carbon::now(), 
