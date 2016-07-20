@@ -11,7 +11,7 @@ app.filter('groupType', function(){
       case 4:
         return 'Менежер';
       default:
-        return '1-р үе'; 
+        return '2-р үе'; 
     }
     return input;
   }
@@ -32,7 +32,6 @@ app.filter('customType', function(){
 
 app.filter('accountType', function(){
   return function(input, symbol, place){
-    debugger;
     switch(input)
     {
       case 'Award':
