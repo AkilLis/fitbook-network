@@ -56,7 +56,7 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 		        $scope.user_list.forEach(function(entry) 
 		        {
 		        	months.push(entry.month + ' сар');
-		        	totals.push(entry.total);
+		        	totals.push(parseInt(entry.total));
 				});
 
 		        $('#container').highcharts({
