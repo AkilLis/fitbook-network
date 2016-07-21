@@ -100,7 +100,7 @@
               <div class="x_panel tile" style="height:auto;">
                 <div class="row x_title">
                   <div class="col-md-12">
-                    <h3>Сүүлийн 20н цалин олголт</h3>
+                    <h3>Цалин олголт</h3>
                   </div>
                 </div>
                 <div class="row" style="overflow-y:auto; height:285px; overflow-x: hidden;">
