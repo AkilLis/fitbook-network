@@ -49,6 +49,8 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 		        $scope.user_group = response.data.users_group;
 		        $scope.user_list = response.data.users_list;
 
+		        debugger;
+
 		        var months = [];
 		        var totals = [];
 		        $scope.user_list.forEach(function(entry) 
