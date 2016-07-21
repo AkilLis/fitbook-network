@@ -42,7 +42,7 @@ class CeoController extends Controller
         if(count($group) == 2)
             array_push($group, array('groupId' => '3', 'count' => 0));         
 
-        $managers = array('groupId' => '4', 'count' => User::managers());
+        $managers = array('groupId' => '4', 'count' => count(User::managers()));
 
         array_push($group, $managers);
         return $group;
