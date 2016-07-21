@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{{asset('app/filter/customType.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/highcharts.js')}}"></script>
 
+
 <script type="text/ng-template" id="accountdetail.html">
     <div class="modal-content">
         <div class="modal-header">

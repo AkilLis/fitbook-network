@@ -5,7 +5,7 @@
     @include('includes.head')
 </head>
 <body class="nav-md" id="style-3">
-    <div class="container body" ng-controller="ceoCtrl">
+    <div class="container body" id="mainContainer" ng-controller="ceoCtrl">
 
         @include('includes.flash')
 
