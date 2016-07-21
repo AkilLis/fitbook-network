@@ -75,7 +75,7 @@
 	                <div style="height:200px; width:100%">
 	                	<div ng-repeat="group in user_group" class="row user-box">
 	                			<h3 style="float:left">@{{group.groupId | groupType}}</h3>
-	                			<h3 style="float:right" class="color-red">@{{group.count}}</h3>
+	                			<h3 style="float:right" class="@{{group.groupId | groupColor}}">@{{group.count}}</h3>
                         </div>
 	                </div>
               </div>
