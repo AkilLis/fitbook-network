@@ -1,6 +1,7 @@
 app.filter('groupType', function(){
   return function(input, symbol, place){
     debugger;
+    input = input + '';
     switch(input)
     {
       case '1':
