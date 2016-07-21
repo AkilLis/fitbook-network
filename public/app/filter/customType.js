@@ -3,13 +3,13 @@ app.filter('groupType', function(){
     debugger;
     switch(input)
     {
-      case 1:
+      case '1':
         return '1-р үе'; 
-      case 2:
+      case '2':
         return '2-р үе'; 
-      case 3:
+      case '3':
         return '3-р үе';
-      case 4:
+      case '4':
         return 'Менежер';
       default:
         return '2-р үе'; 
