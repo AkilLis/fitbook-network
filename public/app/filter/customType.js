@@ -18,6 +18,26 @@ app.filter('groupType', function(){
   }
 });
 
+app.filter('groupColor', function(){
+  return function(input, symbol, place){
+    input = input + '';
+    switch(input)
+    {
+      case '1':
+        return 'color-red'; 
+      case '2':
+        return 'color-blue'; 
+      case '3':
+        return 'color-purple';
+      case '4':
+        return 'color-yellow';
+      default:
+        return '2-р үе'; 
+    }
+    return input;
+  }
+});
+
 app.filter('customType', function(){
   return function(input, symbol, place){
     switch(input)
