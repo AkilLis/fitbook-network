@@ -3,7 +3,7 @@ var app = angular.module("fitwork", ['ui.bootstrap', 'ngRoute']);
 app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
   $isproduction = true;
-  $production = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
+  $production = $isproduction ? 'http://flexgym.mn/' : 'http://192.168.1.6/';
 
   $userUrl = $production + 'admin/users';
   $adminUrl = $production + 'ceo/admins'; 
@@ -20,27 +20,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
   $addAmount = 0;
   $endAmount = 0;
   $scope.selected = {};
-
-  app.config(function($routeProvider) {
-        $routeProvider
-            // route for the home page
-            .when('/', {
-                templateUrl : 'pages/home.html',
-                controller  : 'mainController'
-            })
-
-            // route for the about page
-            .when('/about', {
-                templateUrl : 'app/view/admin/giveSalary.html',
-                controller  : 'aboutController'
-            })
-
-            // route for the contact page
-            .when('/contact', {
-                templateUrl : 'pages/contact.html',
-                controller  : 'contactController'
-            });
-  });
 
   $scope.displayNotification = function(type, text) {
       $.notify({
@@ -132,15 +111,6 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         break;
 
     }
-    /*$scope.formCeo.$setPristine();*/
-    /*$scope.endAmount.$setPristine;
-    $scope.shAwardAmount.$setPristine();
-    $scope.shBonusAmountBg.$setPristine();
-    $scope.shBonusAmountAd.$setPristine();
-    $scope.addAmount = 0;
-    $scope.edAwardAmount.$setPristine();
-    $scope.edBonusAmountBg.$setPristine();
-    $scope.edBonusAmountAd.$setPristine();*/
   };
 
   $scope.myTeam = function(id){
@@ -181,8 +151,8 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
       });
   }
 
-  $scope.getAccountByType = function(pageNumber = null) {
-      if(!pageNumber){
+  $scope.getAccountByType = function(pageNumber) {
+      if(!pageNumber) {
           pageNumber = '1';
       }
 
@@ -207,7 +177,7 @@ app.controller('mainCtrl', function($scope, $uibModal, $http, $log) {
         }, function errorCallback(response) {
       });
   }
-  $scope.getAccountTransactions = function(type = null) {
+  $scope.getAccountTransactions = function(type) {
       if(type) $scope.accountType = type;
       $scope.getAccountByType();
       var modalInstance = $uibModal.open({
@@ -668,7 +638,7 @@ debugger;
     }
   };
 
-  $scope.findUser = function(value, isGroupA = null){
+  $scope.findUser = function(value, isGroupA){
 		var formData = {
 	    	search : value,
         isGroupA : isGroupA,

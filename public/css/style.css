@@ -1695,6 +1695,13 @@ p {
 
 /** Last 20 money used salary*/
 
+.last-box {
+  background-color:white; 
+  text-align:center; 
+  border-radius: 4px; 
+  border: 1px solid #E6E9ED;
+}
+
 .last-body{
   height: 300px;
   overflow-y: scroll;
@@ -1751,7 +1758,7 @@ p {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 p {

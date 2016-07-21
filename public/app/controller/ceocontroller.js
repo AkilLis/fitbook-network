@@ -1,20 +1,22 @@
 app.controller('ceoCtrl', ['$scope','$http', function($scope, $http) 
 {
   	$isproduction = true;
-    $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
+    $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://192.168.1.6/';
     $scope.user_group = {};
     $scope.user_list = {};
     $scope.salaryList = {};
     $scope.activityList = {};
 
     $scope.getActivity = function() {
-    	$http({
+    		$http({
 	    	    method: 'GET',
 	    	    url: $baseUrl + 'api/ceo-activity',
 		    }).then(function successCallback(response) {
 		    	$scope.activityList = response.data.data;
+		    	/*$('#mainContainer').fadeIn();*/
 		    }, function errorCallback(response) {
-	    });  
+		    	/*$('#mainContainer').fadeIn();*/
+	    	});  
     }
 
     $scope.getLastSalary = function() {
@@ -23,7 +25,6 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 	    	    url: $baseUrl + 'api/ceo-salary',
 		    }).then(function successCallback(response) {
 		    	$scope.salaryList = response.data.data;
-		    	debugger;
 		    }, function errorCallback(response) {
 	    });  
     }
@@ -35,6 +36,7 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 		    }).then(function successCallback(response) {
 		    	$scope.profit = response.data.profit;
 		    	$scope.salary = response.data.salary;
+		    	$("#test-cloak").text('lol');
 		    }, function errorCallback(response) {
 	    });    
     }
@@ -47,17 +49,15 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 		        $scope.user_group = response.data.users_group;
 		        $scope.user_list = response.data.users_list;
 
-		        debugger;
-
 		        var months = [];
 		        var totals = [];
 		        $scope.user_list.forEach(function(entry) 
 		        {
-		        	months.push(entry.month);
+		        	months.push(entry.month + ' сар');
 		        	totals.push(entry.total);
 				});
 
-		        $('#userChart').highcharts({
+		        $('#container').highcharts({
 			        title: {
 			            text: '',
 			            x: -20 //center
