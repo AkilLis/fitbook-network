@@ -76,7 +76,7 @@
 	                	<div ng-repeat="group in user_group" class="row user-box">
 	                			<h3 style="float:left">@{{group.groupId | groupType}}</h3>
 	                			<h3 style="float:right">
-	                				<a class="groupCount @{{group.groupId | groupColor}}">@{{group.count}}</a>
+	                				<a ng-click="getUserGroupDetail(group.groupId)" class="groupCount @{{group.groupId | groupColor}}">@{{group.count}}</a>
 	                			</h3>
                         </div>
 	                </div>
