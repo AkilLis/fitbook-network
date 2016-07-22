@@ -1685,6 +1685,11 @@ p {
     color: #f1c40f !important;
 }
 
+.groupCount:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .user-box {
     height:50px; 
     width:90%; 
