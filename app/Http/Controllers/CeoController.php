@@ -127,6 +127,35 @@ class CeoController extends Controller
         ]);
     }
 
+    public function userGroup($groupId)
+    {
+        //Manager
+        if(self::isManager($groupId))
+        {
+            return User::managers();
+        }
+
+        return self::GetAllUserByGroupId($groupId);
+    }
+
+    private function GetAllUserByGroupId($groupId)
+    {
+        return DB::table('block')
+            ->join('userblockmap','block.id','=','userblockmap.blockId')
+            ->join('users','userblockmap.userId','=', 'users.id')
+            ->whereRaw('users.userId NOT LIKE "flexgym%"')
+            ->where('block.isActive','=', 'Y')
+            ->where('block.groupId','=', $groupId)
+            ->select('users.userId','users.fName', 'block.userCount')
+            ->orderBy('block.userCount', 'DESC')
+            ->get();
+    }
+
+    private function isManager($groupId)
+    {
+        return $groupId == 4 ? true : false;
+    }
+
     public function activity()
     {
         return Transactions::activityInfo();

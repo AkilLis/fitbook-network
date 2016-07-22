@@ -92,6 +92,11 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     {
         return $this->hasMany('App\Transactions', 'inUserId');
     }
+
+    public function getAllByGroupId($groupId)
+    {
+        return statis::where('');
+    }
     /*public function transactions($type)
     {
         if($type == "All")

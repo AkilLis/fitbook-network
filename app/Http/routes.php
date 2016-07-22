@@ -37,12 +37,14 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('ceo/dashboard', function(){
         return view('ceo.dashboard');
-    });
+    })->middleware(['auth', 'ceo:ceo']);
     
     Route::get('api/ceo-activity', 'CeoController@activity')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-user', 'CeoController@user')->middleware(['ceo:ceo']);
     Route::get('api/ceo-profit', 'CeoController@profit')->middleware(['ceo:ceo']);
     Route::get('api/ceo-salary', 'CeoController@salary')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-user', 'CeoController@user')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-user/{groupId}', 'CeoController@userGroup')->middleware(['ceo:ceo']);
+    
 
     /* Notification */
     Route::resource('notification', 'NotificationController');

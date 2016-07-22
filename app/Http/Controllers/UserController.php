@@ -235,12 +235,12 @@ class UserController extends Controller
             ->leftJoin('savingaccount', function($join)
               {
                 $join->on('useraccountmap.accountId', '=', 'savingaccount.id')
-                ->where('useraccountmap.type', '=', 4);
+                ->where('useraccountmap.type', '=', 5);
               })
             ->leftJoin('usageaccount', function($join)
               {
                 $join->on('useraccountmap.accountId', '=', 'usageaccount.id')
-                ->where('useraccountmap.type', '=', 5);
+                ->where('useraccountmap.type', '=', 4);
               })
             ->select(\DB::raw('round(sum(awardaccount.endAmount), 0) as awardEnd, round(sum(bonusaccount.endAmount), 0) as bonusEnd, round(sum(cashaccount.endAmount), 0) as cashEnd, round(sum(usageaccount.endAmount), 0) as usageEnd,
             	round(sum(savingaccount.endAmount), 0) as savingEnd'))
