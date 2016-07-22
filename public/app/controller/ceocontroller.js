@@ -1,4 +1,4 @@
-app.controller('ceoCtrl', ['$scope','$http', function($scope, $http) 
+app.controller('ceoCtrl', function($scope, $uibModal, $http) 
 {
   	$isproduction = true;
     $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://192.168.1.6/';
@@ -7,15 +7,38 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
     $scope.salaryList = {};
     $scope.activityList = {};
 
+    $scope.openModal = function(id) {
+    	var modalInstance = $uibModal.open({
+              templateUrl: id + '.html',
+              animation: true,
+              controller: 'ceoCtrl', 
+              size: 'sm',
+              scope: $scope
+      	});
+    }
+
+    $scope.getUserGroupDetail = function (groupId) {
+    	$http({
+	    	    method: 'GET',
+	    	    url: $baseUrl + 'api/ceo-user/' + groupId,
+		    }).then(function successCallback(response) 
+		    {
+		    	$scope.user_group_detail = response.data;
+		    	$scope.openModal('usergroupdetail');
+		    }, function errorCallback(response) 
+		    {
+
+		    }
+		);  	
+    }
+
     $scope.getActivity = function() {
     		$http({
 	    	    method: 'GET',
 	    	    url: $baseUrl + 'api/ceo-activity',
 		    }).then(function successCallback(response) {
 		    	$scope.activityList = response.data.data;
-		    	/*$('#mainContainer').fadeIn();*/
 		    }, function errorCallback(response) {
-		    	/*$('#mainContainer').fadeIn();*/
 	    	});  
     }
 
@@ -36,7 +59,6 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
 		    }).then(function successCallback(response) {
 		    	$scope.profit = response.data.profit;
 		    	$scope.salary = response.data.salary;
-		    	$("#test-cloak").text('lol');
 		    }, function errorCallback(response) {
 	    });    
     }
@@ -103,4 +125,4 @@ app.controller('ceoCtrl', ['$scope','$http', function($scope, $http)
     $scope.getProfit();
     $scope.getLastSalary();
     $scope.getActivity();
-}]);
+});
