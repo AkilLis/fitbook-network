@@ -217,11 +217,31 @@ class UserController extends Controller
         //Дансны мэдээлэл
     	$accountsEndAmount = \DB::table('users')
             ->join('useraccountmap', 'users.id', '=', 'useraccountmap.userId')
-            ->leftJoin('awardaccount', 'useraccountmap.accountId', '=', 'awardaccount.id')
-            ->leftJoin('bonusaccount', 'useraccountmap.accountId', '=', 'bonusaccount.id')
-            ->leftJoin('cashaccount', 'useraccountmap.accountId', '=', 'cashaccount.id')
-            ->leftJoin('usageaccount', 'useraccountmap.accountId', '=', 'usageaccount.id')
-            ->leftJoin('savingaccount', 'useraccountmap.accountId', '=', 'savingaccount.id')
+            ->leftJoin('awardaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'awardaccount.id')
+                ->where('useraccountmap.type', '=', 1);
+              })
+            ->leftJoin('bonusaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'bonusaccount.id')
+                ->where('useraccountmap.type', '=', 2);
+              })
+            ->leftJoin('cashaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'cashaccount.id')
+                ->where('useraccountmap.type', '=', 3);
+              })
+            ->leftJoin('savingaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'savingaccount.id')
+                ->where('useraccountmap.type', '=', 4);
+              })
+            ->leftJoin('usageaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'usageaccount.id')
+                ->where('useraccountmap.type', '=', 5);
+              })
             ->select(\DB::raw('round(sum(awardaccount.endAmount), 0) as awardEnd, round(sum(bonusaccount.endAmount), 0) as bonusEnd, round(sum(cashaccount.endAmount), 0) as cashEnd, round(sum(usageaccount.endAmount), 0) as usageEnd,
             	round(sum(savingaccount.endAmount), 0) as savingEnd'))
             ->where('users.id', '=', $id)
