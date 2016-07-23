@@ -53,7 +53,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
     <script>  
-      var socket = io('http://flexgym:3000/');
+      var socket = io('http://103.17.108.49:3000/');
 
       new Vue({
         el: 'body',
@@ -87,7 +87,6 @@
       $(document).ready(function() {
 
           $(".chat-input" ).keydown(function(event) {
-            debugger;
             if ( event.which == 13 ) {
               send();
             }
