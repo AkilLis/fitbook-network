@@ -1,13 +1,14 @@
 <?php
-use App\Role;
-use App\Permission;
-use App\User;
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\CashAccount;
 use App\AwardAccount;
 use App\BonusAccount;
+use App\CashAccount;
+use App\Events\Chat;
+use App\Http\Requests;
+use App\Permission;
+use App\Role;
 use App\Transactions;
+use App\User;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,6 +20,16 @@ use App\Transactions;
 |
 */
 //Нэвтрэх хэсэгтэй холбоотой 
+Route::get('/chat', function() 
+{
+    return view('chat');
+});
+
+Route::get('/chat/send', function(Request $request) 
+{
+    return event(new Chat($request->username, $request->message));
+});
+
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
