@@ -11,7 +11,8 @@
         "firebase/php-jwt": "^3.0",
         "zizaco/entrust": "dev-master",
         "illuminate/html": "^5.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

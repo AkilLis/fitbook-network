@@ -1,4 +1,4 @@
-﻿CREATE DEFINER=`root`@`localhost` PROCEDURE `network_calculation`( 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `network_calculation`( 
 	IN pUserId INT(20), 
     IN pBlockId BIGINT(20), 
     IN pParentId int(20),
@@ -10,27 +10,32 @@
     )
 BEGIN	
 		DECLARE count_users INT DEFAULT 1;
-        DECLARE _groupId INT DEFAULT 1;
+        DECLARE _groupId INT DEFAULT 1;	
         DECLARE _sortedOrder VARCHAR(4000);
         DECLARE _fCount INT DEFAULT 1;
         DECLARE _mCount INT DEFAULT 1;
         DECLARE _isExist INT DEFAULT 0;
-        SET @Id_=  NOW() + 0;
-        SET @mapId =  NOW() + 1;
-        SET @awardId =  NOW() + 2;
-        SET @bonusId =  @awardId + 1;
-        SET @cashId =  @awardId + 2;
-        SET @savingId =  @awardId + 3;
-        SET @usageId =  @awardId + 4;
-	SELECT groupId INTO _groupId FROM block A WHERE A.id = pblockId;
-    
+        DECLARE _upperAmount INT(20);
+        
+        SET @Id_=  CONCAT(NOW() + 0, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @mapId =  CONCAT(NOW() + 1, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @awardId =  CONCAT(NOW() + 2, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @bonusId =  CONCAT(NOW() + 3, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @cashId =  CONCAT(NOW() + 4, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @savingId =  CONCAT(NOW() + 5, (FLOOR( 1 + RAND( ) * 10000 )));
+        SET @usageId =  CONCAT(NOW() + 6, (FLOOR( 1 + RAND( ) * 10000 )));
+        
+	SET SQL_SAFE_UPDATES = 0;
+    /* Зэрэглэл олж байна */    
+	SELECT groupId, userCount INTO _groupId, count_users FROM block A WHERE A.id = pblockId;
+
     IF _groupId = 1
 	THEN
 		BEGIN
-			SELECT A.sortedOrder INTO _sortedOrder FROM userBlockmap A WHERE A.userId = pParentId 
-					AND A.blockId = pBlockID;
+			SELECT A.sortedOrder INTO _sortedOrder FROM userblockmap A WHERE A.userId = pParentId 
+					AND A.blockId = pBlockId;
 			
-			SELECT COUNT(1) INTO _isExist FROM userBlockmap WHERE sortedOrder LIKE CONCAT(_sortedOrder,'%') AND LENGTH(sortedOrder) = (LENGTH(_sortedOrder) + 2);
+			SELECT COUNT(1) INTO _isExist FROM userblockmap WHERE sortedOrder LIKE CONCAT(_sortedOrder,'%') AND LENGTH(sortedOrder) = (LENGTH(_sortedOrder) + 2);
 			IF _isExist = 0
 			THEN
 				BEGIN 
@@ -38,11 +43,11 @@ BEGIN
 				END;
 			ELSE 
 				BEGIN
-					SELECT MAX(sortedOrder) + 1 INTO _sortedOrder FROM userBlockmap WHERE sortedOrder LIKE CONCAT(_sortedOrder,'%') AND LENGTH(sortedOrder) = (LENGTH(_sortedOrder) + 2);
+					SELECT MAX(sortedOrder) + 1 INTO _sortedOrder FROM userblockmap WHERE sortedOrder LIKE CONCAT(_sortedOrder,'%') AND LENGTH(sortedOrder) = (LENGTH(_sortedOrder) + 2);
 				END;
 			END IF;
 			
-			INSERT INTO userBlockMap VALUES (@Id_, pUserId, pParentId, _sortedOrder, pBlockId, 0, 0 , pRankId, NOW(), NOW());
+			INSERT INTO userblockmap VALUES (@Id_, pUserId, pParentId, _sortedOrder, pBlockId, 0, 0 , pRankId, NOW(), NOW(), 8 + count_users);
 			/* Данснуудаа нэмнэ. */
 			
 			INSERT INTO awardaccount VALUES (@awardId, @awardId, 'Шагналын данс', 'Award Account', 0, NOW(), NOW());
@@ -50,40 +55,45 @@ BEGIN
 			INSERT INTO cashaccount VALUES (@cashId, @cashId, 'Бэлэн мөнгөны данс', 'Cash Account',  0, NOW(), NOW());
 			INSERT INTO savingaccount VALUES (@savingId, @savingId, 'Хадгаламжын данс', 'Saving Account', 0, NOW(), NOW());
 			INSERT INTO usageaccount VALUES (@usageId, @usageId, 'Хэрэглээны данс', 'Usage Account', pAmount, NOW(), NOW());
+            
+            /*Хэрэглээны зардлын гүйлгээ*/
+            INSERT INTO transactions (inUserId, outUserId, invDate, invType, invDescription, inAccountId, outAccountId, inAmt, outAmt, endAmt, created_at, updated_at)
+            VALUES (0, pUserId, NOW(), 'Usage', 'Системд бүртгүүлсэн хэрэглээний мөнгө', @usageId, 0, pAmount, pAmount, 0, NOW(), NOW());
+            
+            INSERT INTO notification (user_id, notification_type, description, is_read, created_at, updated_at)
+            VALUES (pUserId, 'normal', 'Маркетингийн системд тавтай морилно уу. Таньд амжилт хүсье.', 'N', NOW(), NOW());
 			
 			/* тухайн дансны хэрэглэгчтэй уяж өгнө.*/
-			SET @accountMapId =  NOW() + 0;
-				INSERT INTO UseraccountMap (id, userId, type, accountId , groupId, created_at, updated_at)
-					VALUES (@accountMapId, pUserId, 1, @awardId, pRankId, NOW(), NOW());	
-				INSERT INTO UseraccountMap (id, userId, type, accountId, groupId , created_at, updated_at)
-					VALUES (@accountMapId+1, pUserId, 2, @bonusId, pRankId, NOW(), NOW());
-				INSERT INTO UseraccountMap (id, userId, type, accountId, groupId, created_at, updated_at)
-					VALUES (@accountMapId+2, pUserId, 3, @cashId, pRankId, NOW(), NOW());
-				INSERT INTO UseraccountMap (id, userId, type, accountId, groupId, created_at, updated_at)
-					VALUES (@accountMapId+3, pUserId, 4, @savingId, pRankId, NOW(), NOW());
-				INSERT INTO UseraccountMap (id, userId, type, accountId, groupId, created_at, updated_at)
-					VALUES (@accountMapId+4, pUserId, 5, @usageId, pRankId, NOW(), NOW());
+				INSERT INTO useraccountmap (userId, type, accountId , groupId, created_at, updated_at)
+					VALUES (pUserId, 1, @awardId, pRankId, NOW(), NOW());	
+				INSERT INTO useraccountmap (userId, type, accountId, groupId , created_at, updated_at)
+					VALUES (pUserId, 2, @bonusId, pRankId, NOW(), NOW());
+				INSERT INTO useraccountmap (userId, type, accountId, groupId, created_at, updated_at)
+					VALUES (pUserId, 3, @cashId, pRankId, NOW(), NOW());
+				INSERT INTO useraccountmap (userId, type, accountId, groupId, created_at, updated_at)
+					VALUES (pUserId, 4, @savingId, pRankId, NOW(), NOW());
+				INSERT INTO useraccountmap (userId, type, accountId, groupId, created_at, updated_at)
+					VALUES (pUserId, 5, @usageId, pRankId, NOW(), NOW());
 		END;
 	ELSE
 		BEGIN
-			SELECT A.sortedOrder INTO _sortedOrder FROM userBlockmap A WHERE A.userId = pUserId LIMIT 1;
-			SELECT COUNT(1) INTO _fCount FROM userBlockmap A
+			SELECT A.sortedOrder INTO _sortedOrder FROM userblockmap A WHERE A.userId = pUserId LIMIT 1;
+			SELECT COUNT(1) INTO _fCount FROM userblockmap A
 				INNER JOIN block B ON A.blockId = B.id AND B.groupId = _groupId
 				  WHERE A.sortedOrder LIKE 
 				CONCAT(_sortedOrder, '%') AND A.parentId = pUserId;
 						
-			SELECT COUNT(1) INTO _mCount FROM userBlockmap A
+			SELECT COUNT(1) INTO _mCount FROM userblockmap A
 				INNER JOIN block B ON A.blockId = b.id AND B.groupId = _groupId
 				  WHERE A.sortedOrder LIKE 
 				CONCAT(_sortedOrder, '%') AND A.parentId <> pUserId;
 					
-			INSERT INTO userBlockMap (userId, parentId, sortedOrder, blockId, fCount, mCount, rankId, created_at, updated_at) 
-				VALUES (pUserId, pParentId, _sortedOrder, pBlockId, _fCount, _mCount , pRankId, NOW(), NOW());
+			INSERT INTO userblockmap (userId, parentId, sortedOrder, blockId, fCount, mCount, rankId, created_at, updated_at, viewOrder) 
+				VALUES (pUserId, pParentId, _sortedOrder, pBlockId, _fCount, _mCount , pRankId, NOW(), NOW(), 8 + count_users);
 		END;
     END IF;
     
 	/* блок руу хэрэглэгчээ нэмнэ. */
-	SELECT userCount INTO count_users FROM fitbook.block WHERE isActive = 'Y' AND block.id = pBlockId;
 
     SET @sql = 'update fitbook.block SET '; 
 	SET @sql  = CONCAT(@sql  , CASE WHEN count_users < 8 
@@ -101,17 +111,16 @@ BEGIN
 		WHERE isActive = 'Y' AND block.id = pBlockId;
 	
     /* Тухайн хэрэглэгчид блок map тай уяах */
-    UPDATE userBlockMap A
+    UPDATE userblockmap A
         SET A.fCount = A.fCount + 1, A.mCount = A.mCount + 1 
         WHERE A.userId = pParentId AND A.blockId = pBlockId;
         
-    UPDATE userBlockMap A
+    UPDATE userblockmap A
         SET A.fCount = A.fCount + 1
         WHERE A.userId IN (GetParent(pUserId)) AND A.userId <> pParentId AND A.blockId = pBlockId;
     
-    call Process_block_data(pBlockId);
+    /* call Process_block_data(pBlockId); */
     
-	SELECT userCount INTO count_users FROM fitbook.block WHERE isActive = 'Y' AND block.id = pBlockId;
     /* Хэрвээ блокын сүүлийн хүн бол блок задрах проц дуудна. хуучин блокыг идэвхгүй болгох */
     IF count_users < 8
     THEN
@@ -120,44 +129,58 @@ BEGIN
 		/* Урашлуулалын мөнгийн нэмэх */
         DROP TEMPORARY TABLE IF EXISTS tmpCalcBonus;
 		CREATE TEMPORARY TABLE tmpCalcBonus
-        SELECT userId, CASE WHEN A.mCount = 0 THEN C.zeroAmount ELSE (CASE WHEN A.mCount = 1 THEN C.oneAmount ELSE C.twoAmount END) END AS amount, B.groupId from userblockmap A 
-		inner join block B
-			ON A.userId = B.u2
-			OR A.userId = B.u3
-			OR A.userId = B.u4
-			OR A.userId = B.u5
-			OR A.userId = B.u6
-			OR A.userId = B.u6
-		inner join grouprankConfig C ON C.rankId = B.groupId AND C.groupId = B.groupId
-		where B.id = pBlockId;
-        
-        insert into tmpCalcBonus 
-			select A.u1, C.isCapAmount, C.groupId from block A 
-				inner join grouprankConfig C ON C.rankId = A.groupId AND C.groupId = _groupId;
+        SELECT A.userId, 
+		CASE WHEN A.viewOrder = 1 THEN 
+			C.isCapAmount
+			ELSE (CASE WHEN A.mCount = 0 THEN
+						C.zeroAmount
+					   WHEN A.mCount = 1 THEN
+						C.oneAmount
+					   ELSE
+						C.twoAmount
+					   END)
+		END AS amount, _groupId as groupId from userblockmap A 
+		INNER JOIN grouprankConfig C ON C.rankId = pRankId AND C.groupId = _groupId
+		Where A.blockId = pBlockId AND A.viewOrder < 8;
         
         update tmpCalcBonus A
         inner join useraccountmap B ON A.userId = B.userId
         inner join bonusaccount C ON C.id = B.accountId AND B.groupId = A.groupId
         set C.endAmount = C.endAmount + A.amount * 0.9;
         
+        INSERT INTO transactions (inUserId, outUserId, invDate, invType, invDescription, inAccountId, outAccountId, inAmt, outAmt, endAmt, created_at, updated_at)
+        SELECT 0, A.userId, NOW(), 'Bonus', 'Блокын урамшуулал', B.accountId, 0, A.amount * 0.9, 0, C.endAmount, NOW(), NOW() 
+			FROM tmpCalcBonus A
+			INNER JOIN useraccountmap B ON A.userId = B.userId AND A.groupId = B.groupId AND B.type = 2
+            INNER JOIN bonusaccount C ON B.accountId = C.id
+            WHERE A.amount <> 0;
+        
         update tmpCalcBonus A
         inner join useraccountmap B ON A.userId = B.userId
         inner join usageaccount C ON C.id = B.accountId AND B.groupId = A.groupId
         set C.endAmount = C.endAmount + A.amount * 0.1;
+        
+        INSERT INTO transactions (inUserId, outUserId, invDate, invType, invDescription, inAccountId, outAccountId, inAmt, outAmt, endAmt, created_at, updated_at)
+        SELECT 0, A.userId, NOW(), 'Usage', 'Блокын урамшуулал', B.accountId, 0, A.amount * 0.1, 0, C.endAmount, NOW(), NOW() 
+			FROM tmpCalcBonus A
+			INNER JOIN useraccountmap B ON A.userId = B.userId AND A.groupId = B.groupId AND B.type = 5
+            INNER JOIN usageaccount C ON C.id = B.accountId 
+            WHERE A.amount <> 0;
+        
 	END IF;
-    IF count_users = 8 
+    IF count_users = 7 
 		THEN 
-			call fitbook.block_divide(pBlockId);
+			call fitbook.block_divide(pBlockId, pRankId, _groupId);
+            
             UPDATE fitbook.block SET isActive = 'N' WHERE id = pBlockId;
 			/* Багийн ахлагчийн бүлэг ахиулна*/
 			DROP TEMPORARY TABLE IF EXISTS CTE_block;
 			CREATE TEMPORARY TABLE CTE_block
-			select a.U1 AS userId, A.groupId, B.ParentId
-				FROM block A
-				INNER JOIN userBlockMap B On A.id= b.blockId AND A.U1 = B.UserId
-				WHERE A.id = pBlockId;
+			select a.userId AS userId, _groupId as groupId, A.parentId
+				FROM userblockmap A
+				WHERE A.blockId = pBlockId AND A.viewOrder = 1;
 			
-			IF EXISTS (SELECT * FROM CTE_block WHERE groupId = 3 LIMIT 1) 
+			IF _groupId = 3  
 				THEN
 					BEGIN
 						ALTER TABLE CTE_block ADD starCount int;
@@ -176,12 +199,12 @@ BEGIN
 						ALTER TABLE CTE_block ADD COLUMN savingAccountAmount decimal(24,6);
 						
 						UPDATE CTE_block A
-							INNER JOIN userAccountMap B ON A.groupId = B.groupId AND A.userId = B.userId
+							INNER JOIN useraccountmap B ON A.groupId = B.groupId AND A.userId = B.userId
 							INNER JOIN savingAccount C ON B.AccountId = C.id
 							SET A.savingAccountAmount = C.endAmount;
 						
 						UPDATE bonusAccount A
-							INNER JOIN userAccountMap B ON A.id = B.AccountId
+							INNER JOIN useraccountmap B ON A.id = B.AccountId
 							INNER JOIN CTE_block C ON B.groupId = C.groupId AND b.userId = C.userId
 							SET A.endAmount = A.endAmount + C.savingAccountAmount;            
 						
@@ -192,17 +215,51 @@ BEGIN
 						END;            
 					ELSE		
 						BEGIN
-							UPDATE CTE_block SET groupId = groupId + 1;
+							/* ДЭВШИХ УРАМШУУЛАЛ БОДОЖ ӨГНӨ*/
+							SELECT A.upperAmount INTO _upperAmount FROM grouprankConfig A
+							WHERE A.rankId = pRankId AND A.groupId = _groupId;
+                            
+                            UPDATE bonusAccount C
+								INNER JOIN useraccountmap B ON B.accountId = C.id
+                                INNER JOIN CTE_block D ON D.userId = B.userId
+								SET C.endAmount = C.endAmount + 0.9 * _upperAmount
+								WHERE B.groupId = pRankId;
+                                
+							INSERT INTO transactions (inUserId, outUserId, invDate, invType, invDescription, inAccountId, outAccountId, inAmt, outAmt, endAmt, created_at, updated_at)
+							SELECT 0, A.userId, NOW(), 'Bonus', 'Дэвших урамшуулал', B.accountId, 0, _upperAmount * 0.9, 0, C.endAmount, NOW(), NOW() 
+								FROM CTE_block A
+								INNER JOIN useraccountmap B ON A.userId = B.userId AND B.groupId = pRankId AND B.type = 2
+                                INNER JOIN bonusaccount C ON C.id = B.accountId;
+								
+							UPDATE usageAccount C
+								INNER JOIN useraccountmap B ON B.accountId = C.id
+                                INNER JOIN CTE_block D ON D.userId = B.userId
+								SET C.endAmount = C.endAmount + 0.1 * _upperAmount
+								WHERE B.groupId = pRankId;
+                                
+							INSERT INTO transactions (inUserId, outUserId, invDate, invType, invDescription, inAccountId, outAccountId, inAmt, outAmt, endAmt, created_at, updated_at)
+							SELECT 0, A.userId, NOW(), 'Usage', 'Дэвших урамшуулал', B.accountId, 0, _upperAmount * 0.1, 0, C.endAmount, NOW(), NOW() 
+								FROM CTE_block A
+								INNER JOIN useraccountmap B ON A.userId = B.userId AND B.groupId = pRankId AND B.type = 5
+                                INNER JOIN usageaccount C ON C.id = B.accountId;
+                            
+                            INSERT INTO notification (user_id, notification_type, description, is_read, created_at, updated_at)
+                            SELECT A.userId, 'upper', CONCAT('Баяр хүргэе.',(A.groupId + 1),'-р шатанд орлоо.'), 'N', NOW(), NOW() 
+								FROM CTE_block A;
+                            
+                            /* Дууасж байна */
+							
+                            UPDATE CTE_block SET groupId = groupId + 1;
 							ALTER TABLE CTE_block ADD blockId Int(20);
 							
 							IF EXISTS (SELECT A.* FROM block A
 								INNER JOIN CTE_block B ON A.groupId = B.groupId AND A.isActive = 'Y'
-								INNER JOIN userBlockMap C ON B.parentid = C.userId AND A.id = C.blockId LIMIT 1)
+								INNER JOIN userblockmap C ON B.parentid = C.userId AND A.id = C.blockId LIMIT 1)
 								THEN
 									BEGIN                            
 										UPDATE CTE_block A
 											INNER JOIN block B ON A.groupId = B.groupId AND B.isActive = 'Y'
-											INNER JOIN userBlockMap C ON A.parentid = C.userId
+											INNER JOIN userblockmap C ON A.parentid = C.userId
 													AND B.id = C.blockId
 											SET A.blockId = B.Id;
 										SELECT blockId INTO OutBlockId FROM CTE_block;

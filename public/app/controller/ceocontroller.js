@@ -1,7 +1,7 @@
 app.controller('ceoCtrl', function($scope, $uibModal, $http) 
 {
   	$isproduction = true;
-    $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://192.168.1.6/';
+    $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
     $scope.user_group = {};
     $scope.user_list = {};
     $scope.salaryList = {};

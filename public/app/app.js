@@ -3,7 +3,7 @@ var app = angular.module("fitwork", ['ui.bootstrap', 'ngRoute']);
 app.controller('mainCtrl', function($scope, $uibModal, $http, $log) { 
 
   $isproduction = true;
-  $production = $isproduction ? 'http://flexgym.mn/' : 'http://192.168.1.6/';
+  $production = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
 
   $userUrl = $production + 'admin/users';
   $adminUrl = $production + 'ceo/admins'; 
