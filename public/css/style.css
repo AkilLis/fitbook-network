@@ -1538,6 +1538,11 @@ label.wrap , input.wrap{
     border: 1px solid #da557b;
 }
 
+.panel.tile.panel-warning {
+    background-color: #41cac0; 
+    border: 1px solid #41cac0;
+}
+
 .panel.tile {
     box-shadow: none;
     border: 1px solid #e0e0e0;
@@ -1569,6 +1574,10 @@ label.wrap , input.wrap{
     border-color: #da557b;
 }
 
+.panel-warning {
+    border-color: #41cac0;
+}
+
 .panel.tile .panel-heading {
     border-bottom: none;
 }
@@ -1583,6 +1592,12 @@ label.wrap , input.wrap{
     color: #ffffff;
      background-color: #df6a78; 
     border-color: #da557b;
+}
+
+.panel-warning > .panel-heading {
+    color: #ffffff;
+    background-color: #41cac0; 
+    border-color: #41cac0;
 }
 
 .progressbar-stats-1 {
