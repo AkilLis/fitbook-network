@@ -25,7 +25,8 @@ class CashController extends Controller
 
     public function index(Request $request)
     {
-        $query = Auth::user()->transactions();
+        
+        $query = Auth::user()->inTransactions();
         if($request->type != "All")
             $query->where('invType', '=', $request->type);
 
@@ -41,6 +42,7 @@ class CashController extends Controller
 
     public function show(Request $request, $cashType)
     {
+        \Log::info('index = equals');
         $query = Auth::user()->inTransactions();
         if($cashType != "All")
         {
