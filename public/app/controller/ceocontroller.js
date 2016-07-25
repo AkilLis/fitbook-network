@@ -70,8 +70,6 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 	    	    url: $baseUrl + 'api/ceo-endSalary',
 		    }).then(function successCallback(response) {
 		    	$scope.endSalaryList = response.data;
-
-		    	debugger;
 		    	$scope.openModal('endsalary');
 		    }, function errorCallback(response) {
 	    });
@@ -80,11 +78,7 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
     $scope.getUserRegistrationDetail = function (type, value) {
   		$http({
 	    	    method: 'GET',
-	    	    url: $baseUrl + 'api/ceo-userregistration-detail/',
-	    	    data:{
-	    	    	type : type,
-	    	    	value : value,
-	    	    } 
+	    	    url: $baseUrl + 'api/ceo-userregistration-detail?type='+type + '&value='+value,
 		    }).then(function successCallback(response) 
 		    {
 		    	$scope.user_registration_detail = response.data;
