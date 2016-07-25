@@ -82,7 +82,6 @@ class CeoController extends Controller
         //money used by user activity
         $userActivitySalary = DB::table('transactions')
             ->select(DB::raw('YEAR(invDate) year, MONTH(invDate) month, round(SUM(outAmt), 0) totalAmt'))    
-            ->where('inUserId', '=', 0)
             ->where('invDescription', '=', 'Хэрэглэгч идэвхжүүлэх')
             ->where('invType','<>', 'Cash')
             /*->groupBy('year')
