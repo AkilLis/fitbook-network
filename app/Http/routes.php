@@ -53,7 +53,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('api/ceo-activity', 'CeoController@activity')->middleware(['ceo:ceo']);
     Route::get('api/ceo-profit', 'CeoController@profit')->middleware(['ceo:ceo']);
     Route::get('api/ceo-salary', 'CeoController@salary')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-user', 'CeoController@user')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-usergroup', 'CeoController@userGroupAll')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-userregistration', 'CeoController@userRegistration')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-userregistration-detail', 'CeoController@userRegistrationDetail')->middleware(['ceo:ceo']);
     Route::get('api/ceo-user/{groupId}', 'CeoController@userGroup')->middleware(['ceo:ceo']);
     
 
