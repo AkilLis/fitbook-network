@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\AwardAccount;
+use App\BonusAccount;
 use App\Http\Requests;
 use App\Transactions;
 use App\User;
@@ -48,20 +50,79 @@ class CeoController extends Controller
         return $group;
     }
 
-    private function userRegistration()
+
+    private function userRegistrationByYear()
     {
         return DB::table('users')
-            ->select(DB::raw('YEAR(updated_at) year, MONTH(updated_at) month, COUNT(1) total'))    
+            ->select(DB::raw('YEAR(created_at) year, COUNT(1) total'))    
             ->where('isNetwork','=','Y')
             ->where('userId', '<>', 'Ceo')
             ->whereRaw('userId NOT LIKE "flexgym%"')
             ->groupBy('year')
             ->get();
+    }
 
-        /*select YEAR(updated_at), MONTH(updated_at), count(1) from users
-        where isNetwork = 'Y' AND userId NOT LIKE 'flexgym%' AND userId <> 'Ceo'
-        AND YEAR(updated_at) = 2016
-        group by YEAR(updated_at);*/
+    private function userRegistrationByMonth()
+    {
+        return DB::table('users')
+            ->select(DB::raw('YEAR(created_at) year, MONTH(created_at) month, COUNT(1) total'))    
+            ->where('isNetwork','=','Y')
+            ->where('userId', '<>', 'Ceo')
+            ->whereRaw('userId NOT LIKE "flexgym%"')
+            ->whereRaw('YEAR(created_at) = '.date('Y'))
+            ->groupBy('year','month')
+            ->get();
+    }
+
+    private function userRegistrationByDay()
+    {
+       return DB::table('users')
+            ->select(DB::raw('DAY(created_at) day, COUNT(1) total'))    
+            ->where('isNetwork','=','Y')
+            ->where('userId', '<>', 'Ceo')
+            ->whereRaw('userId NOT LIKE "flexgym%"')
+            ->whereRaw('YEAR(created_at) = '.date('Y'))
+            ->whereRaw('MONTH(created_at) = '. intval(date('m')))
+            ->groupBy(DB::raw('DAY(created_at)'))
+            ->get();
+    }
+
+    public function userRegistrationDetail(Request $request)
+    {
+        $type = $request->type;
+        $value = $request->value;
+
+        /*return Response::json([
+                'type' => $type,
+                'value' => $value,
+        ]);*/
+
+        $query = DB::table('users')
+            ->select('fName','created_at')
+            ->where('isNetwork','=','Y')
+            ->where('userId', '<>', 'Ceo')
+            ->whereRaw('userId NOT LIKE "flexgym%"')
+            /*->whereRaw('YEAR(updated_at) = ' + $type == "Year" ? $request->value : date('Y'));*/
+            ->whereRaw('YEAR(created_at) = 2016');
+            
+        if($type != "Year")
+            $query->whereRaw('MONTH(created_at) = ' + $type == "Month" ? $request->value : date('m'));
+
+        if($type == "Day")
+            $query->whereRaw('DAY(created_at) = ' + $request->value);
+
+        return $query->get();
+    }
+
+    public function userRegistration(Request $request)
+    {
+        if($request->dateType == 'Year') $userRegistration = self::userRegistrationByYear();
+        if($request->dateType == 'Month') $userRegistration = self::userRegistrationByMonth();
+        if($request->dateType == 'Day') $userRegistration = self::userRegistrationByDay();
+
+        return Response::json([
+                'users_list' => $userRegistration,
+        ]);
     }
 
     private function getProfitByAll()
@@ -71,6 +132,11 @@ class CeoController extends Controller
                 ->where('invType', '=', 'Cash')
                 ->get();
         return $profit ? $profit[0]->totalAmt : 0;
+    }
+
+    private function getEndSalaryByAll()
+    {
+        return BonusAccount::endAmountsByAll()[0]->totalAmt + AwardAccount::endAmountsByAll()[0]->totalAmt;
     }
 
     private function getSalaryByAll()
@@ -111,15 +177,13 @@ class CeoController extends Controller
         return Response::json([
                 'profit' => self::getProfitByAll(),
                 'salary' => self::getSalaryByAll(),
+                'endSalary' => self::getEndSalaryByAll(),
         ]);
     }
 
-    public function user()
+    public function userGroupAll()
     {
-        return Response::json([
-                'users_list' => self::userRegistration(),
-                'users_group' => self::usersGroupByGroup(),
-        ]);
+        return Response::json(['users_group' => self::usersGroupByGroup(),]);
     }
 
     public function userGroup($groupId)
