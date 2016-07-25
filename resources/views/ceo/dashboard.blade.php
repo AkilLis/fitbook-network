@@ -14,7 +14,7 @@
                   </div>
                 </div>
                 <div id="profit" class="row">
-		            <div class="col-ls-12 col-md-6 col-sm-6 col-xs-12">
+		            <div class="col-ls-12 col-md-4 col-sm-4 col-xs-12">
 					    <div class="panel panel-success tile panelClose panelRefresh col-md-12" style="width:100%; min-width:220px;">
 					    	<div class="panel-heading">
 	                            <h4 class="panel-title" style="padding-top:15px; font-size: 20px;">Ашиг</h4>
@@ -38,7 +38,7 @@
 					        </div>
 					    </div>
 					</div>
-					<div class="col-ls-12 col-md-6 col-sm-6 col-xs-12">
+					<div class="col-ls-12 col-md-4 col-sm-4 col-xs-12">
 					    <div class="panel panel-danger tile panelClose panelRefresh col-md-12" style="width:100%; min-width:220px;">
 					    	<div class="panel-heading">
 	                            <h4 class="panel-title" style="padding-top:15px; font-size: 20px;">Зарлага</h4>
@@ -49,6 +49,29 @@
 					                    <i class="l-basic-geolocalize-05"></i> 
 					                    <div class="stats-number" data-from="0" data-to="2547">
 					                    	<div style="font-size:30px;">@{{salary}}₮</div>
+					                    </div>
+					                </div>
+					                <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+					                    <div class="progress-bar progress-bar-white" role="progressbar" data-transit86" style="width: 86%;"></div>
+					                </div>
+					                <div class="comparison">
+					                    <p class="mb0"><i class="fa fa-arrow-circle-o-up s20 mr5 pull-left"></i>Сүүлийн сараас <label style="font-weight:bold;">2</label>% өссөн.</p>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<div class="col-ls-12 col-md-4 col-sm-4 col-xs-12">
+					    <div class="panel panel-warning tile panelClose panelRefresh col-md-12" style="width:100%; min-width:220px;">
+					    	<div class="panel-heading">
+	                            <h4 class="panel-title" style="padding-top:15px; font-size: 20px;">Цалингийн үлдэгдэл</h4>
+	                        </div>
+					        <div class="panel-body pt0">
+					            <div class="progressbar-stats-1">
+					                <div class="stats">
+					                    <i class="l-basic-geolocalize-05"></i> 
+					                    <div class="stats-number" data-from="0" data-to="2547">
+					                    	<div style="font-size:30px;">@{{endSalary}}₮</div>
 					                    </div>
 					                </div>
 					                <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
@@ -86,7 +109,12 @@
               <div class="x_panel tile" style="height:auto;">
                 <div class="row x_title">
                   <div class="col-md-12">
-                    <h3>Хэрэглэгчийн бүртгэл хяналт</h3>
+                    <h3 style="float:left;">Хэрэглэгчийн бүртгэл хяналт</h3>
+                    <select style="float:right; width:90px;" class="filter-combo" ng-model="dateType" ng-change="getUserRegistration()">
+                          <option value="Year" >Жил</option>
+                          <option value="Month" selected>Сар</option>
+                          <option value="Day">Өдөр</option>
+                    </select> 
                   </div>
                 </div>
                 <div class="row">
