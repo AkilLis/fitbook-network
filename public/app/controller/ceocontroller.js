@@ -9,10 +9,9 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
     $scope.dateType = 'Month';
 
     $scope.openModal = function(id) {
-    	$uibModal.open({
+    	var modal = $uibModal.open({
               templateUrl: id + '.html',
               animation: true,
-              controller: 'ceoCtrl', 
               size: 'sm',
               scope: $scope
       	});
@@ -65,6 +64,19 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 	    });    
     }
 
+    $scope.getEndSalary = function() {
+    	$http({
+	    	    method: 'GET',
+	    	    url: $baseUrl + 'api/ceo-endSalary',
+		    }).then(function successCallback(response) {
+		    	$scope.endSalaryList = response.data;
+
+		    	debugger;
+		    	$scope.openModal('endsalary');
+		    }, function errorCallback(response) {
+	    });
+    }
+
     $scope.getUserRegistrationDetail = function (type, value) {
   		$http({
 	    	    method: 'GET',
@@ -75,7 +87,6 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 	    	    } 
 		    }).then(function successCallback(response) 
 		    {
-		    	debugger;
 		    	$scope.user_registration_detail = response.data;
 		    	$scope.openModal('userregistrationdetail');
 		    }, function errorCallback(response) 
@@ -91,7 +102,6 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 	    	    url: $baseUrl + 'api/ceo-userregistration?dateType='+$scope.dateType,
 		    }).then(function successCallback(response) {
 
-		    	debugger;
 		        $scope.user_list = response.data.users_list;
 
 		        var months = [];
@@ -161,7 +171,6 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 		                    point: {
 		                        events: {
 		                            click: function (e) {
-		                            	debugger;
 		                                $scope.getUserRegistrationDetail($scope.dateType, this.category.split(' ')[0]);
 		                            }
 		                        }

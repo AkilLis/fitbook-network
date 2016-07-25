@@ -1553,13 +1553,17 @@ label.wrap , input.wrap{
     margin-bottom: 20px;
     border-radius: 3px;
     border: 0;
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     background-color: #ffffff;
     border: 1px solid transparent;
     border-radius: 3px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     width: 100%;
+}
+
+.panel :hover {
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .panel-body {
