@@ -6,9 +6,10 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
     $scope.user_list = {};
     $scope.salaryList = {};
     $scope.activityList = {};
+    $scope.dateType = 'Month';
 
     $scope.openModal = function(id) {
-    	var modalInstance = $uibModal.open({
+    	$uibModal.open({
               templateUrl: id + '.html',
               animation: true,
               controller: 'ceoCtrl', 
@@ -59,25 +60,69 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 		    }).then(function successCallback(response) {
 		    	$scope.profit = response.data.profit;
 		    	$scope.salary = response.data.salary;
+		    	$scope.endSalary = response.data.endSalary;
 		    }, function errorCallback(response) {
 	    });    
     }
 
-    $scope.getUserGroup = function () {
-	    $http({
+    $scope.getUserRegistrationDetail = function (type, value) {
+  		$http({
 	    	    method: 'GET',
-	    	    url: $baseUrl + 'api/ceo-user',
+	    	    url: $baseUrl + 'api/ceo-userregistration-detail/',
+	    	    data:{
+	    	    	type : type,
+	    	    	value : value,
+	    	    } 
+		    }).then(function successCallback(response) 
+		    {
+		    	debugger;
+		    	$scope.user_registration_detail = response.data;
+		    	$scope.openModal('userregistrationdetail');
+		    }, function errorCallback(response) 
+		    {
+
+		    }
+		);   	
+    }
+
+    $scope.getUserRegistration = function () {
+    	$http({
+	    	    method: 'GET',
+	    	    url: $baseUrl + 'api/ceo-userregistration?dateType='+$scope.dateType,
 		    }).then(function successCallback(response) {
-		        $scope.user_group = response.data.users_group;
+
+		    	debugger;
 		        $scope.user_list = response.data.users_list;
 
 		        var months = [];
 		        var totals = [];
-		        $scope.user_list.forEach(function(entry) 
+
+		        switch($scope.dateType)
 		        {
-		        	months.push(entry.month + ' сар');
-		        	totals.push(parseInt(entry.total));
-				});
+		        	case 'Year':
+		        		$scope.user_list.forEach(function(entry) 
+				        {
+				        	months.push(entry.year + ' он');
+				        	totals.push(parseInt(entry.total));
+						});
+		        	break;
+		        	case 'Month':
+		        		$scope.user_list.forEach(function(entry) 
+				        {
+				        	months.push(entry.month + ' сар');
+				        	totals.push(parseInt(entry.total));
+						});
+		        	break;
+		        	case 'Day':
+		        		$scope.user_list.forEach(function(entry) 
+				        {
+				        	months.push(entry.day + ' өдөр');
+				        	totals.push(parseInt(entry.total));
+						});
+		        	break;
+		        	default:
+		        	break;
+		        }
 
 		        $('#container').highcharts({
 			        title: {
@@ -110,11 +155,37 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 			            verticalAlign: 'middle',
 			            borderWidth: 0
 			        },
+			        plotOptions: {
+		                series: {
+		                    cursor: 'pointer',
+		                    point: {
+		                        events: {
+		                            click: function (e) {
+		                            	debugger;
+		                                $scope.getUserRegistrationDetail($scope.dateType, this.category.split(' ')[0]);
+		                            }
+		                        }
+		                    },
+		                    marker: {
+		                        lineWidth: 1
+		                    }
+		                }
+		            },
 			        series: [{
 			            name: 'Нийт',
 			            data: totals,
 			        },]
 			    });
+		    }, function errorCallback(response) {
+	    });    
+    }
+
+    $scope.getUserGroup = function () {
+	    $http({
+	    	    method: 'GET',
+	    	    url: $baseUrl + 'api/ceo-usergroup',
+		    }).then(function successCallback(response) {
+		        $scope.user_group = response.data.users_group;
 		    }, function errorCallback(response) {
 	    });     
   	}
@@ -122,6 +193,7 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 
     //Ceo dashboard datas ajax autocall
     $scope.getUserGroup();
+    $scope.getUserRegistration();
     $scope.getProfit();
     $scope.getLastSalary();
     $scope.getActivity();
