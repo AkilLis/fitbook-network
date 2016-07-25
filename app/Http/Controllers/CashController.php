@@ -26,7 +26,7 @@ class CashController extends Controller
     public function index(Request $request)
     {
         
-        $query = Auth::user()->inTransactions();
+        $query = Auth::user()->transactions();
         if($request->type != "All")
             $query->where('invType', '=', $request->type);
 
