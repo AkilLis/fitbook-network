@@ -67,12 +67,8 @@ class CeoController extends Controller
     private function getProfitByAll()
     {
         $profit = DB::table('transactions')
-                ->select(DB::raw('YEAR(invDate) year, MONTH(invDate) month, round(SUM(outAmt), 0) totalAmt'))    
+                ->select(DB::raw('round(SUM(outAmt), 0) totalAmt'))    
                 ->where('invType', '=', 'Cash')
-                /*->groupBy('year')
-                ->groupBy('month')
-                ->orderBy('year', 'desc')
-                ->orderBy('month', 'desc')*/
                 ->get();
         return $profit ? $profit[0]->totalAmt : 0;
     }
