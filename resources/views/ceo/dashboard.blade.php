@@ -62,7 +62,7 @@
 					    </div>
 					</div>
 					<div class="col-ls-12 col-md-4 col-sm-4 col-xs-12">
-					    <div class="panel panel-warning tile panelClose panelRefresh col-md-12" style="width:100%; min-width:220px;">
+					    <div class="panel panel-warning tile panelClose panelRefresh col-md-12" style="width:100%; min-width:220px;" ng-click="getEndSalary()">
 					    	<div class="panel-heading">
 	                            <h4 class="panel-title" style="padding-top:15px; font-size: 20px;">Цалингийн үлдэгдэл</h4>
 	                        </div>
