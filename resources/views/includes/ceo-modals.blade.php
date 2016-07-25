@@ -38,3 +38,31 @@
         </div>
     </div>
 </script>
+
+<script type="text/ng-template" id="userregistrationdetail.html">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Хэрэглэгчид</h4>
+        </div>
+        <div class="modal-body" style="width:100%">
+            <form class="reg-modal form-group">
+                    <div class="centered" style="width:95%; height:300px; overflow-y:scroll;">
+                    <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th align="center">Нэр</th>
+                          <th align="center">Огноо</th>
+                        </tr>
+                      </thead>  
+                      <tbody id="tasks-list" name="tasks-list">
+                        <tr ng-repeat="group in user_registration_detail">
+                          <td>@{{group.fName}}</td>
+                          <td>@{{group.created_at}}</td>
+                        </tr>
+                      </tbody> 
+                    </table>
+                  </div>
+            </form>
+        </div>
+    </div>
+</script>
