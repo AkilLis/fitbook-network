@@ -224,4 +224,43 @@ class CeoController extends Controller
     {
         return Transactions::salaryInfo();
     }
+
+    public function removeZeroEndAmount($var)
+    {
+        return true;
+        return $var->endAmount != 0;
+    }
+
+    public function endSalary()
+    {
+        $endSalary = DB::table('useraccountmap')
+                    ->leftJoin('bonusaccount', function($join)
+                    {
+                        $join->on('useraccountmap.accountId', '=', 'bonusaccount.id')
+                        ->where('useraccountmap.type', '=', 2);
+                    })
+                    ->leftJoin('awardaccount', function($join)
+                    {
+                        $join->on('useraccountmap.accountId', '=', 'awardaccount.id')
+                        ->where('useraccountmap.type', '=', 1);
+                    })
+                    ->join('users', 'users.id','=','useraccountmap.userId')
+                    ->where('users.userId', '<>', 'Ceo')
+                    ->whereRaw('users.userId NOT LIKE "flexgym%"')
+                    ->groupBy('users.id')
+                    ->select(DB::raw('users.fName, SUM(bonusaccount.endAmount) + SUM(awardaccount.endAmount) total'))    
+                    ->get();
+
+        $endSalary = array_filter($endSalary, function($cur){
+            return $cur->total != 0;
+        });
+
+        usort($endSalary ,function($a, $b){
+            return $a->total < $b->total;
+        });
+
+        return $endSalary;
+    }
+
+    
 }
