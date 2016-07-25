@@ -76,15 +76,22 @@ class CeoController extends Controller
 
     private function userRegistrationByDay()
     {
-       return DB::table('users')
-            ->select(DB::raw('DAY(created_at) day, COUNT(1) total'))    
+       $users = DB::table('users')
+            ->select(DB::raw('DAY(created_at) day, COUNT(1) total')) 
+            /*->select(DB::raw('MONTH(created_at) month, DAY(created_at) day, COUNT(1) total'))    */
             ->where('isNetwork','=','Y')
             ->where('userId', '<>', 'Ceo')
             ->whereRaw('userId NOT LIKE "flexgym%"')
-            ->whereRaw('YEAR(created_at) = '.date('Y'))
-            ->whereRaw('MONTH(created_at) = '. intval(date('m')))
+            ->whereRaw('YEAR(created_at) = '.intval(date('Y')))
+            ->whereRaw('MONTH(created_at) = '.intval(date('m')))
             ->groupBy(DB::raw('DAY(created_at)'))
             ->get();
+
+        /*$users = array_filter($users, function($cur){
+            return $cur->month == intval(date('m'));
+        });*/
+
+        return $users;
     }
 
     public function userRegistrationDetail(Request $request)
@@ -102,15 +109,17 @@ class CeoController extends Controller
             ->where('isNetwork','=','Y')
             ->where('userId', '<>', 'Ceo')
             ->whereRaw('userId NOT LIKE "flexgym%"')
-            /*->whereRaw('YEAR(updated_at) = ' + $type == "Year" ? $request->value : date('Y'));*/
-            ->whereRaw('YEAR(created_at) = 2016');
+            ->whereRaw('YEAR(created_at) = ?', [$type == "Year" ? intval($request->value) : intval(date('Y'))]);
+            /*->whereRaw('YEAR(created_at) = 2016');*/
             
         if($type != "Year")
-            $query->whereRaw('MONTH(created_at) = ' + $type == "Month" ? $request->value : date('m'));
+            $query->whereRaw('MONTH(created_at) = ?', [$type == "Month" ? intval($request->value) : intval(date('m'))]);
 
         if($type == "Day")
-            $query->whereRaw('DAY(created_at) = ' + $request->value);
+            $query->whereRaw('DAY(created_at) = ?', [intval($request->value)]);
 
+        $query->orderBy('created_at','DESC');
+        /*dd($query);*/
         return $query->get();
     }
 
@@ -248,7 +257,7 @@ class CeoController extends Controller
                     ->where('users.userId', '<>', 'Ceo')
                     ->whereRaw('users.userId NOT LIKE "flexgym%"')
                     ->groupBy('users.id')
-                    ->select(DB::raw('users.fName, SUM(bonusaccount.endAmount) + SUM(awardaccount.endAmount) total'))    
+                    ->select(DB::raw('users.fName, round(SUM(bonusaccount.endAmount) + SUM(awardaccount.endAmount),0) total'))    
                     ->get();
 
         $endSalary = array_filter($endSalary, function($cur){
