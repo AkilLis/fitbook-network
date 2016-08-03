@@ -11,9 +11,8 @@
   <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
   <div class="modal fade" id="Promution" tabindex="-1" role="dialog" aria-labelledby="Promution" aria-hidden="true" data-target="Promution">
           <div class="modal-dialog" style="border-radius: 25px;">
-            <div class="modal-content" style="border-radius: 25px; height:600px;
-    width:600px;">
-              <div class="modal-body promution-body" style="height:800px;">
+            <div class="modal-content" style="border-radius: 25px;">
+              <div class="modal-body promution-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               </div>
             </div>
