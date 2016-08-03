@@ -1796,12 +1796,11 @@ p {
 .promution-body
 {
     background: url(../images/final-flex.jpg) no-repeat; 
-    /*height:800px;
-    width:600px;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background-size: 600px 600px;
+    background-size: 100% 100%;
     border-radius: 25px;
+    height: 600px;
 }
