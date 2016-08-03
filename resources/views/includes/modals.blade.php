@@ -841,6 +841,18 @@
                           </div>
     </div>
 
+    <!-- Promution number 1 -->
+    <div class="modal fade" id="Promution" tabindex="-1" role="dialog" aria-labelledby="Promution" aria-hidden="true" data-target="Promution">
+          <div class="modal-dialog" style="border-radius: 25px;">
+            <div class="modal-content" style="border-radius: 25px; height:600px;
+    width:600px;">
+              <div class="modal-body promution-body" style="height:800px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+            </div>
+          </div>
+    </div>
+
     <!--MODAL STARTS HERE // ADMIN DIALOG-->
     <div class="modal fade" id="GiveSalary" tabindex="-1" role="dialog" aria-labelledby="GiveSalary" aria-hidden="true" data-target="GiveSalary">
       <div class="modal-dialog">
