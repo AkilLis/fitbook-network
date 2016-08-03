@@ -3,7 +3,8 @@
 <!-- page content -->
       <script type="text/javascript">
           $(document).ready(function(){
-              $('[data-toggle="tooltip"]').tooltip();   
+              $('[data-toggle="tooltip"]').tooltip(); 
+              $('#Promution').modal('show');
           });
       </script>
   <div main-page>
