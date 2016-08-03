@@ -4,12 +4,24 @@
 <title>FitBook</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" media="all">
   <link href="{{asset('css/login.css')}}" rel="stylesheet" type="text/css" media="all">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
   <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+  <div class="modal fade" id="Promution" tabindex="-1" role="dialog" aria-labelledby="Promution" aria-hidden="true" data-target="Promution">
+          <div class="modal-dialog" style="border-radius: 25px;">
+            <div class="modal-content" style="border-radius: 25px; height:600px;
+    width:600px;">
+              <div class="modal-body promution-body" style="height:800px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+            </div>
+  </div>
+</div>
 </head>
 <body>
+
 <div growl></div>
 <div class="cont">
   <div class="flash-message">
@@ -25,7 +37,7 @@
     <form class="login" method="POST" action="{{url('auth/login')}}">
       {{ csrf_field() }}
       <div class="login__form">
-        <div class="logo">
+        <div class="logo-index">
             <img height="90" src="images/logo.png"/>
         </div>
         <div class="login__row">
@@ -49,6 +61,7 @@
 <script src="js/ligro.js"></script>
 <script>
     $('div.flash-message').delay(2000).slideUp(300);
+    $('#Promution').modal('show');
 </script>
 </body>
 </html>
