@@ -83,7 +83,7 @@
               <div class="x_panel tile hex-height">
                 <div class="row x_title">
                   <div class="col-md-12 col-xs-12 col-sm-12">
-                  <h3>Блокын мэдээлэл</h3>
+                  <h3>Лотус мэдээлэл</h3>
                   </div>
                 </div>
                 <div class="row">

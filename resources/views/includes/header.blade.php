@@ -84,7 +84,7 @@
                         <img src="{{asset('images/logo.png')}}">
                       </div>
                       <div class="hidden-sm hidden-xs col-lg-10 col-md-10">
-                        <label>Сүлжээний систем</label>
+                        <label>Урамшуулалын хөтөлбөр</label>
                       </div>
                     </div>
                   </a>
