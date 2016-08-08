@@ -134,6 +134,108 @@ class CeoController extends Controller
         ]);
     }
 
+    private function getProfitByFilter($filter)
+    {
+        $query = DB::table('transactions')
+                    ->where('invType', '=', 'Cash');
+
+        switch ($filter) {
+            case 'Year':
+                $query->select(DB::raw('YEAR(created_at) year, round(SUM(outAmt), 0) totalAmt'))
+                      ->groupBy('year');
+                break;
+            case 'Month':
+                $query->select(DB::raw('MONTH(created_at) month, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ?', [intval(date('Y'))])
+                      ->groupBy('month');
+                break;  
+            case 'Day':
+                $query->select(DB::raw('DAY(created_at) day, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ? AND MONTH(created_at)', [intval(date('Y')), intval(date('m'))])
+                      ->groupBy('day');
+                break;
+            default:
+                break;
+        }
+
+        return $query->get();
+    }
+
+    private function getEndSalaryByFilter($filter)
+    {
+        $query = DB::table('transactions')
+                    ->where('invType', '=', 'Bonus')
+                    ->where('inUserId', '=', 0);
+
+        switch ($filter) {
+            case 'Year':
+                $query->select(DB::raw('YEAR(created_at) year, round(SUM(inAmt), 0) totalAmt'))
+                      ->groupBy('year');
+                break;
+            case 'Month':
+                $query->select(DB::raw('MONTH(created_at) month, round(SUM(inAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ?', [intval(date('Y'))])
+                      ->groupBy('month');
+                break;  
+            case 'Day':
+                $query->select(DB::raw('DAY(created_at) day, round(SUM(inAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ? AND MONTH(created_at)', [intval(date('Y')), intval(date('m'))])
+                      ->groupBy('day');
+                break;
+            default:
+                break;
+        }
+
+        return $query->get();
+    }
+
+    private function getGivenSalaryByFilter($filter)
+    {
+        $userActivitySalary = DB::table('transactions')
+            ->where('invDescription', '=', 'Хэрэглэгч идэвхжүүлэх')
+            ->where('invType','<>', 'Cash');
+
+        $userSalary = DB::table('transactions')
+            ->where('invDescription','=','Flexgym-Цалин')
+            ->where('outAmt', '<>', '0');
+
+        switch ($filter) {
+            case 'Year':
+                $userActivitySalary->select(DB::raw('YEAR(created_at) year, round(SUM(outAmt), 0) totalAmt'))
+                      ->groupBy('year');
+
+                $userSalary->select(DB::raw('YEAR(created_at) year, round(SUM(outAmt), 0) totalAmt'))
+                      ->groupBy('year');
+
+                break;
+            case 'Month':
+                $userActivitySalary->select(DB::raw('MONTH(created_at) month, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ?', [intval(date('Y'))])
+                      ->groupBy('month');
+
+                $userSalary->select(DB::raw('MONTH(created_at) month, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ?', [intval(date('Y'))])
+                      ->groupBy('month');
+                break;  
+            case 'Day':
+                $userActivitySalary->select(DB::raw('DAY(created_at) day, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ? AND MONTH(created_at)', [intval(date('Y')), intval(date('m'))])
+                      ->groupBy('day');
+
+                $userSalary->select(DB::raw('DAY(created_at) day, round(SUM(outAmt), 0) totalAmt'))
+                      ->whereRaw('YEAR(created_at) = ? AND MONTH(created_at)', [intval(date('Y')), intval(date('m'))])
+                      ->groupBy('day');
+                break;
+            default:
+                break;
+        }
+        
+        return Response::json([
+            'activity' => $userActivitySalary->get(),
+            'salary' => $userSalary->get(),
+        ]);        
+    }
+
     private function getProfitByAll()
     {
         $profit = DB::table('transactions')
@@ -187,6 +289,17 @@ class CeoController extends Controller
                 'profit' => self::getProfitByAll(),
                 'salary' => self::getSalaryByAll(),
                 'endSalary' => self::getEndSalaryByAll(),
+        ]);
+    }
+
+    public function profitDetailed(Request $request)
+    {
+        $resp = self::getGivenSalaryByFilter($request->profitType);
+        return Response::json([
+                'profit' => self::getProfitByFilter($request->profitType),
+                'activity' => $resp->getData()->activity,
+                'salary' => $resp->getData()->salary,
+                'endSalary' => self::getEndSalaryByFilter($request->profitType)
         ]);
     }
 
