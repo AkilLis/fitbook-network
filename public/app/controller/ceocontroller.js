@@ -129,11 +129,19 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 					        		curEndSalary = entry;
 							});
 
-		    				profitData.push(Number((profitData.length == 0 ? 0 : profitData[profitData.length - 1]) + curProfit.length == 0 ? 0 : curProfit.totalAmt));
-		    				salaryData.push(Number((salaryData.length == 0 ? 0 : salaryData[salaryData.length - 1]) + 
-		    					(Number(curActivity.length == 0 ? 0 : curActivity.totalAmt)) + 
-		    					(Number(curSalary.length == 0 ? 0 : curSalary.totalAmt))));
-		    				endSalaryData.push(Number((endSalaryData.length == 0 ? 0 :endSalaryData[endSalaryData.length - 1]) + curEndSalary.length == 0 ? 0 : curEndSalary.totalAmt));
+		    				profitData.push(
+		    						Number((profitData.length == 0 ? 0 : profitData[profitData.length - 1]) + 
+		    						Number(curProfit.length == 0 ? 0 : curProfit.totalAmt))
+		    				);
+		    				salaryData.push(
+		    						Number((salaryData.length == 0 ? 0 : salaryData[salaryData.length - 1]) + 
+			    					(Number(curActivity.length == 0 ? 0 : curActivity.totalAmt)) + 
+			    					(Number(curSalary.length == 0 ? 0 : curSalary.totalAmt)))
+			    			);
+		    				endSalaryData.push(
+		    						Number((endSalaryData.length == 0 ? 0 : endSalaryData[endSalaryData.length - 1]) + 
+		    						Number(curEndSalary.length == 0 ? 0 : curEndSalary.totalAmt))
+		    				);
 		    			}	
 		    			debugger;
 		    		    break;
