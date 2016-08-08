@@ -31,9 +31,6 @@
 					                <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
 					                    <div class="progress-bar progress-bar-white" role="progressbar" data-transit86" style="width: 86%;"></div>
 					                </div>
-					                <div class="comparison">
-					                    <p class="mb0"><i class="fa fa-arrow-circle-o-up s20 mr5 pull-left"></i>Сүүлийн сараас <label style="font-weight:bold;">2</label>% өссөн.</p>
-					                </div>
 					            </div>
 					        </div>
 					    </div>
@@ -53,9 +50,6 @@
 					                </div>
 					                <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
 					                    <div class="progress-bar progress-bar-white" role="progressbar" data-transit86" style="width: 86%;"></div>
-					                </div>
-					                <div class="comparison">
-					                    <p class="mb0"><i class="fa fa-arrow-circle-o-up s20 mr5 pull-left"></i>Сүүлийн сараас <label style="font-weight:bold;">2</label>% өссөн.</p>
 					                </div>
 					            </div>
 					        </div>
@@ -77,13 +71,27 @@
 					                <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
 					                    <div class="progress-bar progress-bar-white" role="progressbar" data-transit86" style="width: 86%;"></div>
 					                </div>
-					                <div class="comparison">
-					                    <p class="mb0"><i class="fa fa-arrow-circle-o-up s20 mr5 pull-left"></i>Сүүлийн сараас <label style="font-weight:bold;">2</label>% өссөн.</p>
-					                </div>
 					            </div>
 					        </div>
 					    </div>
 					</div>
+	            </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel tile" style="height:auto;">
+                <div class="row x_title">
+                  <div class="col-md-12">
+                    <h3 style="float:left;">Дэлгэрэнгүй</h3>
+                    <select style="float:right; width:90px;" class="filter-combo" ng-model="profitType" ng-change="getProfitDetailed()">
+                          <option value="Year" >Жил</option>
+                          <option value="Month" selected>Сар</option>
+                          <option value="Day">Өдөр</option>
+                    </select> 
+                  </div>
+                </div>
+                <div id="profitChart" class="row">
 	            </div>
               </div>
             </div>
