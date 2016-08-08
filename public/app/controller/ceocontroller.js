@@ -7,6 +7,7 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
     $scope.salaryList = {};
     $scope.activityList = {};
     $scope.dateType = 'Month';
+    $scope.profitType = 'Month';
 
     $scope.openModal = function(id) {
     	var modal = $uibModal.open({
@@ -62,6 +63,165 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
 		    	$scope.endSalary = response.data.endSalary;
 		    }, function errorCallback(response) {
 	    });    
+    }
+
+    $scope.getProfitDetailed = function () {
+    	$http({
+	    	    method: 'GET',
+	    	    url: $baseUrl + 'api/ceo-profit-detailed?profitType=' + $scope.profitType,
+		    }).then(function successCallback(response) {
+		    	var profit = response.data.profit;
+		    	var activity = response.data.activity;
+		    	var salary = response.data.salary;
+		    	var endSalary = response.data.endSalary;
+		    	
+		    	var categories = [];
+		    	var profitData = [];
+		    	var salaryData = [];
+		    	var endSalaryData = [];
+
+		    	switch($scope.profitType)
+		    	{
+		    		case "Year" : 
+		    			for(var i = 2016; i <= profit[profit.length - 1].year; i ++)
+		    			{
+		    				var j = i - 2016;
+		    				categories.push(Number(profit[j].year));
+		    				profitData.push(Number(profit[j].totalAmt));
+		    				salaryData.push(Number(activity[j].totalAmt) + Number(salary[j].totalAmt));
+		    				endSalaryData.push(Number(endSalary[j].totalAmt));
+		    			}		    			
+
+		    			break;
+		    		case "Month" :
+
+		    			for(var i = 1; i <= profit[profit.length - 1].month; i ++)
+		    			{
+		    				var j = i - 1;
+		    				categories.push(i + ' сар');
+
+		    				var curProfit = [];
+		    				var curActivity = [];
+		    				var curSalary = [];
+		    				var curEndSalary = [];
+
+		    				profit.forEach(function(entry) 
+					        {
+					        	if(entry.month == i)
+					        		curProfit = entry;
+							});
+
+							activity.forEach(function(entry) 
+					        {
+					        	if(entry.month == i)
+					        		curActivity = entry;
+							});
+
+							salary.forEach(function(entry) 
+					        {
+					        	if(entry.month == i)
+					        		curSalary = entry;
+							});
+
+							endSalary.forEach(function(entry) 
+					        {
+					        	if(entry.month == i)
+					        		curEndSalary = entry;
+							});
+
+		    				profitData.push(Number((profitData.length == 0 ? 0 : profitData[profitData.length - 1]) + curProfit.length == 0 ? 0 : curProfit.totalAmt));
+		    				salaryData.push(Number((salaryData.length == 0 ? 0 : salaryData[salaryData.length - 1]) + 
+		    					(Number(curActivity.length == 0 ? 0 : curActivity.totalAmt)) + 
+		    					(Number(curSalary.length == 0 ? 0 : curSalary.totalAmt))));
+		    				endSalaryData.push(Number((endSalaryData.length == 0 ? 0 :endSalaryData[endSalaryData.length - 1]) + curEndSalary.length == 0 ? 0 : curEndSalary.totalAmt));
+		    			}	
+		    			debugger;
+		    		    break;
+		    		case "Day" : 
+		    			debugger;
+		    			for(var i = 1; i <= profit[profit.length - 1].day; i ++)
+		    			{
+		    				var j = i - 1;
+		    				categories.push(i);
+
+		    				var curProfit = [];
+		    				var curActivity = [];
+		    				var curSalary = [];
+		    				var curEndSalary = [];
+
+		    				profit.forEach(function(entry) 
+					        {
+					        	if(entry.day == i)
+					        		curProfit = entry;
+							});
+
+							activity.forEach(function(entry) 
+					        {
+					        	if(entry.day == i)
+					        		curActivity = entry;
+							});
+
+							salary.forEach(function(entry) 
+					        {
+					        	if(entry.day == i)
+					        		curSalary = entry;
+							});
+
+							endSalary.forEach(function(entry) 
+					        {
+					        	if(entry.day == i)
+					        		curEndSalary = entry;
+							});	
+
+							profitData.push(Number((profitData.length == 0 ? 0 : profitData[profitData.length - 1]) + curProfit.length == 0 ? 0 : curProfit.totalAmt));
+		    				salaryData.push(Number((salaryData.length == 0 ? 0 : salaryData[salaryData.length - 1]) + 
+		    					(Number(curActivity.length == 0 ? 0 : curActivity.totalAmt)) + 
+		    					(Number(curSalary.length == 0 ? 0 : curSalary.totalAmt))));
+		    				endSalaryData.push(Number((endSalaryData.length == 0 ? 0 :endSalaryData[endSalaryData.length - 1]) + curEndSalary.length == 0 ? 0 : curEndSalary.totalAmt));
+		    			}
+		    			break;
+		    		default :
+		    			break;
+		    	}
+
+		    	$('#profitChart').highcharts({
+			        title: {
+			            text: '',
+			            x: -20
+			        },
+			        xAxis: {
+			            categories: categories
+			        },
+			        yAxis: {
+			            title: {
+			                text: 'Дүн ₮'
+			            },
+			            plotLines: [{
+			                value: 0,
+			                width: 1,
+			                color: '#808080'
+			            }]
+			        },
+			        tooltip: {
+			            valueSuffix: '₮'
+			        },
+			        series: [{
+			            name: 'Ашиг',
+			            data: profitData,
+			            color: '#66c796'
+			        }, {
+			            name: 'Зарлага',
+			            data: salaryData,
+			            color : '#df6a78'
+			        }, {
+			            name: 'Цалингийн үлдэгдэл',
+			            data: endSalaryData,
+			            color: '#41cac0'
+			        }]
+			    });
+		    }, function errorCallback(response) {
+	    });    
+    	profitChart
     }
 
     $scope.getEndSalary = function() {
@@ -200,4 +360,5 @@ app.controller('ceoCtrl', function($scope, $uibModal, $http)
     $scope.getProfit();
     $scope.getLastSalary();
     $scope.getActivity();
+    $scope.getProfitDetailed();
 });
