@@ -648,7 +648,6 @@ debugger;
 		  url: $rootUrl + 'get/users',
 		  data: formData,
 		}).then(function successCallback(response) {
-		  	console.log(response);
 		  	if(response.data.gotinfo == "failed")
 		  	{
 		  		$(".content-list").hide();
