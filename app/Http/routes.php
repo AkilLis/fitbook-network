@@ -659,22 +659,35 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::put('api/account/{userId}', function(Request $request, $userId){
+        \Log::info('test = orj bna');
         $id = User::where('userId','=', $userId)->first()->id;  
 
         $cash = DB::table('cashaccount')
-            ->join('useraccountmap','cashaccount.id','=','useraccountmap.accountId')
+            ->join('useraccountmap', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'cashaccount.id')
+                     ->where('useraccountmap.type', '=', 3);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->first();
 
         $bonus = DB::table('useraccountmap')
-            ->join('bonusaccount','bonusaccount.id','=','useraccountmap.accountId')
+            ->join('bonusaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'bonusaccount.id')
+                     ->where('useraccountmap.type', '=', 2);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->orderBy('useraccountmap.groupId', 'ASC')
             ->select('useraccountmap.groupId', 'bonusaccount.endAmount')
             ->get();
 
         $award = DB::table('useraccountmap')
-            ->join('awardaccount','awardaccount.id','=','useraccountmap.accountId')
+            ->join('awardaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'awardaccount.id')
+                     ->where('useraccountmap.type', '=', 1);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->orderBy('useraccountmap.groupId', 'ASC')
             ->select('useraccountmap.groupId', 'awardaccount.endAmount')
@@ -683,9 +696,9 @@ Route::group(['middleware' => ['web']], function () {
         // rankId = 2 Advanced
         // rankId = 3 Both;
         $rankId = 1;
-        if(count($bonus) == 1)
+        if(true)
         {
-            $rankId = $bonus[0]->groupId;
+            //$rankId = $bonus[0]->groupId;
             return Response::json([
                     'rankId' => $rankId, 
                     'cashEndAmount' => !$cash ? 0 : $cash->endAmount,
@@ -695,7 +708,7 @@ Route::group(['middleware' => ['web']], function () {
         }
         else
         {
-            $rankId = 3;
+            //$rankId = 1;
             return Response::json([
             'rankId' => $rankId, 
             'cashEndAmount' => !$cash ? 0 : $cash->endAmount,
