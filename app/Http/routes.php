@@ -33,32 +33,46 @@ Route::get('/chat/send', function(Request $request)
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
-        if(Auth::user())    
-        \Log::info('AUth = '. Auth::user()->userId);
 
     	if(Auth::check())
     	{
             if(Auth::user()->hasRole('Ceo'))
                 return redirect('/ceo/dashboard');
+
+            if(Auth::user()->hasRole('Reception'))
+                return redirect('/reception');
        		return redirect('dashboard');
     	}
         
         return view('auth.login',[]);
     });
 
+    Route::get('/reception', function () {
+        $usageTrans = Transactions::where('inUserId', '=', Auth::user()->id)->where('invType','=','usage')
+        ->orderBy('invDate', 'DESC')->paginate(20);
+
+        foreach ($usageTrans as $salary) {
+            $salary->outUser;
+        }
+        return view('reception')->with('usageTrans' , $usageTrans);
+    })->middleware(['auth', 'ceo:Reception']);
+
+    Route::post('/api/reception-subusage', 'UserController@subUsage')->middleware(['ceo:Reception']);
+    Route::get('/api/reception/check/{accountType}', 'UserController@checkReception')->middleware(['ceo:Reception']);
+
     Route::get('ceo/dashboard', function(){
         return view('ceo.dashboard');
-    })->middleware(['auth', 'ceo:ceo']);
+    })->middleware(['auth', 'ceo:Ceo']);
     
-    Route::get('api/ceo-activity', 'CeoController@activity')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-profit', 'CeoController@profit')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-profit-detailed', 'CeoController@profitDetailed')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-salary', 'CeoController@salary')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-endSalary', 'CeoController@endSalary')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-usergroup', 'CeoController@userGroupAll')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-userregistration', 'CeoController@userRegistration')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-userregistration-detail', 'CeoController@userRegistrationDetail')->middleware(['ceo:ceo']);
-    Route::get('api/ceo-user/{groupId}', 'CeoController@userGroup')->middleware(['ceo:ceo']);
+    Route::get('api/ceo-activity', 'CeoController@activity')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-profit', 'CeoController@profit')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-profit-detailed', 'CeoController@profitDetailed')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-salary', 'CeoController@salary')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-endSalary', 'CeoController@endSalary')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-usergroup', 'CeoController@userGroupAll')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-userregistration', 'CeoController@userRegistration')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-userregistration-detail', 'CeoController@userRegistrationDetail')->middleware(['ceo:Ceo']);
+    Route::get('api/ceo-user/{groupId}', 'CeoController@userGroup')->middleware(['ceo:Ceo']);
 
     /* Notification */
     Route::resource('notification', 'NotificationController');

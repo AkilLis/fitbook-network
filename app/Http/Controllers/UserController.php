@@ -83,7 +83,7 @@ class UserController extends Controller
 
             if($bonusAmountBg != 0)
             {
-                $bonusId = DB::table('useraccountmap')
+                $bousageEndAmountnusId = DB::table('useraccountmap')
                 ->where('useraccountmap.userId','=', \Auth::user()->id)
                 ->where('useraccountmap.type','=', 2)
                 ->where('useraccountmap.groupId','=', 1)
@@ -235,12 +235,12 @@ class UserController extends Controller
             ->leftJoin('savingaccount', function($join)
               {
                 $join->on('useraccountmap.accountId', '=', 'savingaccount.id')
-                ->where('useraccountmap.type', '=', 5);
+                ->where('useraccountmap.type', '=', 4);
               })
             ->leftJoin('usageaccount', function($join)
               {
                 $join->on('useraccountmap.accountId', '=', 'usageaccount.id')
-                ->where('useraccountmap.type', '=', 4);
+                ->where('useraccountmap.type', '=', 5);
               })
             ->select(\DB::raw('round(sum(awardaccount.endAmount), 0) as awardEnd, round(sum(bonusaccount.endAmount), 0) as bonusEnd, round(sum(cashaccount.endAmount), 0) as cashEnd, round(sum(usageaccount.endAmount), 0) as usageEnd,
             	round(sum(savingaccount.endAmount), 0) as savingEnd'))
@@ -487,5 +487,62 @@ class UserController extends Controller
                            'class' => 'active');
         array_push($response, $selfUser);
         return $response;
+    }
+
+    public function subusage(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            \Log::info('userId = '. $request->userId);
+            \Log::info('amt = '. $request->amt);
+            $user = User::userExist($request->userId);
+            if(!$user) return Response::json(['result' => '_userNotFound']);
+
+            $test = UsageAccount::checkEndAmt($user->id);
+             if(!$test) return Response::json(['result' => '_accountNotFound']);
+
+            $account = UsageAccount::find($test->accountId);
+
+            $amt = $request->amt;
+            if($amt > $account->endAmount)
+                return Response::json(['result' => '_endAmount']);
+
+            $account->endAmount = $account->endAmount - $amt;
+            $trans = array(
+                            'inUserId' => \Auth::user()->id,
+                            'outUserId' => $user->id, 
+                            'invType' => 'Usage',
+                            'invDate' => \Carbon::now(), 
+                            'invDescription' => 'gym_payment', 
+                            'inAccountId' => $account->id,
+                            'outAccountId' => 0, 
+                            'inAmt' => 0,
+                            'outAmt' => $amt, 
+                            'endAmt' => $account->endAmount,
+            );
+
+            Transactions::create($trans);
+            $account->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
+        return Response::json(['result' => 'success']);
+    }
+
+    public function checkReception(Request $request, $accountType)
+    {
+        $user = User::userExist($request->userId);
+        if(!$user) return Response::json(['result' => '_userNotFound']);
+
+        if($accountType == "usage")
+        {
+            $account = UsageAccount::checkEndAmt($user->id);
+            if(!$account) return Response::json(['result' => '_accountNotFound']);
+
+            return Response::json(['result' => 'success', 'endAmt' => $account->endAmount]);
+        }
     }
 }
