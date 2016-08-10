@@ -8,7 +8,7 @@ class CeoAuthenticate
 {
     public function handle($request, Closure $next, $role)
     {
-    	if($request->user()->hasRole('Ceo'))
+    	if($request->user()->hasRole($role))
     		return $next($request);
 		return redirect('/');
     }
