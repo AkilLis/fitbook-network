@@ -722,19 +722,31 @@ Route::group(['middleware' => ['web']], function () {
         $id = \Auth::user()->id;  
 
         $cash = DB::table('cashaccount')
-            ->join('useraccountmap','cashaccount.id','=','useraccountmap.accountId')
+            ->join('useraccountmap', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'cashaccount.id')
+                ->where('useraccountmap.type', '=', 3);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->first();
 
         $bonus = DB::table('useraccountmap')
-            ->join('bonusaccount','bonusaccount.id','=','useraccountmap.accountId')
+            ->join('bonusaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'bonusaccount.id')
+                ->where('useraccountmap.type', '=', 2);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->orderBy('useraccountmap.groupId', 'ASC')
             ->select('useraccountmap.groupId', 'bonusaccount.endAmount')
             ->get();
 
         $award = DB::table('useraccountmap')
-            ->join('awardaccount','awardaccount.id','=','useraccountmap.accountId')
+            ->join('awardaccount', function($join)
+              {
+                $join->on('useraccountmap.accountId', '=', 'awardaccount.id')
+                ->where('useraccountmap.type', '=', 1);
+              })
             ->where('useraccountmap.userId','=',$id)
             ->orderBy('useraccountmap.groupId', 'ASC')
             ->select('useraccountmap.groupId', 'awardaccount.endAmount')
