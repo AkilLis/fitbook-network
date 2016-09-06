@@ -71,6 +71,9 @@ class AuthController extends Controller {
                     return redirect()->intended('ceo/dashboard');
             if($user->hasRole('Reception'))
                     return redirect()->intended('reception');
+            if($user->hasRole('Promutionmanager'))
+                    return redirect()->intended('promution');
+
             return redirect()->intended('dashboard');
         }
         else

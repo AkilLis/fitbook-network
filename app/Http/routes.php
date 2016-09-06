@@ -42,6 +42,10 @@ Route::group(['middleware' => ['web']], function () {
 
             if(Auth::user()->hasRole('Reception'))
                 return redirect('/reception');
+
+            if(Auth::user()->hasRole('Promutionmanager'))
+                return redirect('/promution');
+
        		return redirect('dashboard');
     	}
         
