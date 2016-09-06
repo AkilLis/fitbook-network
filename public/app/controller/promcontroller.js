@@ -1,6 +1,6 @@
 app.controller('promCtrl', function($scope, $uibModal, $http, $log) { 
 
-  	$isproduction = false;
+  	$isproduction = true;
     $baseUrl = $isproduction ? 'http://flexgym.mn/' : 'http://localhost/';
     $scope.users = {};
 
