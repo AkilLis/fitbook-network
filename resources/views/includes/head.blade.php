@@ -6,7 +6,6 @@
 <title>Фитнессийн сүлжээний систем</title>
 
 <link rel="icon" type="image/png" href="{{asset('images/rel.png')}}">
-<link async rel="stylesheet" href="{{asset('css/dataTables.bootstrap.css')}}">
 <link rel="stylesheet" href="{{asset('css/responsive.bootstrap.css')}}">
 <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>

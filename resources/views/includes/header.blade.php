@@ -23,6 +23,10 @@
                     @if ( Auth::user()->hasRole('Ceo') )
                       <li><a data-toggle="modal" ng-click="init('admin')">Админ тохируулах</a></li>
                     @endif
+
+                    @if ( Auth::user()->hasRole('Promutionmanager') )
+                      <li><a href="/promution">Урамшууллын жагсаалт</a></li>
+                    @endif
                     
                     <li><a data-toggle="modal" ng-click="init('sponser')">Зуучлах</a></li>
 

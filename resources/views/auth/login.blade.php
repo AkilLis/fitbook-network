@@ -52,7 +52,8 @@
           <input type="password" name="password" class="login__input pass" placeholder="Нууц үг"/>
         </div>
         <button type="submit" class="login__submit">НЭВТРЭХ</button>
-        <p class="login__signup" ng-click="basicUsage('error')"><a>Нууц үг сэргээх</a></p>
+        {{-- <p class="login__signup" ng-click="basicUsage('error')"><a>Нууц үг сэргээх</a></p> --}}
+        <a href="/promution">Урамшуулалын хөтөлбөр</a>
       </div>
     </div>
   </form>
@@ -60,7 +61,7 @@
 <script src="js/ligro.js"></script>
 <script>
     $('div.flash-message').delay(2000).slideUp(300);
-    $('#Promution').modal('show');
+    /*$('#Promution').modal('show');*/
 </script>
 </body>
 </html>
