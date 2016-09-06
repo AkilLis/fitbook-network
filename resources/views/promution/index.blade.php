@@ -17,12 +17,20 @@
       @if ( Auth::check() )
         @if ( Auth::user()->hasRole('Promutionmanager'))
             <div class="col-md-2 col-md-2">
-              <a href="/promution/create" style="float:left;" class="btn btn-success">Нэмэх</a>  
+              <a href="/promution/create" style="float:right;" class="btn btn-success">Нэмэх</a>  
             </div>
         @endif
       @endif
 
-        <div class="col-md-10 col-md-10">
+      @if ( Auth::check() )
+        @if ( Auth::user()->hasRole('Promutionmanager'))
+            <div class="col-md-2 col-md-2">
+              <a href="/auth/logout" style="float:left; text-decoration:underline;" class="btn">Гарах</a>  
+            </div>
+        @endif
+      @endif
+
+        <div class="col-md-8 col-md-8">
           <input type="search" 
                  name="search" 
                  value="{{ old('search') }}"
