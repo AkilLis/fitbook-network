@@ -91,7 +91,7 @@ class UserController extends Controller
                 ->first();
 
 
-                $account = BonusAccount::find($bonusId->accountId);
+                $account = BonusAccount::find($bousageEndAmountnusId->accountId);
 
                 if($account->endAmount < $bonusAmountBg)
                 {

@@ -5,10 +5,12 @@ use App\CashAccount;
 use App\Events\Chat;
 use App\Http\Requests;
 use App\Permission;
+use App\PromutionUser;
 use App\Role;
 use App\Transactions;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,7 +32,6 @@ Route::get('/chat/send', function(Request $request)
     return event(new Chat($request->username, $request->message));
 });
 
-
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
 
@@ -44,8 +45,72 @@ Route::group(['middleware' => ['web']], function () {
        		return redirect('dashboard');
     	}
         
+        /*return redirect('auth.login');*/
+
         return view('auth.login',[]);
     });
+
+    Route::get('/promution/create', function () {
+        return view('promution.create');
+    });
+
+    Route::get('/promution/search', function (Request $request) {
+
+        $searchValue = $request->search;
+
+        $users = PromutionUser::where(function ($query) use ($searchValue) {
+            $query->where('fname', 'like', '%'.$searchValue.'%')
+                  ->orWhere('registryNo', 'like', '%'.$searchValue.'%')
+                  ->orWhere('lname', 'like', '%'.$searchValue.'%');
+        })->take(5);
+
+        return Response::json([
+            'result' => $users->get(),
+        ]);
+    });
+
+    Route::get('/promution/{id}', 'PromutionController@show');
+
+    Route::post('/promution', function(Request $request) {
+
+        $rules = array(
+            'fname'       => 'required',
+            'lname'      => 'required',
+            'registryNo' => 'unique:promution_user|required',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            $request->flash();
+            return Redirect::to('promution/create')
+                ->with('errors' , $validator->messages()->messages())
+                ->withInput();
+        }
+        
+        $parent = PromutionUser::byRegNo(Input::get('parent'));
+
+        $user = new PromutionUser;
+        $user->fName = Input::get('fname');
+        $user->lName = Input::get('lname');
+        $user->registryNo = Input::get('registryNo');
+        $user->phone = Input::get('phone');
+        $user->parent_id = count($parent) == 0 ? 0 : $parent->id;
+        $user->save();
+
+        if(count($parent) != 0) {
+            $parent->childCount ++;
+            $parent->save();
+        }
+
+        Session::flash('message', 'Амжилттай бүртгэлээ.');
+        return redirect('/promution');
+    });
+
+    
+
+    Route::get('/promution', 'PromutionController@index');
+    Route::get('/api/promution', 'PromutionController@list');
 
     Route::get('/reception', function () {
         $usageTrans = Transactions::where('inUserId', '=', Auth::user()->id)->where('invType','=','usage')
