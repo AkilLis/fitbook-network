@@ -73,6 +73,7 @@ Route::group(['middleware' => ['web']], function () {
         ]);
     });
 
+    Route::delete('/promution/{id}', 'PromutionController@destroy');
     Route::get('/promution/{id}', 'PromutionController@show');
 
     Route::post('/promution', function(Request $request) {

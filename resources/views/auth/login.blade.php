@@ -53,7 +53,7 @@
         </div>
         <button type="submit" class="login__submit">НЭВТРЭХ</button>
         {{-- <p class="login__signup" ng-click="basicUsage('error')"><a>Нууц үг сэргээх</a></p> --}}
-        <a href="/promution">Урамшуулалын хөтөлбөр</a>
+        {{-- <a href="/promution">Урамшуулалын хөтөлбөр</a> --}}
       </div>
     </div>
   </form>

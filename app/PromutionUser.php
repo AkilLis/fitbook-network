@@ -26,6 +26,16 @@ class PromutionUser extends Model
         return DB::table('promution_user')->where('parent_id', '=', $this->id)->get();
     }
 
+    static public function decrease($id)
+    {
+        $user = static::find($id);
+
+        if($user) {
+            $user->childCount = $user->childCount - 1;
+            $user->save();
+        }
+    }
+
     public function withChilds()
     {
 

@@ -46,7 +46,9 @@
             <th style="width:30px;">№</th>
             <th style="text-align: left;">Овог</th>
             <th style="text-align: left;">Нэр</th>
+            <th style="text-align: left;">Регистр</th>
             <th style="text-align: left;">Урьсан</th>
+            <th style="text-align: left;"></th>
           </tr>
         </thead>
         <tbody>
@@ -55,9 +57,20 @@
               <td>{{$index + 1}}</td>  
               <td>{{$user->fName}}</td>  
               <td>{{$user->lName}}</td>  
+              <td>{{$user->registryNo}}</td>  
               <td>
                 <a style="text-decoration:underline; font-weight:bold;" ng-click="childs({{$user->id}})">{{$user->childCount}}</a>
               </td>  
+              <td>
+                <form method="POST" action="/promution/{{$user->id}}">
+
+                  {{ csrf_field() }}
+
+                  <input name="_method" type="hidden" value="DELETE">
+                  <button style="font-size:8px; float:right;" class="btn btn-danger btn-xs">x
+                  </button>    
+                </form>
+              </td>
             </tr>
           @endforeach
         </tbody>

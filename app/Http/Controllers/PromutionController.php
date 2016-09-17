@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\PromutionUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Response;
 
 class PromutionController extends Controller
@@ -41,5 +42,17 @@ class PromutionController extends Controller
         return view('promution.index')
                 ->with('users', $promUsers)
                 ->with('search', $searchValue);
+    }
+
+    public function destroy($id)
+    {
+        $user = PromutionUser::find($id);
+
+        if($user->childCount == 0) {       
+            PromutionUser::decrease($user->parent_id);
+            $user->delete();
+        }
+
+        return Redirect::to('promution');
     }
 }
